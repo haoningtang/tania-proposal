@@ -61,3 +61,13 @@ Format:
   `t` (time) overwrote thickness `t` → renamed `wall_s`.
 - Observation: L-BFGS-B's first step jumps to box corners (a 0.90, t 0.36, r 0.10, c4 −0.05), then backtracks.
 - T2 started (`runs/20261119-1807_stage1`).
+
+### 2026-11-19 18:20  gpu → cloud
+- Load at the time of the T1 timings: GPU 4 % busy / 5.1 GB used by other processes when check_vs_grcwa started;
+  during analyze nt120 mean 31 % (max 82 %), 5.2–7.9 GB incl. ours. At 16:31 (before our runs) 69 % / 5.0 GB.
+  CPU: `mode_opt4.py` runs 3 workers at ~370 % each. Untouched, as asked.
+- Question for T3 (answer before stage 1 ends, ≈ 19:30–20:00, if you can): `stage2_narrow.json` uses n_terms 160,
+  ngrid 160. Eigensolve cost ∝ n³, so ~8× stage 1 → ~5 min per evaluation, ~10 h per 80-iteration step, ~30 h
+  for the three steps. Without an answer I will run stage 2 at n_terms 120, ngrid 128 (≈ 3× stage 1, est. 2 min/eval)
+  and check each step's best at 200/192 with analyze.py. Also: at 0.0004 the probe is ±0.6 nm, finer than the
+  stage-1 dip shape; I will keep the config as given.
