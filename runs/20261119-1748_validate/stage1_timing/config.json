@@ -1,0 +1,75 @@
+{
+ "note": "Stage 1: TE and TM flat at the same wavelength, at three gaps >= 200 nm, tuning >= 2%, moderate linewidth. Start: the both-polarization-flat single slab of prelim Fig C, scaled to 1.55 um (x1.18).",
+ "design_vars": [
+  "a",
+  "t",
+  "r",
+  "c4",
+  "c8"
+ ],
+ "fixed": {},
+ "init": {
+  "a": 0.733,
+  "t": 0.26,
+  "r": 0.246,
+  "c4": 0.0,
+  "c8": 0.0
+ },
+ "bounds": {
+  "a": [
+   0.6,
+   0.9
+  ],
+  "t": [
+   0.15,
+   0.36
+  ],
+  "r": [
+   0.1,
+   0.34
+  ],
+  "c4": [
+   -0.05,
+   0.05
+  ],
+  "c8": [
+   -0.03,
+   0.03
+  ]
+ },
+ "states": [
+  {
+   "gap": 0.2,
+   "shift": 0.0
+  },
+  {
+   "gap": 0.26,
+   "shift": 0.0
+  },
+  {
+   "gap": 0.32,
+   "shift": 0.0
+  }
+ ],
+ "init_lams": [
+  1.53,
+  1.55,
+  1.57
+ ],
+ "lam_bounds": [
+  1.45,
+  1.68
+ ],
+ "thetas_deg": [
+  0.5,
+  3.0,
+  6.0
+ ],
+ "half_window_frac": 0.006,
+ "w_side": 1.0,
+ "tune_min": 0.02,
+ "w_tune": 1.0,
+ "n_terms": 80,
+ "ngrid": 96,
+ "maxiter": 80
+}

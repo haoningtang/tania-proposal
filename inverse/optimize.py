@@ -78,7 +78,7 @@ def f(u):
     (L, aux), g = vg(z)
     g = np.asarray(g) * scale
     rec = dict(it=len(hist), loss=float(L), dip=float(aux[0]), side=float(aux[1]), tune=float(aux[2]),
-               t=round(time.time() - t0, 1), **{n: float(z[i]) for i, n in enumerate(names)},
+               wall_s=round(time.time() - t0, 1), **{n: float(z[i]) for i, n in enumerate(names)},
                **{f"lam{k}": float(z[len(names) + k]) for k in range(K)})
     hist.append(rec); print(json.dumps(rec), flush=True)
     with open(os.path.join(args.out, "history.csv"), "w", newline="") as fh:

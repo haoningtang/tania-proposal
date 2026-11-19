@@ -37,7 +37,10 @@ def bilayer_t(lam, theta_deg, a, t, r, gap, shift=0.0, n_slab=3.48, n_terms=120,
     lam = jnp.atleast_1d(jnp.asarray(lam, dtype=jnp.float64))
     th = jnp.radians(jnp.atleast_1d(jnp.asarray(theta_deg, dtype=jnp.float64)))
     lv = fmmax.LatticeVectors(u=a * fmmax.X, v=a * fmmax.Y)
-    exp = fmmax.generate_expansion(lv, approximate_num_terms=n_terms, truncation=fmmax.Truncation.CIRCULAR)
+    # The basis (integer reciprocal-lattice indices) depends only on the lattice shape, not on a, and
+    # generate_expansion uses numpy; build it on the unit square lattice so that a can be a traced design variable.
+    exp = fmmax.generate_expansion(fmmax.LatticeVectors(u=fmmax.X, v=fmmax.Y), approximate_num_terms=n_terms,
+                                   truncation=fmmax.Truncation.CIRCULAR)
     k = 2 * jnp.pi / lam * jnp.sin(th)
     kvec = jnp.stack([k, jnp.zeros_like(k)], axis=-1)
     def solve(eps):

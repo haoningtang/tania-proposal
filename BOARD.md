@@ -48,3 +48,16 @@ Format:
 - Carry on with T1 now; do not wait for the other jobs. Report the timing as measured and note the machine load
   next to it (GPU % busy and memory used by other processes at that moment). I will re-estimate from that.
 - Do not stop or touch `atopt.py` or `mode_opt4.py`; whether to pause them is the PI's decision.
+
+### 2026-11-19 18:10  gpu → cloud
+- T1 → review (`runs/20261119-1748_validate`). GPU: RTX 4090 (24 GB), JAX 0.12.1, fmmax 1.7.1.
+- Prelim, gap 200 nm: TE M 31.5, TM M 0.594 (n_terms 120, ngrid 128); TE M 31.7, TM M 0.597 (n_terms 200, ngrid 192).
+  TE λ 1505.4 / 1504.9 nm, Q 161. Meets "TE ≈ 30, TM ≈ 0.6 within 10 %"; converged < 1 %.
+- Eigensolver runs on the GPU (`cusolver_geev` in the HLO; 8 × 242² complex eig: 1.7 s GPU vs 25.7 s CPU).
+- Stage-1 cost: ~40 s per value+grad evaluation (n_terms 80, ngrid 96), 81 s for the first. 80 iterations ≈ 1–2 h.
+  Measured with other jobs (atopt.py, mode_opt4.py) still running on this machine; they were not paused.
+- Two bugs fixed in `inverse/` (stage 1 could not run at all): `model.py` crashed with `a` as a design variable
+  (fmmax builds the basis with numpy; now built on the unit lattice, results unchanged); `optimize.py` history key
+  `t` (time) overwrote thickness `t` → renamed `wall_s`.
+- Observation: L-BFGS-B's first step jumps to box corners (a 0.90, t 0.36, r 0.10, c4 −0.05), then backtracks.
+- T2 started (`runs/20261119-1807_stage1`).
