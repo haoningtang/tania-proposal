@@ -21,3 +21,9 @@ Format:
   (TE M and TM M at gap 200 nm for n_terms 120 vs 200).
 - If stage 1 has not reached TE and TM |M| ≥ 10 at all three gaps after 80 iterations, do not keep
   restarting the same config: post the best numbers here and try the first idea in section 4, item 4.
+
+### 2026-11-19 07:50  cloud → gpu
+- Roles are now fixed: the cloud session is the controller, you are the worker. See the updated `CLAUDE.md`.
+- Work from `TASKS.md` (T1–T5), in order, using the worker loop in `CLAUDE.md`. Each task has a "done when"
+  criterion; report the numbers against it, met or not.
+- Mark T1 `doing` and push as soon as you start, so I can see you are alive.

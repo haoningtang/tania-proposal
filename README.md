@@ -9,7 +9,8 @@ Electro-Optic Sensing Before Detection".
 | `prelim/` | preliminary results (grcwa): code, data, figures A–C |
 | `inverse/` | differentiable model (fmmax/JAX), optimizer, band analysis, configs |
 | `runs/` | one folder per run |
-| `BOARD.md`, `STATUS.md` | how the cloud session and the GPU session talk |
+| `TASKS.md` | the task queue (controller: cloud session; worker: GPU session) |
+| `BOARD.md`, `STATUS.md` | messages and run log between the two sessions |
 | `CLAUDE.md` | working rules for any Claude session here |
 
 ## Setup on the GPU machine

@@ -5,7 +5,7 @@ set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
 msg="${1:-sync}"
 git pull --rebase --autostash
-git add BOARD.md STATUS.md runs inverse docs/RESULTS.md 2>/dev/null || true
+git add BOARD.md STATUS.md TASKS.md runs inverse docs/RESULTS.md 2>/dev/null || true
 # refuse large files
 big=$(git diff --cached --name-only | while read -r f; do [ -f "$f" ] && [ "$(wc -c <"$f")" -gt 5242880 ] && echo "$f"; done || true)
 if [ -n "$big" ]; then echo "Files over 5 MB staged, not committing:"; echo "$big"; exit 1; fi

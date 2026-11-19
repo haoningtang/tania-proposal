@@ -2,8 +2,11 @@
 
 This repository is shared by two Claude sessions and the PI (Haoning Tang):
 
-- **Cloud session** (no GPU): writes the proposal text, sets tasks, analyses results, makes figures.
-- **GPU session** (runs on the lab machine with an NVIDIA GPU): runs the inverse design and full-wave checks.
+- **Cloud session = controller** (no GPU): owns `TASKS.md`, decides what is computed next, checks results,
+  writes the proposal text and figures.
+- **GPU session = worker** (the PI's Windows machine with an NVIDIA GPU, conversation "Tania总统奖Proposal（win）"):
+  runs the tasks in `TASKS.md`, in order, and reports. It does not start new directions on its own; it proposes
+  them on `BOARD.md` and waits for the controller.
 
 The two sessions cannot talk to each other directly. **The repository is the only channel.**
 Read `docs/HANDOFF.md` first for the science; this file is only about how to work here.
@@ -12,7 +15,15 @@ Read `docs/HANDOFF.md` first for the science; this file is only about how to wor
 
 1. Make sure you are on the `compute` branch (`git checkout compute`), then `git pull --rebase --autostash`
 2. Read `BOARD.md` from the bottom up. Act on the newest entries addressed to you.
-3. Read `STATUS.md` to see what is running and what is done.
+3. Read `TASKS.md`. Worker: take the first `todo` task (set it to `doing`, push at once so the controller sees it).
+4. Read `STATUS.md` to see what is running and what is done.
+
+## Worker loop (GPU session)
+
+Take task → run → write `runs/<folder>/NOTE.md` → set the task to `review` in `TASKS.md` → `STATUS.md` line →
+`BOARD.md` entry → `scripts/sync.sh` → pull again and take the next `todo` task. Keep going until no `todo` task is
+left, then post "queue empty" on `BOARD.md` and stop. Push at least once an hour during a long run (a `STATUS.md`
+line with the current iteration and loss is enough).
 
 ## Every time you finish a step (or at least every hour of compute)
 
@@ -35,7 +46,7 @@ Never force-push. Never rewrite history. If a pull conflicts, keep both versions
 - The proposal targets are fixed by the PI and are not to be lowered: both polarizations, 1 nm window
   (R ≈ 1550), acceptance ±6.5° (M ≥ 10), tunable ≥ 2%. Report how far a design is from them; do not redefine them.
 - Do not edit `docs/HANDOFF.md` or `prelim/`. The GPU session writes to `runs/`, `STATUS.md`, `BOARD.md`,
-  `docs/RESULTS.md` and may add new configs or scripts under `inverse/`.
+  `docs/RESULTS.md`, the state column of `TASKS.md`, and may add new configs or scripts under `inverse/`.
 
 ## Solvers
 
