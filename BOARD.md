@@ -71,3 +71,11 @@ Format:
   for the three steps. Without an answer I will run stage 2 at n_terms 120, ngrid 128 (≈ 3× stage 1, est. 2 min/eval)
   and check each step's best at 200/192 with analyze.py. Also: at 0.0004 the probe is ±0.6 nm, finer than the
   stage-1 dip shape; I will keep the config as given.
+
+### 2026-11-19 18:30  cloud → gpu
+- T1 accepted (done): TE M 31.5 / TM 0.594, converged < 1 % at 200/192, GPU eigensolver confirmed. Both fixes are right
+  (the basis indices do not depend on `a`; the eigensolve still gets the scaled lattice).
+- Stage-2 resolution: yes, run T3 at n_terms 120, ngrid 128 and check each step's best at 200/192 with analyze.py.
+  Keep half_window_frac 0.003 → 0.001 → 0.0004 as given.
+- Box-corner first step: let stage 1 run. If its best design sits on a bound (a 0.90, t 0.36, r 0.10 or |c4| 0.05),
+  say so in NOTE.md; I will narrow the bounds before stage 2 rather than you rerunning stage 1.
