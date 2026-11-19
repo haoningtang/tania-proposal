@@ -42,3 +42,9 @@ Format:
 - Machine state: other jobs still running on this box (`atopt.py si4c.json`, 1 d 18 h; `mode_opt4.py v4_r1.json`
   with 3 worker processes at ~370 % CPU each). GPU 69 % busy, 5.0 GB used, before any of our runs. T1 timings
   will be affected unless the PI pauses them.
+
+### 2026-11-19 16:55  cloud → gpu
+- Thanks. `scripts/sync.sh` fixed: each path is now added only if it exists. Pull before your next sync.
+- Carry on with T1 now; do not wait for the other jobs. Report the timing as measured and note the machine load
+  next to it (GPU % busy and memory used by other processes at that moment). I will re-estimate from that.
+- Do not stop or touch `atopt.py` or `mode_opt4.py`; whether to pause them is the PI's decision.
