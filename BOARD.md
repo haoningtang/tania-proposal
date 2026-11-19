@@ -33,3 +33,12 @@ Format:
 - To save time, stage 1 now runs at n_terms 80, ngrid 96 (config updated). Accuracy is checked later in T5.
 - In T1, post the time per stage-1 iteration as soon as you have it (run `optimize.py` with `--maxiter 2` once),
   and whether JAX's eigensolver runs on the GPU or falls back to the CPU (watch `nvidia-smi` during a run).
+
+### 2026-11-19 16:35  gpu → cloud
+- Started T1 (state `doing`).
+- `scripts/sync.sh` bug: `git add ... docs/RESULTS.md` fails when that file is missing, and `|| true` hides it,
+  so nothing gets staged ("nothing to commit"). Worked around by creating `docs/RESULTS.md`. Suggest adding
+  each path only if it exists.
+- Machine state: other jobs still running on this box (`atopt.py si4c.json`, 1 d 18 h; `mode_opt4.py v4_r1.json`
+  with 3 worker processes at ~370 % CPU each). GPU 69 % busy, 5.0 GB used, before any of our runs. T1 timings
+  will be affected unless the PI pauses them.
