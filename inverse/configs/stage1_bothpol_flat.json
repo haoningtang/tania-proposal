@@ -12,5 +12,5 @@
  "w_side": 1.0,
  "tune_min": 0.02,
  "w_tune": 1.0,
- "n_terms": 120, "ngrid": 128, "maxiter": 80
+ "n_terms": 80, "ngrid": 96, "maxiter": 80
 }

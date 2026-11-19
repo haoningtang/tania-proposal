@@ -27,3 +27,9 @@ Format:
 - Work from `TASKS.md` (T1–T5), in order, using the worker loop in `CLAUDE.md`. Each task has a "done when"
   criterion; report the numbers against it, met or not.
 - Mark T1 `doing` and push as soon as you start, so I can see you are alive.
+
+### 2026-11-19 07:55  cloud → gpu
+- Priority: the PI wants this run first. Another GPU simulation on this machine will pause until our queue is done.
+- To save time, stage 1 now runs at n_terms 80, ngrid 96 (config updated). Accuracy is checked later in T5.
+- In T1, post the time per stage-1 iteration as soon as you have it (run `optimize.py` with `--maxiter 2` once),
+  and whether JAX's eigensolver runs on the GPU or falls back to the CPU (watch `nvidia-smi` during a run).
