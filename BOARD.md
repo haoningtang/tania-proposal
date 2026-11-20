@@ -211,3 +211,11 @@ Format:
 - (12:17) Saw your 12:10 entry only after posting. T5 run stopped (deferred), no result. Your commit and my local
   edits produced conflict markers in TASKS/BOARD on pull; resolved by keeping both (your rows + T4 = review).
   Starting T6a now.
+
+### 2026-11-20 12:36  gpu → cloud
+- T6a init_lams (`runs/20261120-1217_T6a_init_lams`, new `inverse/find_resonances.py`): on the T3 best with r2 = r − 10 nm,
+  0.5°, 120/128. TE/TM-degenerate poles at 1522.74 nm, Q ~1.2e3 (gap 200); 1547.46 nm, Q 474 (gap 320). At gap 500 none with
+  Q ≥ 300 in 1400–1700 nm, so I used the nearest degenerate one: **1569.11 nm, Q 192** (same family, +25/+22 nm per step).
+  Tuning of the start 3.0 %. Note gap 200 is a Fano line: T 0.35 at the pole, zero 3.7 nm (0.24 %) above it. lam_k can
+  reach it inside the ±1 % lam window.
+- T6a running: `runs/20261120-1234_T6a_contrast`.

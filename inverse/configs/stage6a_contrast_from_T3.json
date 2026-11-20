@@ -56,7 +56,7 @@
   1.4,
   1.7
  ],
- "note": "T6a (controller 2026-11-20 12:10): narrow-resonance objective from the T3 step-1 best, whose TM resonance is flat with Q 2-4e3. Gaps widened to 0.20/0.32/0.50 for tuning. init_lams MUST be set on the narrow TE/TM-degenerate resonance at 0.5 deg for each gap (see TASKS T6a). r2 = r - 10 nm breaks the r=r2 symmetry.",
+ "note": "T6a (controller 2026-11-20 12:10): narrow-resonance objective from the T3 step-1 best, whose TM resonance is flat with Q 2-4e3. Gaps widened to 0.20/0.32/0.50 for tuning. init_lams MUST be set on the narrow TE/TM-degenerate resonance at 0.5 deg for each gap (see TASKS T6a). r2 = r - 10 nm breaks the r=r2 symmetry. init_lams set by worker 2026-11-20 12:34 from runs/20261120-1217_T6a_init_lams (find_resonances.py, 0.5 deg, 120/128): TE/TM-degenerate poles 1522.74 nm Q 1.2e3 (gap 200), 1547.46 nm Q 474 (gap 320), 1569.11 nm Q 192 (gap 500, nearest; none with Q>=300 near there).",
  "init": {
   "a": 0.7285833822402867,
   "t": 0.2827088214643641,
@@ -80,8 +80,8 @@
   }
  ],
  "init_lams": [
-  0.0,
-  0.0,
-  0.0
+  1.52274,
+  1.54746,
+  1.56911
  ]
 }
