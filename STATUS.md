@@ -13,4 +13,4 @@ One line per run, newest at the bottom: `date | runs/ folder | state (running/do
 | 2026-11-20 | runs/20261120-0910_stage1b_resume | done | T2b NOT met: loss 0.272, T < 0.2 at all lam_k (broad stop band, Q < 10); TE \|M\| ≤ 1.8, TM only gap 260 (M −3.4 / −5.9 hires) |
 | 2026-11-20 | runs/20261120-1026_stage2_step1 | done | T3 step 1 NOT met: lam_k on broad band; TM-flat Fano Q 2.3/4.3e3 at gap 260/320 (hires, shift ≤ 0.1 nm to 6°), TE \|M\| ≤ 4; steps 2–3 skipped |
 | 2026-11-20 | runs/20261120-1148_azimuth45 | done | T4 NOT met: at 45° TM \|M\| 11.8 (gap 260) / 4.7 (gap 320) / 0.8 (gap 200), TE lost after 3° (200/192) |
-| 2026-11-20 | runs/20261120-1216_T5_convergence | running | T5: convergence of the T3 step-1 best (n_terms 120/160/200/240) |
+| 2026-11-20 | runs/20261120-1216_T5_convergence | stopped | T5 deferred by controller (12:10); stopped before any result |
