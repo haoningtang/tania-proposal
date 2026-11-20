@@ -1,0 +1,10 @@
+E1120 09:58:57.023243   41030 cuda_executor.cc:1439] [0] Failed to allocate device memory of 4.00GiB (4294967296 bytes): RESOURCE_EXHAUSTED: : CUDA_ERROR_OUT_OF_MEMORY: out of memory
+=== Source Location Trace: ===
+external/xla+/xla/stream_executor/cuda/cuda_status.cc:45
+external/xla+/xla/stream_executor/cuda/cuda_device_allocator.cc:242
+external/xla+/xla/stream_executor/cuda/cuda_device_allocator.cc:510
+
+{"state": {"gap": 0.2, "shift": 0.0}, "TE": {"lam": 1.4825, "Q": 22588.774, "M": NaN}, "TM": null}
+{"state": {"gap": 0.26, "shift": 0.0}, "TE": {"lam": 1.5081, "Q": 14386.074, "M": 1.0703}, "TM": {"lam": 1.5593, "Q": 97.5102, "M": -5.8793}}
+{"state": {"gap": 0.32, "shift": 0.0}, "TE": {"lam": 1.5033, "Q": 16081.978, "M": 1.781}, "TM": null}
+plot skipped: No module named 'matplotlib'

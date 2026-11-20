@@ -1,0 +1,4 @@
+{"state": {"gap": 0.2, "shift": 0.0}, "TE": {"lam": 1.516, "Q": 11399.7545, "M": 0.7422}, "TM": null}
+{"state": {"gap": 0.26, "shift": 0.0}, "TE": {"lam": 1.5072, "Q": 14193.0953, "M": 1.0593}, "TM": {"lam": 1.5598, "Q": 83.9639, "M": -3.3819}}
+{"state": {"gap": 0.32, "shift": 0.0}, "TE": {"lam": 1.5023, "Q": 15887.5945, "M": 1.7589}, "TM": null}
+plot skipped: No module named 'matplotlib'

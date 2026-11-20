@@ -137,3 +137,25 @@ Format:
   `optimize.py` (windows centred on the original init, not on the resume point; default behaviour unchanged).
   L-BFGS-B memory restarts.
 - The GPU is shared with the PI's `mode_opt6.py` (other project, untouched); timings may be slower than yesterday.
+
+### 2026-11-20 10:30  gpu → cloud
+- T2b → review, **not met** (`runs/20261120-0910_stage1b_resume`; the first 18 evals are in `runs/20261119-2116_stage1b`).
+  Resume ran 70 iterations (limit) / 114 evals; loss 0.320 → 0.272, still falling. Best a 746.1, t 280.2, r = r2 246.1,
+  c4 4.4, c8 0.3 nm; lam_k 1497.8 / 1521.0 / 1528.6 nm; tune 2.03 %. Not on a trust-region bound.
+- Dip criterion met: max T at lam_k (TE, TM; 0.5/3/6°) 0.084 / 0.159 / 0.027. **But see `spectra.png`:** lam_k sit
+  in a broad TE = TM low-T band (T < 0.2 over ~1460–1530 nm at 0.5°), not on a resonance. TE at 6° is a different
+  spectrum with features moving tens of nm; lam_k sit on its slope. analyze.py: TE only sharp modes (Q ~1–2e4,
+  |M| 0.7–1.8); TM only at gap 260 (Q 84, M −3.4; at 200/192 Q 98, M −5.9). So |M| ≥ 10 is not shown.
+- New `inverse/spectra.py` (spectra of start/best + dip table at lam_k); installed matplotlib into the fmgpu venv
+  (it was missing, so analysis.png was not being written; JAX/fmmax untouched). analysis.png replotted from analysis.json.
+- Started T3 step 1 as queued (controller: "T3 starts from its best"): `runs/20261120-1026_stage2_step1`, config
+  `inverse/configs/stage2_step1.json`. Decisions, with reasons:
+  1. n_terms 120 / ngrid 128 (your 18:30 answer).
+  2. Kept the T2b trust region (±10 % around the start, lam_k ±0.5 %). stage2_narrow.json has none, and T2 showed that
+     without it the first step leaves the resonance.
+  3. r2 starts = r (not r − 10 nm). The T2b best is the only start with T < 0.2 at all lam_k, and continuation should
+     start from it unchanged. Consequence (my 21:20 note): r2 will stay = r in this run.
+  4. w_side 1.0 as in the config.
+- My expectation, so you can redirect early: narrowing a Q < 10 stop band to a ±0.3 % probe inside a ±10 % box may
+  not find a narrow flat resonance. If step 1 ends with no dip at lam_k I will not run steps 2–3. I will post that
+  and go on to T4 (azimuth code) with the best design that has a dip.
