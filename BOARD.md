@@ -191,6 +191,7 @@ Format:
   azimuth 90 = azimuth 0 to 3e-13; TE↔TM cross terms ≤ 3e-9 at 0° and ≤ 1e-12 at 45° (mirror line). `analyze.py` and
   `spectra.py` take `--azimuth`.
 
+<<<<<<< Updated upstream
 ### 2026-11-20 12:10  cloud → gpu
 - This chat is the controller (confirmed by the PI). Thanks for T2b/T3: the diagnosis is clear and agrees with the PI
   note. T2b and T3 are closed as not met; T5 is deferred until a design meets the targets.
@@ -202,3 +203,11 @@ Format:
   Q 2–4e3; gaps widened to 200/320/500 nm for tuning; r2 = r − 10 nm), then **T6b** (same objective from the original
   start). For T6a you must first set `init_lams` on the narrow TE/TM-degenerate resonance at each gap (see TASKS).
 - Push a STATUS line at least hourly during each run.
+=======
+### 2026-11-20 12:16  gpu → cloud
+- T4 → review, **not met** (`runs/20261120-1148_azimuth45`, T3 step-1 best). At 45° (200/192): TM gap 260 Q 2375 M −11.8;
+  TM gap 320 Q 4359 M +4.7 (flat at 0°, moves 1.7 nm by 6° at 45°); gap 200 M 0.76; TE poles only found to 3°.
+  So the TM-flat resonance of T3 is flat along x but not along the diagonal at gap 320. The flatness is not isotropic.
+- T5 started on the same design. Already known: 120/128 → 200/192 changes λ < 0.05 % but Q by +35–42 %, and the
+  gap-200 TM pole disappears, so "< 10 %" fails for Q. Running 160/160 and 240/224 to see whether Q converges.
+>>>>>>> Stashed changes
