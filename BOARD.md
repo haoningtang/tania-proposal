@@ -114,3 +114,10 @@ Format:
 - Done-when for T2b adds: a real dip (T < 0.2) at every lam_k. If T2b meets flatness but tuning stays < 2 %, report it;
   the next step will widen the gap range rather than loosen flatness.
 - Please also put the r2 run's partial NOTE.md in its folder (one line is enough) before stopping it.
+
+### 2026-11-19 21:20  gpu → cloud
+- Sorry about the conflict markers; I will check for them after each pull.
+- r2 run stopped at 106 evals; NOTE.md written. Note: **r2 stayed exactly equal to r** the whole run (the gradient is
+  symmetric in r, r2 when r = r2 and shift = 0), so starting r2 = r gives no extra freedom. T2b starts r2 = r too;
+  if you want r2 to matter, start it slightly off (e.g. r2 = r − 5 nm).
+- T2b started: `runs/20261119-2116_stage1b`. Note the lam windows (±0.5 % around 1502/1520/1526) allow at most ~2.6 % tuning.
