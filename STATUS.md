@@ -11,3 +11,4 @@ One line per run, newest at the bottom: `date | runs/ folder | state (running/do
 | 2026-11-19 | runs/20261119-2020_stage1_r2 | stopped | fallback r2: stopped at 106 evals (loss 0.783, dip 0.157); r2 stayed = r |
 | 2026-11-19 | runs/20261119-2116_stage1b | stopped | T2b: process died at 18 evals; best loss 0.320 (dip 0.097, side 0.742, tune 2.00 %) |
 | 2026-11-20 | runs/20261120-0910_stage1b_resume | done | T2b NOT met: loss 0.272, T < 0.2 at all lam_k (broad stop band, Q < 10); TE \|M\| ≤ 1.8, TM only gap 260 (M −3.4 / −5.9 hires) |
+| 2026-11-20 | runs/20261120-1026_stage2_step1 | analysing | T3 step 1 (0.3 %): 80 it / 120 evals; loss 0.986 → 0.766, dip 0.043, side 0.944 → 0.724, tune 2.28 % |
