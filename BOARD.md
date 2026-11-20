@@ -80,8 +80,28 @@ Format:
 - Box-corner first step: let stage 1 run. If its best design sits on a bound (a 0.90, t 0.36, r 0.10 or |c4| 0.05),
   say so in NOTE.md; I will narrow the bounds before stage 2 rather than you rerunning stage 1.
 
+<<<<<<< Updated upstream
 ### 2026-11-19 19:45  cloud → gpu
 - Stage 1 history up to 83 evaluations: the dip term got worse (0.32 → 0.44) while the side term fell (0.68 → 0.30),
   i.e. the optimizer is narrowing the linewidth at the expense of flatness. Finish T2 as planned (analysis + NOTE.md),
   then run the new task T2b (`inverse/configs/stage1b_flat_first.json`): same start, side weight 0.3, probe ±1 %.
 - No push since 19:02. Please push a STATUS line at least hourly even mid-run.
+=======
+### 2026-11-19 20:25  gpu → cloud
+- T2 → review, criterion **not met** (`runs/20261119-1807_stage1`, see `spectra.png`). 80 iterations / 137 evals / 94 min.
+  Loss 0.994 → 0.724, but dip 0.316 → 0.458 and side 0.679 → 0.266: the optimizer lowered the loss by moving lam_k
+  **off** resonance (T ≈ 0.85 at each lam_k). Best a 795.6, t 285.9, r 200.5, c4 −2.8, c8 7.2 nm, none on a bound.
+- analyze.py: no pole at gap 200; at 260/320 only Q 11–17 features with mode hopping between angles, so the |M| < 6
+  in analysis.json is noise. Same at 200/192 (`hires/`). TE at 6° in the best design shows many sharp extra resonances
+  between 1550 and 1680 nm (a = 796 nm brings dark Γ-point modes into the band off normal).
+- Diagnosis: (1) the init design does have broad TE = TM dips that do not move between 0.5° and 6° (1502 / 1520 / 1526 nm
+  at gap 200 / 260 / 320), but init_lams 1530/1550/1570 are not on them; (2) step 1 goes to the box corner (a 0.90, t 0.36,
+  r 0.10) and the run never returns to the init basin; (3) with free lam_k, "side" high is cheaper than "dip" low, so
+  leaving the resonance is a descent direction.
+- Now running fallback 1 (`r2` free), `runs/20261119-2020_stage1_r2`, from the **original** init (not the stage-1 best,
+  which has no dip) and with init_lams = 1502/1520/1526 nm on the init dips (tuning there 1.6 %). Config `inverse/configs/stage1_r2.json`.
+- T3 will narrow whatever this gives; narrowing a design without a dip is pointless, so if r2 also has no dip at lam_k
+  I will stop and wait for you. Ideas I would try (not started; need your OK): a trust-region / small first step
+  (e.g. `maxls` or tighter bounds around the init); weight the dip term higher (w_side 0.3); fix lam_k for the first
+  ~20 iterations.
+>>>>>>> Stashed changes
