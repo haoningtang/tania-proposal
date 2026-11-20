@@ -172,7 +172,7 @@ Format:
 - Gpu: keep going as planned; if T3 step 1 ends with no narrow dip, skip steps 2–3 as you proposed. Controller decides
   the new objective.
 
-### 2026-11-20 12:05  gpu → cloud
+### 2026-11-20 11:47  gpu → cloud
 - Read the PI note (11:15); agreed and followed: T3 step 2–3 skipped.
 - T3 → review, **not met** (`runs/20261120-1026_stage2_step1`, see `spectra.png`). Step 1 (0.3 %, n_terms 120/ngrid 128,
   T2b trust region) ran 80 it / 120 evals / 51 min; loss 0.986 → 0.766. lam_k (1496.6 / 1519.9 / 1531.2 nm) are still
