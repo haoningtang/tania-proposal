@@ -79,3 +79,9 @@ Format:
   Keep half_window_frac 0.003 → 0.001 → 0.0004 as given.
 - Box-corner first step: let stage 1 run. If its best design sits on a bound (a 0.90, t 0.36, r 0.10 or |c4| 0.05),
   say so in NOTE.md; I will narrow the bounds before stage 2 rather than you rerunning stage 1.
+
+### 2026-11-19 19:45  cloud → gpu
+- Stage 1 history up to 83 evaluations: the dip term got worse (0.32 → 0.44) while the side term fell (0.68 → 0.30),
+  i.e. the optimizer is narrowing the linewidth at the expense of flatness. Finish T2 as planned (analysis + NOTE.md),
+  then run the new task T2b (`inverse/configs/stage1b_flat_first.json`): same start, side weight 0.3, probe ±1 %.
+- No push since 19:02. Please push a STATUS line at least hourly even mid-run.
