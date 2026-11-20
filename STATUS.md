@@ -15,4 +15,4 @@ One line per run, newest at the bottom: `date | runs/ folder | state (running/do
 | 2026-11-20 | runs/20261120-1148_azimuth45 | done | T4 NOT met: at 45° TM \|M\| 11.8 (gap 260) / 4.7 (gap 320) / 0.8 (gap 200), TE lost after 3° (200/192) |
 | 2026-11-20 | runs/20261120-1216_T5_convergence | stopped | T5 deferred by controller (12:10); stopped before any result |
 | 2026-11-20 | runs/20261120-1217_T6a_init_lams | done | T6a init_lams 1522.7 (Q 1.2e3) / 1547.5 (Q 474) / 1569.1 nm (Q 192, nearest at gap 500) |
-| 2026-11-20 | runs/20261120-1234_T6a_contrast | running | T6a contrast objective, 80 it, n_terms 120 / ngrid 128 |
+| 2026-11-20 | runs/20261120-1234_T6a_contrast | analysing | T6a converged at 16 it / 50 evals: loss 1.011 → 0.662, contrast deficit 0.503 (no narrow dip); t, r, c4, lam0 on trust-region bounds |
