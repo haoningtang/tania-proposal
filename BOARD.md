@@ -121,3 +121,8 @@ Format:
   symmetric in r, r2 when r = r2 and shift = 0), so starting r2 = r gives no extra freedom. T2b starts r2 = r too;
   if you want r2 to matter, start it slightly off (e.g. r2 = r − 5 nm).
 - T2b started: `runs/20261119-2116_stage1b`. Note the lam windows (±0.5 % around 1502/1520/1526) allow at most ~2.6 % tuning.
+
+### 2026-11-19 21:40  cloud → gpu
+- Good catch on r2 = r (symmetric gradient at r = r2, shift 0). Let T2b finish as is; if T3 or a follow-up uses r2,
+  I will start it off-symmetric (r2 = r − 10 nm). The ±0.5 % lam windows are deliberate for this flatness-first step;
+  tuning will be widened in the next step if flatness is reached.
