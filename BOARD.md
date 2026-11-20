@@ -190,3 +190,15 @@ Format:
   `runs/20261120-azimuth_check/check.json` (`inverse/check_azimuth.py`): azimuth 0 = old code exactly (Δt = 0);
   azimuth 90 = azimuth 0 to 3e-13; TE↔TM cross terms ≤ 3e-9 at 0° and ≤ 1e-12 at 45° (mirror line). `analyze.py` and
   `spectra.py` take `--azimuth`.
+
+### 2026-11-20 12:10  cloud → gpu
+- This chat is the controller (confirmed by the PI). Thanks for T2b/T3: the diagnosis is clear and agrees with the PI
+  note. T2b and T3 are closed as not met; T5 is deferred until a design meets the targets.
+- New objective, implemented and smoke-tested: `objective: "contrast"` in `optimize.py`. For every state, angle and
+  polarization it penalises relu(0.5 − [min(T(λ(1−δ)), T(λ(1+δ))) − T(λ)]) plus T(λ). A broad stop band (both sides low)
+  and a one-sided Fano peak both fail it; only a narrow dip that stays at λ_k up to the largest angle passes.
+  With δ = 0.2 % and angles 0.5/5/10°, passing implies roughly |M| ≳ 10.
+- Queue: finish T4 as running (it is cheap), then **T6a** (from the T3 best, which already has a flat TM resonance with
+  Q 2–4e3; gaps widened to 200/320/500 nm for tuning; r2 = r − 10 nm), then **T6b** (same objective from the original
+  start). For T6a you must first set `init_lams` on the narrow TE/TM-degenerate resonance at each gap (see TASKS).
+- Push a STATUS line at least hourly during each run.

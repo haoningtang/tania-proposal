@@ -67,7 +67,36 @@ def unpack(z):
         p[n] = z[i]
     return p, z[len(names):]
 
+def loss_contrast(z):
+    """objective = "contrast" (controller, 2026-11-20): require a NARROW dip at lam_k for every angle and both
+    polarizations.  contrast = min(T(lam(1-d)), T(lam(1+d))) - T(lam);  penalty relu(c0 - contrast).
+    A broad stop band (T low on both sides) and a one-sided Fano peak both score badly; a narrow resonance that
+    stays at lam_k up to the largest angle scores well. With d = 0.2 % and thetas up to 10 deg this asks for |M| >~ 10."""
+    p, lams = unpack(z)
+    d = cfg["half_window_frac"]; c0 = cfg.get("contrast_target", 0.5)
+    L_dip, L_con = 0.0, 0.0
+    for k, st in enumerate(states):
+        lam = lams[k]
+        lam_pts = jnp.concatenate([jnp.full(th.shape, lam), jnp.full(th.shape, lam * (1 - d)),
+                                   jnp.full(th.shape, lam * (1 + d))])
+        th_pts = jnp.concatenate([th, th, th])
+        o = bilayer_t(lam_pts, th_pts, p["a"], p["t"], p["r"], st["gap"], shift=st.get("shift", 0.0),
+                      c4=p.get("c4", 0.0), c8=p.get("c8", 0.0), r2=p.get("r2"), **kw)
+        n = th.shape[0]
+        for pol in ("T_TE", "T_TM"):
+            T = o[pol]
+            dip = T[:n]; side = jnp.minimum(T[n:2 * n], T[2 * n:])
+            L_dip = L_dip + jnp.mean(dip)
+            L_con = L_con + jnp.mean(jax.nn.relu(c0 - (side - dip)))
+    tune = (jnp.max(lams) - jnp.min(lams)) / jnp.mean(lams)
+    L_tune = jax.nn.relu(tune_min - tune) / tune_min
+    L = cfg.get("w_dip", 1.0) * L_dip / (2 * K) + cfg.get("w_contrast", 1.0) * L_con / (2 * K) \
+        + cfg.get("w_tune", 1.0) * L_tune
+    return L, (L_dip / (2 * K), L_con / (2 * K), tune)
+
 def loss_fn(z):
+    if cfg.get("objective") == "contrast":
+        return loss_contrast(z)
     p, lams = unpack(z)
     L_dip, L_side = 0.0, 0.0
     for k, st in enumerate(states):
@@ -94,7 +123,8 @@ def f(u):
     z = jnp.asarray(lb + u * scale)
     (L, aux), g = vg(z)
     g = np.asarray(g) * scale
-    rec = dict(it=len(hist), loss=float(L), dip=float(aux[0]), side=float(aux[1]), tune=float(aux[2]),
+    rec = dict(it=len(hist), loss=float(L), dip=float(aux[0]), side=float(aux[1]),  # side = contrast deficit when objective="contrast"
+                tune=float(aux[2]),
                wall_s=round(time.time() - t0, 1), **{n: float(z[i]) for i, n in enumerate(names)},
                **{f"lam{k}": float(z[len(names) + k]) for k in range(K)})
     hist.append(rec); print(json.dumps(rec), flush=True)
