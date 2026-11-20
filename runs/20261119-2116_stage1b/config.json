@@ -1,0 +1,84 @@
+{
+ "note": "Stage 1b revised (controller, 2026-11-19 21:00). Start on the init design's broad TE=TM dips (worker's finding, BOARD 20:25). Trust region: design variables within +-10 % of init (floor 10 nm), lam_k within +-0.5 %. Flatness first: w_side 0.3, probe +-1 %. r2 free.",
+ "design_vars": [
+  "a",
+  "t",
+  "r",
+  "c4",
+  "c8",
+  "r2"
+ ],
+ "fixed": {},
+ "init": {
+  "a": 0.733,
+  "t": 0.26,
+  "r": 0.246,
+  "c4": 0.0,
+  "c8": 0.0,
+  "r2": 0.246
+ },
+ "bounds": {
+  "a": [
+   0.6,
+   0.9
+  ],
+  "t": [
+   0.15,
+   0.36
+  ],
+  "r": [
+   0.1,
+   0.34
+  ],
+  "c4": [
+   -0.05,
+   0.05
+  ],
+  "c8": [
+   -0.03,
+   0.03
+  ],
+  "r2": [
+   0.1,
+   0.34
+  ]
+ },
+ "states": [
+  {
+   "gap": 0.2,
+   "shift": 0.0
+  },
+  {
+   "gap": 0.26,
+   "shift": 0.0
+  },
+  {
+   "gap": 0.32,
+   "shift": 0.0
+  }
+ ],
+ "init_lams": [
+  1.502,
+  1.52,
+  1.526
+ ],
+ "lam_bounds": [
+  1.45,
+  1.68
+ ],
+ "thetas_deg": [
+  0.5,
+  3.0,
+  6.0
+ ],
+ "half_window_frac": 0.01,
+ "w_side": 0.3,
+ "tune_min": 0.02,
+ "w_tune": 1.0,
+ "n_terms": 80,
+ "ngrid": 96,
+ "maxiter": 80,
+ "bound_window_frac": 0.1,
+ "bound_window_abs": 0.01,
+ "lam_window_frac": 0.005
+}

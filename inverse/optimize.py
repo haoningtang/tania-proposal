@@ -45,16 +45,20 @@ ub = np.array([cfg["bounds"][n][1] for n in names] + [cfg["lam_bounds"][1]] * K)
 # Trust region around the start (keeps L-BFGS-B from jumping to box corners on its first step):
 #   bound_window_frac: each design variable within +- frac * |init| (absolute floor bound_window_abs, um)
 #   lam_window_frac:   each lam_k within +- frac * init lam_k
+#   trust_center "init": centre the windows on cfg["init"]/cfg["init_lams"] instead of the start point
+#   (used when resuming a stopped run with init_from, so the trust region stays the same as the original run)
+xc = np.array([cfg["init"][n] for n in names] + list(cfg["init_lams"])) if cfg.get("trust_center") == "init" else x0
 if cfg.get("bound_window_frac"):
     f = cfg["bound_window_frac"]; fa = cfg.get("bound_window_abs", 0.01)
     for i in range(len(names)):
-        w = max(f * abs(x0[i]), fa)
-        lb[i] = max(lb[i], x0[i] - w); ub[i] = min(ub[i], x0[i] + w)
+        w = max(f * abs(xc[i]), fa)
+        lb[i] = max(lb[i], xc[i] - w); ub[i] = min(ub[i], xc[i] + w)
 if cfg.get("lam_window_frac"):
     f = cfg["lam_window_frac"]
     for k in range(K):
         j = len(names) + k
-        lb[j] = max(lb[j], x0[j] * (1 - f)); ub[j] = min(ub[j], x0[j] * (1 + f))
+        lb[j] = max(lb[j], xc[j] * (1 - f)); ub[j] = min(ub[j], xc[j] * (1 + f))
+x0 = np.clip(x0, lb, ub)
 scale = ub - lb
 
 def unpack(z):
