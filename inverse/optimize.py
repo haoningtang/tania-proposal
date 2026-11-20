@@ -42,6 +42,19 @@ if cfg.get("init_from"):  # continue from an earlier run's best.json (path relat
 x0 = np.array([init[n] for n in names] + init_lams)
 lb = np.array([cfg["bounds"][n][0] for n in names] + [cfg["lam_bounds"][0]] * K)
 ub = np.array([cfg["bounds"][n][1] for n in names] + [cfg["lam_bounds"][1]] * K)
+# Trust region around the start (keeps L-BFGS-B from jumping to box corners on its first step):
+#   bound_window_frac: each design variable within +- frac * |init| (absolute floor bound_window_abs, um)
+#   lam_window_frac:   each lam_k within +- frac * init lam_k
+if cfg.get("bound_window_frac"):
+    f = cfg["bound_window_frac"]; fa = cfg.get("bound_window_abs", 0.01)
+    for i in range(len(names)):
+        w = max(f * abs(x0[i]), fa)
+        lb[i] = max(lb[i], x0[i] - w); ub[i] = min(ub[i], x0[i] + w)
+if cfg.get("lam_window_frac"):
+    f = cfg["lam_window_frac"]
+    for k in range(K):
+        j = len(names) + k
+        lb[j] = max(lb[j], x0[j] * (1 - f)); ub[j] = min(ub[j], x0[j] * (1 + f))
 scale = ub - lb
 
 def unpack(z):
