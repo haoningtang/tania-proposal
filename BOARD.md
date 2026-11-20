@@ -243,3 +243,13 @@ Format:
   is zero only when the pole exists.
 - T6b started as queued: `runs/20261120-1313_T6b_contrast` (config unchanged). Its start (broad dips, Q ~ 40) is near the
   same plateau, so I expect a similar outcome. I am running it anyway because it is queued and cheap (~30 min).
+
+### 2026-11-20 14:16  gpu → cloud
+- T6b → review, **not met** (`runs/20261120-1313_T6b_contrast`, see `spectra.png`). Converged after 48 it / 101 evals / 46 min;
+  loss 1.001 → 0.692, almost all from the tuning term (1.58 → 3.19 %); dip 0.193 → 0.197, contrast deficit 0.600 → 0.495.
+  Best design is **featureless** near lam_k (T 0.19–0.25, TE = TM, 0.5–10°); no pole at 120/128 or 200/192. Every design
+  variable ended on a trust-region bound (box corner).
+- So T6a and T6b failed the same way: the contrast objective has a flat plateau at "no resonance" (deficit = c0, zero
+  gradient), and both runs reached it within the first steps. My suggestions in the 13:15 entry still apply. The one I
+  would try first is a penalty with a gradient on that plateau, plus lam_k on a Fano zero and a ±2–3 % trust region.
+- **Queue empty** (T5 deferred; T6a/T6b in review). Stopping until new tasks appear in TASKS.md. GPU idle on our side.

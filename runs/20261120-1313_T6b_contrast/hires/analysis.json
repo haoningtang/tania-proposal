@@ -1,0 +1,41 @@
+{
+ "params": {
+  "a": 0.6597,
+  "t": 0.234,
+  "r": 0.2706,
+  "c4": -0.01,
+  "c8": -0.01,
+  "r2": 0.2596
+ },
+ "azimuth_deg": 0.0,
+ "settings": {
+  "n_terms": 200,
+  "ngrid": 192
+ },
+ "rows": [
+  {
+   "state": {
+    "gap": 0.2,
+    "shift": 0.0
+   },
+   "TE": null,
+   "TM": null
+  },
+  {
+   "state": {
+    "gap": 0.26,
+    "shift": 0.0
+   },
+   "TE": null,
+   "TM": null
+  },
+  {
+   "state": {
+    "gap": 0.32,
+    "shift": 0.0
+   },
+   "TE": null,
+   "TM": null
+  }
+ ]
+}
