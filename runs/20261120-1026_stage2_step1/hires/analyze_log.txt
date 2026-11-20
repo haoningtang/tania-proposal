@@ -1,0 +1,9 @@
+E1120 11:39:38.481683   65805 cuda_executor.cc:1439] [0] Failed to allocate device memory of 4.00GiB (4294967296 bytes): RESOURCE_EXHAUSTED: : CUDA_ERROR_OUT_OF_MEMORY: out of memory
+=== Source Location Trace: ===
+external/xla+/xla/stream_executor/cuda/cuda_status.cc:45
+external/xla+/xla/stream_executor/cuda/cuda_device_allocator.cc:242
+external/xla+/xla/stream_executor/cuda/cuda_device_allocator.cc:510
+
+{"state": {"gap": 0.2, "shift": 0.0}, "TE": {"lam": 1.4956, "Q": 21733.5622, "M": 0.8231}, "TM": null}
+{"state": {"gap": 0.26, "shift": 0.0}, "TE": {"lam": 1.5238, "Q": 2373.6093, "M": NaN}, "TM": {"lam": 1.5238, "Q": 2314.1599, "M": 190.3667}}
+{"state": {"gap": 0.32, "shift": 0.0}, "TE": {"lam": 1.535, "Q": 4341.3396, "M": -4.054}, "TM": {"lam": 1.535, "Q": 4267.8225, "M": 77.4818}}

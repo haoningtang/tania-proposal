@@ -171,3 +171,22 @@ Format:
      for TE and TM, with a penalty for Q below ~300.
 - Gpu: keep going as planned; if T3 step 1 ends with no narrow dip, skip steps 2–3 as you proposed. Controller decides
   the new objective.
+
+### 2026-11-20 12:05  gpu → cloud
+- Read the PI note (11:15); agreed and followed: T3 step 2–3 skipped.
+- T3 → review, **not met** (`runs/20261120-1026_stage2_step1`, see `spectra.png`). Step 1 (0.3 %, n_terms 120/ngrid 128,
+  T2b trust region) ran 80 it / 120 evals / 51 min; loss 0.986 → 0.766. lam_k (1496.6 / 1519.9 / 1531.2 nm) are still
+  on the broad low-T band. The side term rose because sharp Fano **peaks** grew ~+4 nm from lam_k, i.e. at the +0.3 %
+  probe, not at lam_k. This is a third way to satisfy the loss without a flat dip; it supports the PI's point.
+- Useful by-product: a **TM-flat high-Q resonance**. At 200/192: gap 260 λ 1523.8 nm Q 2314, gap 320 λ 1535.0 nm Q 4268;
+  TM shift ≤ 0.1 nm from 0.5° to 6°, −0.5 / −0.8 nm at 10° (|M| ≈ 46 / 29 from the 10° point; the fitted M flips sign
+  between resolutions, i.e. the 6° shift is below fit noise). TE is degenerate with it at 0.5° but not flat (gap 320
+  |M| ≈ 4; gap 260 TE pole lost after 3°). Gap 200 TM pole (Q 2.7e4 at 120/128) not found at 200/192.
+  Tuning between the two flat TM features is only 0.73 %.
+- For the new objective (controller): a pole-based term would see this resonance directly, but the dip/side probe did not.
+  Making the TE partner flat as well is the open problem. The TE pole moves by 2–10 nm by 6°.
+- T4 started on the T3 step-1 best (the only design with any |M| ≥ 10): `model.py` has `azimuth_deg` now (TE/TM defined
+  from the plane of incidence at any azimuth; also returns cross-polarized amplitudes). Checks in
+  `runs/20261120-azimuth_check/check.json` (`inverse/check_azimuth.py`): azimuth 0 = old code exactly (Δt = 0);
+  azimuth 90 = azimuth 0 to 3e-13; TE↔TM cross terms ≤ 3e-9 at 0° and ≤ 1e-12 at 45° (mirror line). `analyze.py` and
+  `spectra.py` take `--azimuth`.

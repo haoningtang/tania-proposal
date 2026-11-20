@@ -1,0 +1,85 @@
+{
+ "note": "T3 step 1 (worker, 2026-11-20). stage2_narrow.json with init_from = T2b resume best; n_terms 120, ngrid 128 (controller, BOARD 18:30). Added the T2b trust region (design vars +-10 % of the start, lam_k +-0.5 %) so the first L-BFGS-B step cannot jump to a box corner / off resonance as in T2. r2 starts = r (T2b best). w_side 1.0 as given.",
+ "init_from": "../runs/20261120-0910_stage1b_resume/best.json",
+ "design_vars": [
+  "a",
+  "t",
+  "r",
+  "c4",
+  "c8",
+  "r2"
+ ],
+ "fixed": {},
+ "init": {
+  "a": 0.733,
+  "t": 0.26,
+  "r": 0.246,
+  "c4": 0.0,
+  "c8": 0.0,
+  "r2": 0.246
+ },
+ "bounds": {
+  "a": [
+   0.6,
+   0.9
+  ],
+  "t": [
+   0.15,
+   0.36
+  ],
+  "r": [
+   0.06,
+   0.34
+  ],
+  "c4": [
+   -0.05,
+   0.05
+  ],
+  "c8": [
+   -0.03,
+   0.03
+  ],
+  "r2": [
+   0.06,
+   0.34
+  ]
+ },
+ "states": [
+  {
+   "gap": 0.2,
+   "shift": 0.0
+  },
+  {
+   "gap": 0.26,
+   "shift": 0.0
+  },
+  {
+   "gap": 0.32,
+   "shift": 0.0
+  }
+ ],
+ "init_lams": [
+  1.53,
+  1.55,
+  1.57
+ ],
+ "lam_bounds": [
+  1.45,
+  1.68
+ ],
+ "thetas_deg": [
+  0.5,
+  3.0,
+  6.0
+ ],
+ "half_window_frac": 0.003,
+ "w_side": 1.0,
+ "tune_min": 0.02,
+ "w_tune": 1.0,
+ "n_terms": 120,
+ "ngrid": 128,
+ "maxiter": 80,
+ "bound_window_frac": 0.1,
+ "bound_window_abs": 0.01,
+ "lam_window_frac": 0.005
+}

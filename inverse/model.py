@@ -1,8 +1,9 @@
 """Differentiable forward model for an ALIGNED Si photonic-crystal bilayer (fmmax / JAX).
 
 Stack (top to bottom): vacuum | slab 1 | air gap | slab 2 (laterally shifted) | vacuum.
-Lengths in micrometres. Returns the complex zero-order transmission coefficient for TE (E along y)
-and TM (E in the plane of incidence), for a plane wave incident in the x-z plane at angle theta.
+Lengths in micrometres. Returns the complex zero-order transmission coefficient for TE (E perpendicular to the
+plane of incidence) and TM (E in the plane of incidence), for a plane wave at polar angle theta and azimuth phi
+(phi = 0: plane of incidence x-z, TE = E along y; phi = 45 deg: lattice diagonal).
 
 rcwa4d-mf cannot be used here: it requires a nonzero twist (README, section 7).
 Use rcwa4d-mf only for twisted structures (A3).
@@ -30,10 +31,13 @@ def hole_eps(r, a, n_slab, ngrid, sx=0.0, sy=0.0, smooth=1.0, c4=0.0, c8=0.0):
     return 1.0 + (n_slab**2 - 1.0) * fill
 
 
-def bilayer_t(lam, theta_deg, a, t, r, gap, shift=0.0, n_slab=3.48, n_terms=120, ngrid=128, r2=None, c4=0.0, c8=0.0):
+def bilayer_t(lam, theta_deg, a, t, r, gap, shift=0.0, n_slab=3.48, n_terms=120, ngrid=128, r2=None, c4=0.0, c8=0.0,
+              azimuth_deg=0.0):
     """Complex zero-order transmission (t_TE, t_TM) and powers (T_TE, T_TM).
 
-    lam, theta_deg may be arrays of the same shape (batched)."""
+    lam, theta_deg may be arrays of the same shape (batched). azimuth_deg is a scalar.
+    Also returns the cross-polarized amplitudes t_TE_TM (TM out for TE in) and t_TM_TE, to check that TE and TM
+    decouple (they must along a mirror line of the lattice: phi = 0 or 45 deg for C4v holes, shift 0)."""
     lam = jnp.atleast_1d(jnp.asarray(lam, dtype=jnp.float64))
     th = jnp.radians(jnp.atleast_1d(jnp.asarray(theta_deg, dtype=jnp.float64)))
     lv = fmmax.LatticeVectors(u=a * fmmax.X, v=a * fmmax.Y)
@@ -42,7 +46,8 @@ def bilayer_t(lam, theta_deg, a, t, r, gap, shift=0.0, n_slab=3.48, n_terms=120,
     exp = fmmax.generate_expansion(fmmax.LatticeVectors(u=fmmax.X, v=fmmax.Y), approximate_num_terms=n_terms,
                                    truncation=fmmax.Truncation.CIRCULAR)
     k = 2 * jnp.pi / lam * jnp.sin(th)
-    kvec = jnp.stack([k, jnp.zeros_like(k)], axis=-1)
+    ph = np.radians(float(azimuth_deg)); cph, sph = float(np.cos(ph)), float(np.sin(ph))
+    kvec = jnp.stack([k * cph, k * sph], axis=-1)
     def solve(eps):
         return fmmax.eigensolve_isotropic_media(wavelength=lam, in_plane_wavevector=kvec,
                                                 primitive_lattice_vectors=lv, permittivity=eps,
@@ -59,11 +64,16 @@ def bilayer_t(lam, theta_deg, a, t, r, gap, shift=0.0, n_slab=3.48, n_terms=120,
     nb = exp.num_terms
     i0 = int(np.argmin(np.sum(np.abs(np.asarray(exp.basis_coefficients)), axis=1)))  # zero order
     out = {}
-    # amplitude index: block 0 = x-polarised (TM for kx incidence), block 1 = y-polarised (TE)
-    for name, idx in (("TM", i0), ("TE", nb + i0)):
-        a_in = jnp.zeros((2 * nb, 1), dtype=jnp.complex128).at[idx, 0].set(1.0)
-        a_out = S.s11 @ a_in  # forward amplitude leaving the bottom
-        tt = a_out[..., idx, 0]
+    # amplitude index: block 0 = x-polarised, block 1 = y-polarised (tangential E of the vacuum plane waves).
+    # TE: tangential E along (-sin phi, cos phi); TM: along (cos phi, sin phi). At phi = 0: TE = y block, TM = x block.
+    pol = {"TM": (cph, sph), "TE": (-sph, cph)}
+    def vec(c):
+        return jnp.zeros((2 * nb, 1), dtype=jnp.complex128).at[i0, 0].set(c[0]).at[nb + i0, 0].set(c[1])
+    for name in ("TM", "TE"):
+        a_out = S.s11 @ vec(pol[name])  # forward amplitude leaving the bottom
+        other = "TE" if name == "TM" else "TM"
+        tt = pol[name][0] * a_out[..., i0, 0] + pol[name][1] * a_out[..., nb + i0, 0]
         out["t_" + name] = tt
         out["T_" + name] = jnp.abs(tt) ** 2
+        out[f"t_{name}_{other}"] = pol[other][0] * a_out[..., i0, 0] + pol[other][1] * a_out[..., nb + i0, 0]
     return out

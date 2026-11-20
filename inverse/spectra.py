@@ -16,10 +16,12 @@ ap.add_argument("--lo", type=float, default=1.46); ap.add_argument("--hi", type=
 ap.add_argument("--step", type=float, default=0.001)
 ap.add_argument("--thetas", default="[0.5,6.0]")
 ap.add_argument("--n_terms", type=int, default=None); ap.add_argument("--ngrid", type=int, default=None)
+ap.add_argument("--azimuth", type=float, default=0.0)
 args = ap.parse_args()
 cfg = json.load(open(os.path.join(args.run, "config.json")))
 best = json.load(open(os.path.join(args.run, "best.json")))
 kw = dict(n_terms=args.n_terms or cfg.get("n_terms", 80), ngrid=args.ngrid or cfg.get("ngrid", 96))
+if args.azimuth: kw["azimuth_deg"] = args.azimuth
 names = cfg["design_vars"]; K = len(cfg["states"])
 start = dict(cfg["init"]); start_lams = list(cfg["init_lams"])
 if cfg.get("init_from"):

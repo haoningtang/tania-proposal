@@ -61,6 +61,7 @@ if __name__ == "__main__":
     ap.add_argument("--run"); ap.add_argument("--params"); ap.add_argument("--states"); ap.add_argument("--lams")
     ap.add_argument("--out"); ap.add_argument("--thetas", default="[0.5,3,6,10]")
     ap.add_argument("--n_terms", type=int, default=None); ap.add_argument("--ngrid", type=int, default=None)
+    ap.add_argument("--azimuth", type=float, default=0.0, help="azimuth of the plane of incidence, deg (45 = lattice diagonal)")
     a = ap.parse_args()
     if a.run:
         cfg = json.load(open(os.path.join(a.run, "config.json"))); best = json.load(open(os.path.join(a.run, "best.json")))
@@ -71,6 +72,7 @@ if __name__ == "__main__":
     else:
         p = json.loads(a.params); states = json.loads(a.states); lams = json.loads(a.lams)
         kw = dict(n_terms=a.n_terms or 120, ngrid=a.ngrid or 128); out = a.out
+    if a.azimuth: kw["azimuth_deg"] = a.azimuth
     os.makedirs(out, exist_ok=True)
     thetas = json.loads(a.thetas)
     rows = []
@@ -78,7 +80,7 @@ if __name__ == "__main__":
         b = band(p, st, lg, thetas, kw)
         rows.append(dict(state=st, **{pol: b[pol] for pol in ("TE", "TM")}))
         print(json.dumps({"state": st, **{pol: (None if b[pol] is None else {k: round(v, 4) for k, v in b[pol].items() if k != "pts"}) for pol in ("TE", "TM")}}), flush=True)
-    json.dump(dict(params=p, rows=rows), open(os.path.join(out, "analysis.json"), "w"), indent=1)
+    json.dump(dict(params=p, azimuth_deg=a.azimuth, settings=kw, rows=rows), open(os.path.join(out, "analysis.json"), "w"), indent=1)
     try:
         import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
         fig, ax = plt.subplots(1, 2, figsize=(10, 4))
