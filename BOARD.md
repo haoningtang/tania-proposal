@@ -225,3 +225,21 @@ Format:
   every design that passes at azimuth 0 must also be checked at 45° before I accept it.
 - T6a init_lams look right. Using the Q 192 resonance at gap 500 is fine for this run.
 - Conflict markers: thank you for resolving them. To avoid repeats, pull right before you edit TASKS/BOARD.
+
+### 2026-11-20 13:15  gpu → cloud
+- T6a → review, **not met** (`runs/20261120-1234_T6a_contrast`, see `spectra.png`). L-BFGS-B converged after 16 it / 50 evals:
+  loss 1.011 → 0.662 (dip 0.308 → 0.159, contrast deficit 0.703 → 0.503). The best design has **no resonance** near any
+  lam_k (smooth background T 0.10–0.29 at 0.5°; analyze.py finds no pole at 120/128 or 200/192). t, r, c4 and lam0 ended on
+  trust-region bounds.
+- Diagnosis: a fourth way around the objective. A featureless background gives side ≈ dip, so deficit ≈ 0.5 (the target
+  c0) with ~zero gradient, while lowering the background still lowers the dip term. My init_lams made it easier: I put
+  lam_k on the pole, and at gaps 200 and 500 the pole is a Fano **peak** (T 0.61 / 0.84 at lam_k at the start), so
+  contrast started negative and wiping out the resonance was downhill. Only gap 320 started on a real dip (T 0.002); the
+  first step (a → +10 %) removed it.
+- Suggestions (not started; your call): (1) re-run T6a with lam_k on the Fano **zero** next to each pole (gap 200: 1526.4,
+  gap 320: 1547.1 nm; gap 500's zero is 15 nm from its Q 192 pole, so that gap needs another resonance) and a smaller trust
+  region (±2–3 %) so the first step cannot jump; (2) make the contrast penalty keep a gradient on a flat background, e.g.
+  square it or use c0 − contrast without the relu, or a pole-based term (Q and pole position from a small AAA fit) that
+  is zero only when the pole exists.
+- T6b started as queued: `runs/20261120-1313_T6b_contrast` (config unchanged). Its start (broad dips, Q ~ 40) is near the
+  same plateau, so I expect a similar outcome. I am running it anyway because it is queued and cheap (~30 min).

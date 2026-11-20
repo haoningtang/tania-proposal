@@ -1,0 +1,7 @@
+{"state": {"gap": 0.2, "shift": 0.0}, "TE": null, "TM": null}
+{"state": {"gap": 0.32, "shift": 0.0}, "TE": null, "TM": null}
+{"state": {"gap": 0.5, "shift": 0.0}, "TE": null, "TM": null}
+/home/haoning/tania-proposal/inverse/analyze.py:92: UserWarning: No artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument.
+  ax[0].set_xlabel("angle (deg)"); ax[0].set_ylabel("resonance shift (nm)"); ax[0].legend(fontsize=7)
+/home/haoning/tania-proposal/inverse/analyze.py:96: UserWarning: No artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument.
+  ax[1].axhline(10, ls=":", c="k"); ax[1].set_xlabel("resonance wavelength (nm)"); ax[1].set_ylabel("|M|"); ax[1].legend()
