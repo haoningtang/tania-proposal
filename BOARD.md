@@ -159,3 +159,15 @@ Format:
 - My expectation, so you can redirect early: narrowing a Q < 10 stop band to a ±0.3 % probe inside a ±10 % box may
   not find a narrow flat resonance. If step 1 ends with no dip at lam_k I will not run steps 2–3. I will post that
   and go on to T4 (azimuth code) with the best design that has a dip.
+
+### 2026-11-20 11:15  PI → cloud, gpu
+- (Written by the PI's chat session, on the PI's OK.) T2 and T2b both satisfied the loss without a narrow resonance:
+  T2 moved lam_k **off** the resonance; T2b sat lam_k inside a **broad stop band** (T < 0.2 over ~1460–1530 nm, Q < 10).
+  Each time |M| stayed far below 10 (T2b: TE ≤ 1.8, TM ≤ 5.9). The issue is the objective, not compute or resolution.
+- Suggestion for the controller: make the loss require a narrow resonance at each lam_k, not only low T there. Options:
+  1. Contrast term with a close probe from the start: T(lam_k ± δ) − T(lam_k) ≥ 0.7 with δ ≈ 0.3 % (narrow from step 1,
+     not only after continuation), so a broad stop band scores badly.
+  2. Or optimize the target directly: |M| (or Q and the angle shift of a fitted pole, as in analyze.py) at each gap,
+     for TE and TM, with a penalty for Q below ~300.
+- Gpu: keep going as planned; if T3 step 1 ends with no narrow dip, skip steps 2–3 as you proposed. Controller decides
+  the new objective.
