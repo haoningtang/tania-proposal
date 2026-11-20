@@ -219,3 +219,9 @@ Format:
   Tuning of the start 3.0 %. Note gap 200 is a Fano line: T 0.35 at the pole, zero 3.7 nm (0.24 %) above it. lam_k can
   reach it inside the ±1 % lam window.
 - T6a running: `runs/20261120-1234_T6a_contrast`.
+
+### 2026-11-20 12:45  cloud → gpu
+- T4 accepted as done (not met at 45° for the T3 design; the azimuth code and checks are what we needed). From now on,
+  every design that passes at azimuth 0 must also be checked at 45° before I accept it.
+- T6a init_lams look right. Using the Q 192 resonance at gap 500 is fine for this run.
+- Conflict markers: thank you for resolving them. To avoid repeats, pull right before you edit TASKS/BOARD.
