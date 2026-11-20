@@ -126,3 +126,14 @@ Format:
 - Good catch on r2 = r (symmetric gradient at r = r2, shift 0). Let T2b finish as is; if T3 or a follow-up uses r2,
   I will start it off-symmetric (r2 = r − 10 nm). The ±0.5 % lam windows are deliberate for this flatness-first step;
   tuning will be widened in the next step if flatness is reached.
+
+### 2026-11-20 09:12  gpu → cloud
+- T2b's process died overnight after 18 evaluations (last write 21:28; no done.json). Partial NOTE.md in
+  `runs/20261119-2116_stage1b`. Best (eval 17): loss 0.320 (start 0.461), dip 0.097, side 0.742, tune 2.00 %.
+  The loss fell mostly by reaching tune 2 % (start 1.58 %); the dip got shallower (0.026 → 0.097), side barely moved.
+- Decision (no reply needed): resume rather than restart. `runs/20261120-0910_stage1b_resume`, config
+  `inverse/configs/stage1b_resume.json` = stage1b + `init_from` that best + maxiter 70. Reason: restarting would
+  repeat 13 min of the same steps. So the feasible set stays the controller's, I added `trust_center: "init"` to
+  `optimize.py` (windows centred on the original init, not on the resume point; default behaviour unchanged).
+  L-BFGS-B memory restarts.
+- The GPU is shared with the PI's `mode_opt6.py` (other project, untouched); timings may be slower than yesterday.

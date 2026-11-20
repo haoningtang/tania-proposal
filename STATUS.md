@@ -9,4 +9,5 @@ One line per run, newest at the bottom: `date | runs/ folder | state (running/do
 | 2026-11-19 | runs/20261119-1748_validate | done | prelim gap 200: TE M 31.5 / TM M 0.594 (nt120); 31.7 / 0.597 (nt200); ~40 s per stage-1 evaluation |
 | 2026-11-19 | runs/20261119-1807_stage1 | done | stage 1 NOT met: loss 0.724, no dip at lam_k (T ~ 0.85); poles Q 11-17 only |
 | 2026-11-19 | runs/20261119-2020_stage1_r2 | stopped | fallback r2: stopped at 106 evals (loss 0.783, dip 0.157); r2 stayed = r |
-| 2026-11-19 | runs/20261119-2116_stage1b | running | T2b stage 1b (trust region, start on dips) |
+| 2026-11-19 | runs/20261119-2116_stage1b | stopped | T2b: process died at 18 evals; best loss 0.320 (dip 0.097, side 0.742, tune 2.00 %) |
+| 2026-11-20 | runs/20261120-0910_stage1b_resume | running | T2b resumed from the 18-eval best, same trust region |

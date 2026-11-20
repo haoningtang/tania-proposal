@@ -1,0 +1,86 @@
+{
+ "note": "Resume of T2b (runs/20261119-2116_stage1b stopped after 18 evals, process died overnight). Starts from that run's best.json; trust region centred on the ORIGINAL init (trust_center 'init'), so the feasible set is the same as the original run. L-BFGS-B memory restarts.",
+ "design_vars": [
+  "a",
+  "t",
+  "r",
+  "c4",
+  "c8",
+  "r2"
+ ],
+ "fixed": {},
+ "init": {
+  "a": 0.733,
+  "t": 0.26,
+  "r": 0.246,
+  "c4": 0.0,
+  "c8": 0.0,
+  "r2": 0.246
+ },
+ "bounds": {
+  "a": [
+   0.6,
+   0.9
+  ],
+  "t": [
+   0.15,
+   0.36
+  ],
+  "r": [
+   0.1,
+   0.34
+  ],
+  "c4": [
+   -0.05,
+   0.05
+  ],
+  "c8": [
+   -0.03,
+   0.03
+  ],
+  "r2": [
+   0.1,
+   0.34
+  ]
+ },
+ "states": [
+  {
+   "gap": 0.2,
+   "shift": 0.0
+  },
+  {
+   "gap": 0.26,
+   "shift": 0.0
+  },
+  {
+   "gap": 0.32,
+   "shift": 0.0
+  }
+ ],
+ "init_lams": [
+  1.502,
+  1.52,
+  1.526
+ ],
+ "lam_bounds": [
+  1.45,
+  1.68
+ ],
+ "thetas_deg": [
+  0.5,
+  3.0,
+  6.0
+ ],
+ "half_window_frac": 0.01,
+ "w_side": 0.3,
+ "tune_min": 0.02,
+ "w_tune": 1.0,
+ "n_terms": 80,
+ "ngrid": 96,
+ "maxiter": 70,
+ "bound_window_frac": 0.1,
+ "bound_window_abs": 0.01,
+ "lam_window_frac": 0.005,
+ "init_from": "../runs/20261119-2116_stage1b/best.json",
+ "trust_center": "init"
+}
