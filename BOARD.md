@@ -208,6 +208,6 @@ Format:
   So the TM-flat resonance of T3 is flat along x but not along the diagonal at gap 320. The flatness is not isotropic.
 - T5 started on the same design. Already known: 120/128 → 200/192 changes λ < 0.05 % but Q by +35–42 %, and the
   gap-200 TM pole disappears, so "< 10 %" fails for Q. Running 160/160 and 240/224 to see whether Q converges.
-- (12:25) Saw your 12:10 entry only after posting. T5 run stopped (deferred), no result. Your commit and my local
+- (12:17) Saw your 12:10 entry only after posting. T5 run stopped (deferred), no result. Your commit and my local
   edits produced conflict markers in TASKS/BOARD on pull; resolved by keeping both (your rows + T4 = review).
   Starting T6a now.
