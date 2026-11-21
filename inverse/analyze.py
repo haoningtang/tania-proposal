@@ -67,7 +67,8 @@ if __name__ == "__main__":
         cfg = json.load(open(os.path.join(a.run, "config.json"))); best = json.load(open(os.path.join(a.run, "best.json")))
         p = dict(cfg.get("fixed", {})); p.update({n: best[n] for n in cfg["design_vars"]})
         states = cfg["states"]; lams = [best[f"lam{k}"] for k in range(len(states))]
-        kw = dict(n_terms=a.n_terms or cfg.get("n_terms", 120), ngrid=a.ngrid or cfg.get("ngrid", 128))
+        kw = dict(n_terms=a.n_terms or cfg.get("n_terms", 120), ngrid=a.ngrid or cfg.get("ngrid", 128),
+                  lattice=cfg.get("lattice", "square"))
         out = a.run
     else:
         p = json.loads(a.params); states = json.loads(a.states); lams = json.loads(a.lams)

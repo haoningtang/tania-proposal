@@ -8,7 +8,7 @@ ap = argparse.ArgumentParser(); ap.add_argument("--run", required=True)
 ap.add_argument("--n_terms", type=int, default=None); ap.add_argument("--ngrid", type=int, default=None)
 a = ap.parse_args()
 cfg = json.load(open(os.path.join(a.run, "config.json"))); best = json.load(open(os.path.join(a.run, "best.json")))
-kw = dict(n_terms=a.n_terms or cfg["n_terms"], ngrid=a.ngrid or cfg["ngrid"])
+kw = dict(n_terms=a.n_terms or cfg["n_terms"], ngrid=a.ngrid or cfg["ngrid"], lattice=cfg.get("lattice", "square"))
 th = np.asarray(cfg["thetas_deg"]); e = cfg.get("fd_frac", 3e-5); names = cfg["design_vars"]
 azs = cfg.get("azimuths_deg", [0.0])
 def table(p, lams):

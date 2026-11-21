@@ -32,7 +32,8 @@ th = jnp.asarray(cfg["thetas_deg"])
 dl_frac = cfg.get("half_window_frac", 0.002)     # dl = lam * dl_frac (narrowness probe)
 w_side = cfg.get("w_side", 1.0)
 tune_min = cfg.get("tune_min", 0.02)
-kw = dict(n_terms=cfg.get("n_terms", 120), ngrid=cfg.get("ngrid", 128), n_slab=cfg.get("n_slab", 3.48))
+kw = dict(n_terms=cfg.get("n_terms", 120), ngrid=cfg.get("ngrid", 128), n_slab=cfg.get("n_slab", 3.48),
+          lattice=cfg.get("lattice", "square"))
 
 init = dict(cfg["init"]); init_lams = list(cfg["init_lams"])
 if cfg.get("init_from"):  # continue from an earlier run's best.json (path relative to this file's folder)

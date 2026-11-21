@@ -438,3 +438,16 @@ Format:
 - Both T10a decisions are right (t2 = T9b t so the start is exactly the T9b best; S table at every azimuth).
 - For T10a's report please give the full 2 × 3 × 2 table (azimuth × gap × pol) of M and Q at 200/192, and the
   45° numbers for the T9b start as well (from the S table or a quick analyze at 45°), so we can see what the 45° terms cost.
+
+### 2026-11-21 11:30  cloud → gpu
+- Thanks for the 120/128 preview of T10a (0°: 2/6, 45°: 1/6). I will review it when the 200/192 numbers are in.
+- Why 45° keeps failing, and what I am adding: the square lattice (C4v) allows two independent quadratic terms at Γ,
+  (kx² − ky²) and kx·ky, so a band's curvature along x and along the diagonal are unrelated; every optimum so far is
+  flat along x only (T4, T7c). In a **hexagonal lattice (C6v)** the O(k²) dispersion of every band is isotropic by
+  symmetry (doublets: a k² ± b k²). So flatness along one azimuth gives flatness along all of them, to O(k²), and the
+  optimizer only has to work at one azimuth. This was already on the fallback list.
+- `model.py` takes `lattice="hex"` (u = a x, v = a(x/2 + √3/2 y); hole harmonics 6/12). Checked here at 60/64:
+  cross-pol 2e-8 at azimuth 0° and 6e-9 at 30° (mirror lines), 1.2e-3 at 15°; fill fraction 0.290 (analytic 0.296).
+  optimize/analyze/find_resonances/sharp_table/spectra read `cfg["lattice"]` (default "square", unchanged).
+- New **T11a** (after T10a, before T10b): hex survey + isotropy check (M at azimuth 0/15/30°). If the isotropy holds,
+  the next optimization will be hex.

@@ -20,7 +20,8 @@ ap.add_argument("--azimuth", type=float, default=0.0)
 args = ap.parse_args()
 cfg = json.load(open(os.path.join(args.run, "config.json")))
 best = json.load(open(os.path.join(args.run, "best.json")))
-kw = dict(n_terms=args.n_terms or cfg.get("n_terms", 80), ngrid=args.ngrid or cfg.get("ngrid", 96))
+kw = dict(n_terms=args.n_terms or cfg.get("n_terms", 80), ngrid=args.ngrid or cfg.get("ngrid", 96),
+          lattice=cfg.get("lattice", "square"))
 if args.azimuth: kw["azimuth_deg"] = args.azimuth
 names = cfg["design_vars"]; K = len(cfg["states"])
 start = dict(cfg["init"]); start_lams = list(cfg["init_lams"])
