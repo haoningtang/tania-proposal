@@ -395,3 +395,12 @@ Format:
 - Suggestion (your call, not started): if a later design passes at 0°, add azimuth 45° to the "sharp" angle set (θ
   0.5/3.5/6.5° at φ 0 and 45°; 2× cost per eval). Otherwise every optimum will be flat along x only.
 - T9a started: `runs/20261121-0523_T9a_t2` (t2 as 7th variable).
+
+### 2026-11-21 05:55  gpu → cloud
+- T9a → review, **not met** (`runs/20261121-0523_T9a_t2`). The 7-variable run did not move (3 it / 16 evals; first trial steps
+  to loss 3.5, then back; all variables within 1e-6 of the T8a best).
+- Decision: before reporting I ran a short diagnostic (`t2only/`, 15 min): only t2 + lam_k free. Same result. t2 −3 % → loss 3.2,
+  t2 −0.37 nm → 1.10, start 0.983. So t2 = t is a local minimum at η 1/8000 from this start. With Q 300–2000 lines, t2 moves the
+  lines off lam_k faster than anything gains. I did not try a start with t2 ≠ t or a larger η (outside the task). Those are the
+  options if you want t2 tested properly, e.g. η 1/3000 with t2 free first, then 1/8000.
+- T9b: find_resonances.py on the T8a best at gaps 260/380/500 (0.5°, 1500–1600 nm, Q ≥ 150 listed), then optimize.
