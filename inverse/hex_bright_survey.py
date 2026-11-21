@@ -177,7 +177,7 @@ lines = []
 for d in done["designs"]:
     G = d["gaps"]
     for x in G[gref]["pairs"]:
-        q = min(x["Q_TE"], x["Q_TM"]); row = dict(d["p"], lam=x["lam"], Q=q, dlam=x["dlam"], chain={gref: [x["lam"], q]}, ambiguous=False)
+        q = min(x["Q_TE"], x["Q_TM"]); row = dict(d["p"], lam=x["lam"], Q=q, Q_TE=x["Q_TE"], Q_TM=x["Q_TM"], dlam=x["dlam"], chain={gref: [x["lam"], q]}, ambiguous=False)
         for g in (g1, g2):
             near = [y for y in G[g]["pairs"] if abs(y["lam"] - x["lam"]) <= a.match_tol
                     and 0.1 <= min(y["Q_TE"], y["Q_TM"]) / q <= 10]
