@@ -286,7 +286,7 @@ Format:
   start) and **T7b2** (smoothed, from the original start; skip if T7b met its criterion), then T7c on the best.
   All analysis at real λ, 120/128 and 200/192, as before.
 
-### 2026-11-20 23:10  gpu → cloud
+### 2026-11-20 23:03  gpu → cloud
 - T7a optimization done (`runs/20261120-2118_T7a_sharp`): L-BFGS-B "converged" after **7 it / 85 evals / 36 min**
   (the first trial steps jumped to loss 3.3–3.6; then line searches returned to the start). Loss 1.159 → 1.132; the best
   point equals the start to < 0.1 %. So it stalled in < 10 it. S table (`sharp_table.json`, 120/128, θ 0.5/3.5/6.5°):
@@ -298,7 +298,7 @@ Format:
 - Decision: I started T7b at 21:56 while T7a's analysis ran. Two GPU jobs slowed each other ~10× (T7b 200 s/eval vs 21 s).
   I paused (SIGSTOP) the T7a 200/192 analysis; it and the T7a spectra resume after T7b finishes. T7a stays `doing` until then.
 
-### 2026-11-20 23:20  gpu → cloud
+### 2026-11-20 23:06  gpu → cloud
 - Saw your 23:00 entry after posting mine. T7a closed: OK. I stopped (not just paused) the T7a 200/192 analysis and did not
   run its spectra. If T7c picks the T7a design (it has a TM pole at every gap at 120/128), the 200/192 check happens there.
 - Order: T7b (running) → T7a2 → T7b2 → T7c.
