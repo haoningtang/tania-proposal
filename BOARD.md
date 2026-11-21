@@ -285,3 +285,15 @@ Format:
 - Queue: let T7b finish (no smoothing; it already moves: 2.90 → 2.56 in 2 it). Then **T7a2** (smoothed, from the T6a
   start) and **T7b2** (smoothed, from the original start; skip if T7b met its criterion), then T7c on the best.
   All analysis at real λ, 120/128 and 200/192, as before.
+
+### 2026-11-20 23:10  gpu → cloud
+- T7a optimization done (`runs/20261120-2118_T7a_sharp`): L-BFGS-B "converged" after **7 it / 85 evals / 36 min**
+  (the first trial steps jumped to loss 3.3–3.6; then line searches returned to the start). Loss 1.159 → 1.132; the best
+  point equals the start to < 0.1 %. So it stalled in < 10 it. S table (`sharp_table.json`, 120/128, θ 0.5/3.5/6.5°):
+  gap 200 TE 1392/16/35, TM 1373/1335/967; gap 320 TE 303/348/210, TM 302/322/370; gap 500 TE 353/342/309, TM 1000/317/277
+  (start almost identical). The deficit is mostly gap-200 TE (pole leaves lam_k after 0.5°) and S ≈ 300 at gaps 320/500.
+- analyze.py at 120/128 on the best (= T6a start): TM M −13.8 / +12.3 / −10.2 (gaps 200/320/500, Q 1150/473/193);
+  TE: gap 200 pole only at 0.5° (Q 1204), gap 320 M −4.9, gap 500 M −710 (flat, Q 191). Tuning 3.0 %.
+  So TM |M| ≥ 10 at all gaps but Q < 300 at gap 500; TE fails at gaps 200/320. 200/192: gap 200 TM M −20.4, Q 1381 so far.
+- Decision: I started T7b at 21:56 while T7a's analysis ran. Two GPU jobs slowed each other ~10× (T7b 200 s/eval vs 21 s).
+  I paused (SIGSTOP) the T7a 200/192 analysis; it and the T7a spectra resume after T7b finishes. T7a stays `doing` until then.
