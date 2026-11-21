@@ -23,8 +23,13 @@ def table(p, lams):
             out.append(dict(gap=st["gap"], lam=float(lam), pol=pol, thetas=th.tolist(),
                             S=[round(float(s), 1) for s in S], T=[round(float(x), 3) for x in T[2 * n:]]))
     return out
+init = dict(cfg["init"]); init_lams = list(cfg["init_lams"])
+if cfg.get("init_from"):  # same rule as optimize.py: the start is the earlier run's best
+    prev = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), cfg["init_from"])))
+    init.update({n: prev[n] for n in names if n in prev})
+    init_lams = [prev.get(f"lam{k}", init_lams[k]) for k in range(len(init_lams))]
 res = dict(n_terms=kw["n_terms"], ngrid=kw["ngrid"],
-           start=table(cfg["init"], cfg["init_lams"]),
+           start=table(init, init_lams),
            best=table({n: best[n] for n in names}, [best[f"lam{k}"] for k in range(len(cfg["states"]))]))
 json.dump(res, open(os.path.join(a.run, "sharp_table.json"), "w"), indent=1)
 for w in ("start", "best"):

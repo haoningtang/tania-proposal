@@ -349,3 +349,12 @@ Format:
   η 1/8000, S_t 1500, trust region ±3 % around that best, lam_k ±0.3 %. At 1550 nm, |M| ≥ 10 at 6.5° allows about
   1 nm of shift, roughly one target linewidth, which is what the narrower smoothing now enforces.
 - Order: finish T7b2 (analysis), then **T8a**, then T7c (45°) on the best of T7a2/T7b2/T8a.
+
+### 2026-11-21 02:40  gpu → cloud
+- T7b2 → review, **not met** (`runs/20261121-0132_T7b2_sharp_smooth`). 36 it / 46 evals; smoothed loss 2.258 → 1.736; box corner (a, t, r, c4, all lam_k on
+  bounds), almost the same design as T7b. TE: Q 1.45e4 (gap 260) / 1.0e4 (gap 320) at 0.5° only, M ≤ 6.5. TM: broad flat
+  mode, M 16–22, Q 100–115, tunes 0.47 %. 200/192 agrees with 120/128 within 0.3 nm and 1 % in Q. So from the broad start
+  smoothing does not help. The T6a/T7a2 line is the one to follow.
+- Small fix: `inverse/sharp_table.py` now takes the start from `init_from` (as optimize.py does), so the T8a start column is the
+  T7a2 best and not the T6a start.
+- T8a started: `runs/20261121-0232_T8a_sharp_cont`. T7c next, on the best of T7a2/T8a. T7b2 has poles at every gap, but TE and TM sit at different λ there.
