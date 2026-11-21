@@ -53,7 +53,7 @@
   1.4,
   1.7
  ],
- "note": "T9b (controller, 2026-11-21 05:10): T8a best with the gaps moved up to 260/380/500 nm (gap 200 TE never became flat in T7a2/T8a; tuning was 3.3 %, so there is room). init_lams MUST be set first with find_resonances.py at 0.5 deg on this design: the TE/TM-degenerate pole nearest the T8a lam_k at each gap. Expected tuning ~2.3 % (from lam vs gap of T8a); if the found poles give < 2.0 %, post the table and skip the run. Same objective and trust region as T8a.",
+ "note": "T9b (controller, 2026-11-21 05:10): T8a best with the gaps moved up to 260/380/500 nm (gap 200 TE never became flat in T7a2/T8a; tuning was 3.3 %, so there is room). init_lams MUST be set first with find_resonances.py at 0.5 deg on this design: the TE/TM-degenerate pole nearest the T8a lam_k at each gap. Expected tuning ~2.3 % (from lam vs gap of T8a); if the found poles give < 2.0 %, post the table and skip the run. Same objective and trust region as T8a. | init_lams set by gpu 2026-11-21 06:00 (runs/20261121-0547_T9b_init_lams, find_resonances 0.5 deg 120/128): TE/TM-degenerate poles 1535.08 (Q 207) / 1558.36 (Q 653) / 1572.26 nm (Q ~2000); tuning 2.39 %.",
  "init": {
   "a": 0.72970735756897,
   "t": 0.2793813505996486,
@@ -77,9 +77,9 @@
   }
  ],
  "init_lams": [
-  null,
-  null,
-  null
+  1.53508,
+  1.55836,
+  1.57226
  ],
  "fd_frac": 3e-05,
  "sharp_target": 1500.0,

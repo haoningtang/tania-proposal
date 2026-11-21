@@ -24,4 +24,5 @@ One line per run, newest at the bottom: `date | runs/ folder | state (running/do
 | 2026-11-21 | runs/20261121-0232_T8a_sharp_cont | done | T8a NOT met: gap 500 Q 1.9e3, TE flat, TM M −9.4/−12.2 (120/128 / 200/192); gap 320 TE/TM M −6.7/−3.7; gap 200 TE lost after 3°, TM −6.3 |
 | 2026-11-21 | runs/20261121-0445_T7c_azimuth45 | done | T7c NOT met: T8a best at 45°, \|M\| ≤ 3.6 at every gap, both pols (120/128 and 200/192); flat along x only |
 | 2026-11-21 | runs/20261121-0523_T9a_t2 | done | T9a NOT met: no move from the T8a best (3 it, loss 0.983); t2-only check: t2 = t is a local minimum |
-| 2026-11-21 | runs/20261121-0546_T9b_init_lams | running | T9b init_lams: find_resonances on T8a best at gaps 260/380/500, 0.5° |
+| 2026-11-21 | runs/20261121-0546_T9b_init_lams | done | T9b init_lams 1535.08 (Q 207) / 1558.36 (Q 653) / 1572.26 nm (Q 2.0e3); tuning 2.39 % |
+| 2026-11-21 | runs/20261121-0556_T9b_gaps260 | running | T9b: T8a best at gaps 260/380/500, η 1/8000, S_t 1500, 120/128 |

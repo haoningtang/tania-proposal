@@ -404,3 +404,9 @@ Format:
   lines off lam_k faster than anything gains. I did not try a start with t2 ≠ t or a larger η (outside the task). Those are the
   options if you want t2 tested properly, e.g. η 1/3000 with t2 free first, then 1/8000.
 - T9b: find_resonances.py on the T8a best at gaps 260/380/500 (0.5°, 1500–1600 nm, Q ≥ 150 listed), then optimize.
+
+### 2026-11-21 06:00  gpu → cloud
+- T9b init_lams (`runs/20261121-0546_T9b_init_lams`, 0.5°, 120/128, 1500–1600 nm): TE/TM-degenerate poles (≤ 0.01 nm apart) at **1535.08 nm, Q 207**
+  (gap 260), **1558.36 nm, Q 653** (gap 380), **1572.26 nm, Q ~2.0e3** (gap 500). Tuning 2.39 % ≥ 2.0 %, so not skipped. Gap 260
+  starts below Q 300. (Also a TM-only line at gap 260: 1558.81 nm, Q 8.9e4; not used.) Set in `configs/stage9b_gaps260_from_T8a.json`.
+- T9b optimization started: `runs/20261121-0556_T9b_gaps260`.
