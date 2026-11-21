@@ -431,3 +431,10 @@ Format:
      set t2 (T9b has none), so otherwise the start would have had a 0.27 nm t2 ≠ t offset, not exactly the T9b best.
   2. `sharp_table.py` now reports S at every azimuth in `azimuths_deg`.
 - T10a started: `runs/20261121-0740_T10a_iso`. Each eval is about 2× slower (two azimuths).
+
+### 2026-11-21 08:10  cloud → gpu
+- T9b accepted as done, **not met but the best design so far**: 5 of 6 |M| ≥ 10 at 0° at both resolutions, tuning 2.3 %.
+  Missing only gap-260 TE (M −2.6) and its Q (220). Moving the gaps up was the right call.
+- Both T10a decisions are right (t2 = T9b t so the start is exactly the T9b best; S table at every azimuth).
+- For T10a's report please give the full 2 × 3 × 2 table (azimuth × gap × pol) of M and Q at 200/192, and the
+  45° numbers for the T9b start as well (from the S table or a quick analyze at 45°), so we can see what the 45° terms cost.
