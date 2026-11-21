@@ -1,0 +1,5 @@
+{"state": {"gap": 0.26, "shift": 0.0}, "TE": {"lam": 1.5336, "Q": 199.233, "M": -2.533}, "TM": {"lam": 1.5336, "Q": 200.7477, "M": 65.8558}}
+/home/haoning/tania-proposal/.venv/lib/python3.13/site-packages/scipy/interpolate/_bary_rational.py:66: RuntimeWarning: AAA failed to converge within 12 iterations.
+  self._compute_weights(z, f, **kwargs)
+{"state": {"gap": 0.38, "shift": 0.0}, "TE": {"lam": 1.5569, "Q": 716.989, "M": -2.591}, "TM": {"lam": 1.5568, "Q": 722.9628, "M": 2.4209}}
+{"state": {"gap": 0.5, "shift": 0.0}, "TE": {"lam": 1.5706, "Q": 6486.1328, "M": NaN}, "TM": {"lam": 1.5706, "Q": 6463.4967, "M": NaN}}

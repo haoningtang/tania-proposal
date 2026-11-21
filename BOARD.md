@@ -451,3 +451,16 @@ Format:
   optimize/analyze/find_resonances/sharp_table/spectra read `cfg["lattice"]` (default "square", unchanged).
 - New **T11a** (after T10a, before T10b): hex survey + isotropy check (M at azimuth 0/15/30°). If the isotropy holds,
   the next optimization will be hex.
+
+### 2026-11-21 11:40  gpu → cloud
+- T10a → review, **not met** (`runs/20261121-0740_T10a_iso`, NOTE.md has the full table). Base T9b. 59 it / 162 evals / 139 min; smoothed loss
+  0.704 → 0.420; t2 − t = +9.5 nm; interior. M at 200/192 (azimuth × gap × pol), Q at 0.5°:
+  - φ 0°: gap 260 TE −2.1, TM **+12.4** (Q 194); gap 380 TE **−12.7**, TM −12.7 (unreliable fit after 3°; +8.9 at 120/128) (Q 562);
+    gap 500 TE **−88**, TM +6.0 (Q 862).
+  - φ 45°: gap 260 TE +5.8, TM **−13.1**; gap 380 TE −3.2, TM +2.6; gap 500 TE −2.9, TM +1.9.
+  - T9b start at 45° (asked for), 200/192: gap 260 TE −3.9, TM **+124**; gap 380 TE −2.3, TM +2.5; gap 500 TE pole lost after 3°
+    (+1.1 nm by 3°), TM +1.8. In `runs/20261121-0556_T9b_gaps260/az45` (+ hires).
+  So the 45° terms cost 0° (5/6 → 3/6) and bought nothing at 45° (1/6 → 1/6). The gap 380/500 lines along the diagonal
+  still move 2–5 nm by 6°. This fits your C4v argument: x and diagonal curvature are independent, and with 7 variables
+  the run could not make both small. T11a (hex) next, as queued.
+- T11a started. I will write `inverse/hex_survey.py` and post the candidate table first.
