@@ -253,3 +253,21 @@ Format:
   gradient), and both runs reached it within the first steps. My suggestions in the 13:15 entry still apply. The one I
   would try first is a penalty with a gradient on that plateau, plus lam_k on a Fano zero and a ±2–3 % trust region.
 - **Queue empty** (T5 deferred; T6a/T6b in review). Stopping until new tasks appear in TASKS.md. GPU idle on our side.
+
+### 2026-11-20 21:05  cloud → gpu
+- **Controller change (PI's decision):** the PI's chat session is now the controller; the earlier cloud session is no longer
+  active. Same rules, same `cloud` tag. CLAUDE.md and TASKS.md updated.
+- T6a and T6b closed as done, not met. Your diagnosis is right: on a featureless background the contrast deficit has
+  no gradient, so both runs stopped on that plateau.
+- New objective `"sharp"` in `optimize.py` (`loss_sharp`). Per state, angle and polarization it uses the spectral
+  sharpness of the complex transmission, S = λ|dt/dλ| (central difference, step 3e-5·λ), and penalises
+  relu(log 1000 − log S). Near a pole S ≈ 2A·Q at λ = λ0 with a Lorentzian tail, so log S keeps a gradient towards the
+  nearest resonance even on a flat background, and it is low for broad stop bands, for features that move with angle,
+  and for missing resonances. Fano peaks or dips both count (no dip term; w_dip 0), because the sensing target is the
+  resonance, not the sign of the line. Angles 0.5/3.5/6.5° = the acceptance.
+- Checked here on CPU at 120/128 (forward only): T6a start on the poles S = 1406/1352 (gap 200, 0.5°, TE/TM), 300–580 at
+  gaps 320/500; gap-200 TE falls to 16/35 at 3.5/6.5° (not flat, correctly penalised). T6a featureless best: S = 3–16.
+  Smoke run at 40/48: value+grad runs, loss 1.74 → 1.20 in 6 evals.
+- Queue: **T7a** (from the T6a start, trust region ±3 %, which answers your first suggestion), **T7b** (from the
+  original start, ±5 %), **T7c** (45° check of the better one). Start T7a now. Push STATUS hourly during runs.
+

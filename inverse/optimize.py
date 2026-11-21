@@ -29,7 +29,7 @@ fixed = cfg.get("fixed", {})
 states = cfg["states"]                # list of {"gap":..,"shift":..}
 K = len(states)
 th = jnp.asarray(cfg["thetas_deg"])
-dl_frac = cfg["half_window_frac"]     # dl = lam * dl_frac (narrowness probe)
+dl_frac = cfg.get("half_window_frac", 0.002)     # dl = lam * dl_frac (narrowness probe)
 w_side = cfg.get("w_side", 1.0)
 tune_min = cfg.get("tune_min", 0.02)
 kw = dict(n_terms=cfg.get("n_terms", 120), ngrid=cfg.get("ngrid", 128), n_slab=cfg.get("n_slab", 3.48))
@@ -94,7 +94,41 @@ def loss_contrast(z):
         + cfg.get("w_tune", 1.0) * L_tune
     return L, (L_dip / (2 * K), L_con / (2 * K), tune)
 
+def loss_sharp(z):
+    """objective = "sharp" (controller = PI chat, 2026-11-20 21:00). Ask for a narrow resonance AT lam_k, for every
+    angle and both polarizations, through the spectral sharpness of the complex transmission:
+        S = lam * |dt/dlam|  (central difference, step fd_frac * lam, well below the target linewidth)
+    For a pole t ~ A*g/(lam - lam0 + i g) next to lam_k, S peaks at lam_k = lam0 with S ~ 2 A Q and falls as a
+    Lorentzian tail away from it, so log S keeps a gradient towards the nearest resonance even on a featureless
+    background (the plateau that stopped T6a/T6b). Penalty relu(log S_t - log S) per angle and polarization: it is
+    zero only when a resonance with S >= S_t sits at lam_k at every angle (flat) for TE and TM (degenerate).
+    Broad stop bands (small S), resonances that move with angle (S high at one angle only) and featureless spectra
+    all score badly."""
+    p, lams = unpack(z)
+    e = cfg.get("fd_frac", 3e-5); logSt = jnp.log(cfg.get("sharp_target", 1000.0))
+    L_sh, L_dip = 0.0, 0.0
+    for k, st in enumerate(states):
+        lam = lams[k]
+        lam_pts = jnp.concatenate([jnp.full(th.shape, lam * (1 - e)), jnp.full(th.shape, lam * (1 + e)),
+                                   jnp.full(th.shape, lam)])
+        th_pts = jnp.concatenate([th, th, th])
+        o = bilayer_t(lam_pts, th_pts, p["a"], p["t"], p["r"], st["gap"], shift=st.get("shift", 0.0),
+                      c4=p.get("c4", 0.0), c8=p.get("c8", 0.0), r2=p.get("r2"), **kw)
+        n = th.shape[0]
+        for pol in ("TE", "TM"):
+            t = o["t_" + pol]
+            S = jnp.abs(t[n:2 * n] - t[:n]) / (2 * e)
+            L_sh = L_sh + jnp.mean(jax.nn.relu(logSt - jnp.log(S + 1e-6)))
+            L_dip = L_dip + jnp.mean(o["T_" + pol][2 * n:])
+    tune = (jnp.max(lams) - jnp.min(lams)) / jnp.mean(lams)
+    L_tune = jax.nn.relu(tune_min - tune) / tune_min
+    L = cfg.get("w_sharp", 1.0) * L_sh / (2 * K) + cfg.get("w_dip", 0.0) * L_dip / (2 * K) \
+        + cfg.get("w_tune", 1.0) * L_tune
+    return L, (L_dip / (2 * K), L_sh / (2 * K), tune)
+
 def loss_fn(z):
+    if cfg.get("objective") == "sharp":
+        return loss_sharp(z)
     if cfg.get("objective") == "contrast":
         return loss_contrast(z)
     p, lams = unpack(z)
@@ -123,7 +157,7 @@ def f(u):
     z = jnp.asarray(lb + u * scale)
     (L, aux), g = vg(z)
     g = np.asarray(g) * scale
-    rec = dict(it=len(hist), loss=float(L), dip=float(aux[0]), side=float(aux[1]),  # side = contrast deficit when objective="contrast"
+    rec = dict(it=len(hist), loss=float(L), dip=float(aux[0]), side=float(aux[1]),  # contrast deficit ("contrast") or log-sharpness deficit ("sharp")
                 tune=float(aux[2]),
                wall_s=round(time.time() - t0, 1), **{n: float(z[i]) for i, n in enumerate(names)},
                **{f"lam{k}": float(z[len(names) + k]) for k in range(K)})

@@ -2,7 +2,8 @@
 
 This repository is shared by two Claude sessions and the PI (Haoning Tang):
 
-- **Cloud session = controller** (no GPU): owns `TASKS.md`, decides what is computed next, checks results,
+- **Controller** (no GPU). From 2026-11-20 21:00 this is the PI's own chat session (it took over from the earlier cloud
+  session, which is no longer active); it still signs BOARD entries as `cloud`: owns `TASKS.md`, decides what is computed next, checks results,
   writes the proposal text and figures.
 - **GPU session = worker** (the PI's Windows machine with an NVIDIA GPU, conversation "Tania总统奖Proposal（win）"):
   runs the tasks in `TASKS.md`, in order, and reports. It does not start new directions on its own; it proposes
