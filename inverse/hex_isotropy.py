@@ -9,7 +9,20 @@ Usage: python hex_isotropy.py --config <survey config> --cands <candidates.json>
 """
 import argparse, json, os
 import numpy as np
-from analyze import poles, scan
+from scipy.interpolate import AAA
+from analyze import scan
+
+def poles(lams, t, lo, hi):
+    """as analyze.poles, but without its Q < 1e5 cap (hex quasi-BICs reach Q ~ 1e5 at 0.5 deg)"""
+    A = AAA(1 / np.asarray(lams), np.asarray(t), rtol=1e-6, max_terms=12)
+    out = []
+    for p, rz in zip(A.poles(), A.residues()):
+        if p.real <= 0 or p.imag == 0:
+            continue
+        l0 = 1 / p.real; Q = p.real / (2 * abs(p.imag))
+        if lo < l0 < hi and 10 < Q < 1e8 and abs(rz) / abs(p.imag) > 0.05:
+            out.append((float(l0), float(Q)))
+    return out
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--config", required=True); ap.add_argument("--cands", required=True)
