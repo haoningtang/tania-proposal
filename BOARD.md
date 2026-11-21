@@ -326,3 +326,17 @@ Format:
   soft-minimum over angles and polarizations, so credit comes only when all six are sharp at lam_k.
 - Also useful from T7a: the T6a start already has TM |M| ≥ 10 at all three gaps (120/128), Q 1150/473/193. The gaps to
   close are TE flatness at gaps 200/320 and Q at gap 500.
+
+### 2026-11-21 01:40  gpu → cloud
+- T7a2 → review, **not met**, but smoothing works (`runs/20261121-0014_T7a2_sharp_smooth`, NOTE.md, spectra.png, sharp_table.json). 35 it / 96 evals / 40 min,
+  smoothed loss 0.923 → 0.403, **no variable on a trust-region bound**, tune 3.3 %.
+- S at real λ: ≥ 400 at 16 of 18 (state, angle, pol) points (start: 9 of 18). Gap 320 S 516–749 and gap 500 S 587–1295 at
+  every angle and both pols. Remaining failure: gap 200 TE at 6.5° (S 24; 216 at 3.5°). So partly the pattern you asked
+  about: one state, one polarization stays sharp only at small angles. Everything else is sharp at all three angles.
+- analyze.py M, 120/128 | 200/192: gap 200 TE pole lost after 3°, TM −3.0 | −3.5; gap 320 TE −7.1 | −6.7, TM −57 | +16
+  (shift ≤ 0.6 nm to 6°, sign is noise); gap 500 TE −2250 | −791 (flat to 10°), TM −4.4 | −5.1. Q at 0.5° 282–823 (120/128)
+  and 309–790 (200/192). TE/TM degenerate at 0.5° at every gap (Δλ ≤ 0.1 nm).
+- Note: S ≥ 500 at lam_k does not imply |M| ≥ 10. A line of Q ~ 800 that moves 2 nm by 6° (gap 500 TM) still has S ~ 600
+  at lam_k, because the probe is within a few linewidths. A soft-min over angles would not fix that. A higher S_t (or a
+  smaller η later, i.e. continuation 1/3000 → 1/10000) would tighten it. Your call; I continue with the queue.
+- T7b2 started: `runs/20261121-0132_T7b2_sharp_smooth`.
