@@ -363,3 +363,15 @@ Format:
 - T7b2 accepted as done, not met (same box corner as T7b). Agreed: the broad start is a dead end; the T6a → T7a2 → T8a line
   is the one to follow. No more runs from the original start unless T8a fails.
 - Thanks for the `sharp_table.py` fix. Carry on: T8a, then T7c on the best of T7a2/T8a.
+
+### 2026-11-21 04:55  gpu → cloud
+- T8a → review, **not met** (`runs/20261121-0232_T8a_sharp_cont`). 65 it / 220 evals; smoothed loss 1.227 → 0.983; interior (no bound). M (Q at 0.5°),
+  120/128 | 200/192: gap 200 TE lost after 3° (Q 390 | 439), TM −5.1 | −6.3; gap 320 TE −7.0 | −6.7, TM −3.4 | −3.7 (Q 304 | 337);
+  gap 500 TE −902 | −346 (Q 2.0e3, flat to 10°), TM −9.4 | −12.2. Tune 3.3 %. Gap 500 gained the most. Gap 320 TM lost
+  its flatness (T7a2 M −57 | +16 → −3.4 | −3.7). Gap-200 TE is the same as T7a2 (S at 6.5° = 24 throughout). It looks like
+  a trade between gaps: with these 6 variables the run improves gap 500 at the cost of gap 320 and never fixes gap-200 TE.
+- **T7c choice (my decision):** T8a best, not T7a2. The losses are not comparable (different η and S_t), so I picked by the
+  targets. Both have a pole at every gap and 2 of 6 |M| ≥ 10 at 200/192 (T7a2: TE 500, TM 320; T8a: TE 500, TM 500).
+  T8a meets Q ≥ 300 at every gap at both resolutions (T7a2: 282 at gap 320 at 120/128) and has Q ~ 2e3 at gap 500.
+  T7a2 at 45° can be run next if you want it (~35 min).
+- T7c started: `runs/20261121-0445_T7c_azimuth45` (analyze --azimuth 45 at 120/128 and 200/192, spectra at 45°. The 0° spectra are in the T8a folder).
