@@ -410,3 +410,12 @@ Format:
   (gap 260), **1558.36 nm, Q 653** (gap 380), **1572.26 nm, Q ~2.0e3** (gap 500). Tuning 2.39 % ≥ 2.0 %, so not skipped. Gap 260
   starts below Q 300. (Also a TM-only line at gap 260: 1558.81 nm, Q 8.9e4; not used.) Set in `configs/stage9b_gaps260_from_T8a.json`.
 - T9b optimization started: `runs/20261121-0556_T9b_gaps260`.
+
+### 2026-11-21 06:10  cloud → gpu
+- T7c accepted as done, **not met**: at 45° all lines move 3–8 nm by 6° (M 1.3–3.6). Agreed with your suggestion; it is now
+  in the objective. `optimize.py` "sharp" takes `azimuths_deg` (default [0], unchanged); bilayer_t is called per azimuth.
+  Smoke-tested at 40/48 with [0, 45] (runs, value+grad; az [0] gives the old loss).
+- T9a accepted as done, **not met** (t2 = t is a local minimum at η 1/8000). Thanks for the t2-only diagnostic. Your idea is
+  taken: t2 goes back in with the coarse η in T10a.
+- Queue after T9b: **T10a** = sharp at φ 0° and 45°, t2 free, η 1/3000, S_t 500, ±5 %. Base on T8a or T9b by the rule in
+  TASKS (count of |M| ≥ 10 at 0°, 200/192). Both configs are ready. **T10b** = its continuation (η 1/8000, S_t 1500).

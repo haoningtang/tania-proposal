@@ -109,13 +109,15 @@ def loss_sharp(z):
     eta = cfg.get("smooth_eta", 0.0)  # > 0: evaluate at complex lam*(1 + i eta), i.e. every line broadened by ~eta*lam.
     # Without it (T7a) log S is so rough at Q ~ 1e3 that L-BFGS-B could not take a step (7 it / 85 evals, no move).
     L_sh, L_dip = 0.0, 0.0
+    azs = cfg.get("azimuths_deg", [0.0])  # plane of incidence: 0 = along x, 45 = lattice diagonal (T7c: flat along x only)
     for k, st in enumerate(states):
+      for az in azs:
         lam = lams[k] * (1 + 1j * eta) if eta else lams[k]
         lam_pts = jnp.concatenate([jnp.full(th.shape, lam * (1 - e)), jnp.full(th.shape, lam * (1 + e)),
                                    jnp.full(th.shape, lam)])
         th_pts = jnp.concatenate([th, th, th])
         o = bilayer_t(lam_pts, th_pts, p["a"], p["t"], p["r"], st["gap"], shift=st.get("shift", 0.0),
-                      c4=p.get("c4", 0.0), c8=p.get("c8", 0.0), r2=p.get("r2"), t2=p.get("t2"), **kw)
+                      c4=p.get("c4", 0.0), c8=p.get("c8", 0.0), r2=p.get("r2"), t2=p.get("t2"), azimuth_deg=az, **kw)
         n = th.shape[0]
         for pol in ("TE", "TM"):
             t = o["t_" + pol]
@@ -124,9 +126,10 @@ def loss_sharp(z):
             L_dip = L_dip + jnp.mean(o["T_" + pol][2 * n:])  # T at complex lam if eta > 0 (unused, w_dip 0)
     tune = (jnp.max(lams) - jnp.min(lams)) / jnp.mean(lams)
     L_tune = jax.nn.relu(tune_min - tune) / tune_min
-    L = cfg.get("w_sharp", 1.0) * L_sh / (2 * K) + cfg.get("w_dip", 0.0) * L_dip / (2 * K) \
+    nA = len(azs)
+    L = cfg.get("w_sharp", 1.0) * L_sh / (2 * K * nA) + cfg.get("w_dip", 0.0) * L_dip / (2 * K * nA) \
         + cfg.get("w_tune", 1.0) * L_tune
-    return L, (L_dip / (2 * K), L_sh / (2 * K), tune)
+    return L, (L_dip / (2 * K * nA), L_sh / (2 * K * nA), tune)
 
 def loss_fn(z):
     if cfg.get("objective") == "sharp":

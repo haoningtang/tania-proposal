@@ -1,0 +1,99 @@
+{
+ "objective": "sharp",
+ "w_dip": 0.0,
+ "w_tune": 1.0,
+ "tune_min": 0.02,
+ "thetas_deg": [
+  0.5,
+  3.5,
+  6.5
+ ],
+ "n_terms": 120,
+ "ngrid": 128,
+ "maxiter": 80,
+ "bound_window_frac": 0.05,
+ "bound_window_abs": 0.005,
+ "lam_window_frac": 0.005,
+ "design_vars": [
+  "a",
+  "t",
+  "r",
+  "c4",
+  "c8",
+  "r2",
+  "t2"
+ ],
+ "fixed": {},
+ "bounds": {
+  "a": [
+   0.6,
+   0.9
+  ],
+  "t": [
+   0.15,
+   0.36
+  ],
+  "r": [
+   0.1,
+   0.34
+  ],
+  "c4": [
+   -0.05,
+   0.05
+  ],
+  "c8": [
+   -0.03,
+   0.03
+  ],
+  "r2": [
+   0.1,
+   0.34
+  ],
+  "t2": [
+   0.15,
+   0.36
+  ]
+ },
+ "lam_bounds": [
+  1.4,
+  1.7
+ ],
+ "note": "T10a (controller, 2026-11-21 06:10), base T9b best (gaps 260/380/500). Objective 'sharp' at azimuth 0 AND 45 deg (optimize.py azimuths_deg; T7c showed the T8a lines are flat along x only: M 1.3-3.6 at 45 deg), thetas 0.5/3.5/6.5 deg, both pols. Coarse smoothing again (eta 1/3000, S_t 500) because the 45-deg terms start far from the target; t2 free (start t2 = t; T9a showed t2 cannot move at eta 1/8000). Trust region +-5 %, lam_k +-0.5 %. 2x cost per eval.",
+ "init": {
+  "a": 0.72970735756897,
+  "t": 0.2793813505996486,
+  "r": 0.24235684304074726,
+  "c4": 0.0022054246717262502,
+  "c8": -0.00046343333916141604,
+  "r2": 0.23940209656282935,
+  "t2": 0.2793813505996486
+ },
+ "states": [
+  {
+   "gap": 0.26,
+   "shift": 0.0
+  },
+  {
+   "gap": 0.38,
+   "shift": 0.0
+  },
+  {
+   "gap": 0.5,
+   "shift": 0.0
+  }
+ ],
+ "init_lams": [
+  1.53508,
+  1.55836,
+  1.57226
+ ],
+ "fd_frac": 0.0001,
+ "sharp_target": 500.0,
+ "w_sharp": 1.0,
+ "smooth_eta": 0.0003333333333333333,
+ "init_from": "../runs/20261121-0556_T9b_gaps260/best.json",
+ "azimuths_deg": [
+  0.0,
+  45.0
+ ]
+}
