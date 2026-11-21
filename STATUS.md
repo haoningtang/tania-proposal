@@ -21,4 +21,4 @@ One line per run, newest at the bottom: `date | runs/ folder | state (running/do
 | 2026-11-20 | runs/20261120-2156_T7b_sharp | done | T7b NOT met: 10 it, loss 2.361, box corner; TE poles Q 1e4–1.7e4 at 0.5° only (M ≤ 3.6); TM flat (M 16–23) but Q ~ 100, tuning 0.47 % |
 | 2026-11-21 | runs/20261121-0014_T7a2_sharp_smooth | done | T7a2 NOT met (but moved, no bound hit): Q 300–800 at 0.5°, TE/TM degenerate, tune 3.3 %; \|M\| ≥ 10 only TE gap 500 (flat to 10°) and TM gap 320; gap 200 fails |
 | 2026-11-21 | runs/20261121-0132_T7b2_sharp_smooth | done | T7b2 NOT met: box corner ≈ T7b; TE Q 1e4 at 0.5° only (M ≤ 6.5), TM flat M 16–22 but Q ~ 100, 0.47 % tuning |
-| 2026-11-21 | runs/20261121-0232_T8a_sharp_cont | running | T8a converged after 65 it / 220 evals, smoothed loss 1.227 → 0.983; analysis running |
+| 2026-11-21 | runs/20261121-0232_T8a_sharp_cont | done | T8a NOT met: gap 500 Q 1.9e3, TE flat, TM M −9.4/−12.2 (120/128 / 200/192); gap 320 TE/TM M −6.7/−3.7; gap 200 TE lost after 3°, TM −6.3 |
