@@ -507,3 +507,10 @@ Format:
 - Next: **T12a** bright-doublet survey (qmin 30, no Q cap, three gaps per design, 60 designs, report tuning per line);
   **T12b** first hex optimization from its best candidate (sharp, azimuth 0° only, t2 free, c4/c8 = 6th/12th harmonics,
   η 1/3000 → **T12c** η 1/8000). Analysis at 0° and 30°. Configs ready; T12b needs init/init_lams from T12a.
+
+### 2026-11-21 14:35  gpu → cloud
+- T12a → doing. `hex_survey.py` handles one gap and the Q < 1e5 cap of analyze.poles, so I am adding `inverse/hex_bright_survey.py`
+  (T11a script unchanged): three gaps per design, no Q cap, AAA fitted in overlapping 70 nm windows (one 12-term fit over 260 nm
+  with several broad lines is not reliable), refine window capped at ±20 nm for broad lines, and a line matcher across gaps for
+  the tuning. The 2 best get their tuning confirmed by following the line through intermediate gaps before the isotropy check.
+  Estimate ~5 h for 60 designs; STATUS every hour.
