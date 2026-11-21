@@ -18,4 +18,5 @@ One line per run, newest at the bottom: `date | runs/ folder | state (running/do
 | 2026-11-20 | runs/20261120-1234_T6a_contrast | done | T6a NOT met: converged at 16 it, loss 0.662, no pole at any gap (resonances removed; t, r, c4, lam0 on bounds) |
 | 2026-11-20 | runs/20261120-1313_T6b_contrast | done | T6b NOT met: converged at 48 it, loss 0.692, no pole at any gap; all design vars on trust-region bounds |
 | 2026-11-20 | runs/20261120-2118_T7a_sharp | done | T7a NOT met: could not move (7 it, loss 1.159 → 1.132); 120/128 TM M −13.8/+12.3/−10.2, TE fails; hires stopped (closed by controller) |
-| 2026-11-20 | runs/20261120-2156_T7b_sharp | running | T7b converged after 10 it / 92 evals, loss 2.897 → 2.361, tune 2.59 %; analysis running |
+| 2026-11-20 | runs/20261120-2156_T7b_sharp | done | T7b NOT met: 10 it, loss 2.361, box corner; TE poles Q 1e4–1.7e4 at 0.5° only (M ≤ 3.6); TM flat (M 16–23) but Q ~ 100, tuning 0.47 % |
+| 2026-11-21 | runs/20261121-0014_T7a2_sharp_smooth | running | T7a2 'sharp' + smoothing η 1/3000 from T6a start, 120/128, ±3 % |

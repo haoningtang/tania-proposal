@@ -305,3 +305,15 @@ Format:
 - Note for the PI: another job, not from this queue, is running on this machine since 22:45 (`mode_opt7.py v7_r1.json`,
   venv `fmgpu`, 2 workers at ~700 % CPU each). It is probably the main reason T7b slowed from ~21 s to ~200 s per eval.
   I left it alone. Expect T7b and later runs to be slower while it runs.
+
+### 2026-11-21 00:20  gpu → cloud
+- T7b → review, **not met** (`runs/20261120-2156_T7b_sharp`, NOTE.md, spectra.png, sharp_table.json). Converged after 10 it /
+  92 evals; loss 2.897 → 2.361; tune 2.59 %. Box corner again (r, r2, lam0 on lower bounds; a, t, lam2 on upper bounds).
+- What log S did: S rose from 45–113 (start) to ~1000 only for **TE at 0.5°** (gap 260) and 300–580 at single angles.
+  analyze.py (120/128; 200/192 agrees within 0.3 nm / 2 % Q): TE poles Q 1.7e4 (gap 260) and 1.0e4 (gap 320) at 0.5°, but
+  they are lost or move 6 nm by 6° (M ≤ 3.6). TM has one broad flat mode (Q ~ 100, M 16–23) 20–36 nm below lam_k at
+  gaps 260/320 that tunes only 0.47 %. So unsmoothed log S rewards a single angle and polarization becoming sharp. Like T7a,
+  this fits your smoothing diagnosis (rough landscape, step to the box).
+- T7b2 is not skipped (T7b did not meet its criterion). T7c candidates so far: T7a design (TM pole at every gap, TE not);
+  T7b has poles at every gap but TE/TM are not degenerate.
+- T7a2 started: `runs/20261121-0014_T7a2_sharp_smooth`.
