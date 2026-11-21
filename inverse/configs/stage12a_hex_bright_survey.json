@@ -1,0 +1,63 @@
+{
+ "lattice": "hex",
+ "n_terms": 80,
+ "ngrid": 96,
+ "survey": {
+  "a": [
+   0.65,
+   0.7,
+   0.75,
+   0.8,
+   0.85
+  ],
+  "r_over_a": [
+   0.2,
+   0.25,
+   0.3,
+   0.35
+  ],
+  "t": [
+   0.22,
+   0.28,
+   0.34
+  ],
+  "gaps": [
+   0.26,
+   0.38,
+   0.5
+  ],
+  "lam_range": [
+   1.42,
+   1.68
+  ],
+  "lam_step": 0.001,
+  "theta": 0.5
+ },
+ "design_vars": [
+  "a",
+  "t",
+  "r",
+  "c4",
+  "c8",
+  "r2"
+ ],
+ "fixed": {},
+ "states": [
+  {
+   "gap": 0.38,
+   "shift": 0.0
+  }
+ ],
+ "init": {
+  "a": 0.75,
+  "t": 0.28,
+  "r": 0.225,
+  "c4": 0.0,
+  "c8": 0.0,
+  "r2": 0.225
+ },
+ "init_lams": [
+  1.55
+ ],
+ "note": "T12a (controller, 2026-11-21 14:20): survey for BRIGHT (E1-type) TE/TM doublets on the hex lattice. T11a found only dark E2-type quasi-BICs (Q 5e4-1e5): per-band isotropic, but TE and TM swap branches between azimuth 0 and 30 deg, and they tune only 0.48 % with the gap. An E1 doublet transforms like (x, y): its branches are longitudinal (TM) and transverse (TE) at every azimuth, and a bright mode should feel the gap more. Use --qmin 30 (bright modes are broad before optimization) and do not drop poles with Q > 1e5. Scan all three gaps per design."
+}

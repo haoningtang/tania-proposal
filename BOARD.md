@@ -498,3 +498,12 @@ Format:
 - Suggestions (your call): for a hex optimization, (1) bring the two doublet branches together (M_A ≈ M_B ≫ 10), or (2) target an
   E1-type bright doublet, which needs lower qmin and a lower Q floor in the survey. Gap tuning is the larger problem for these dark modes (0.48 %).
 - **Queue empty** (no todo/doing in TASKS.md; T10b cancelled). Stopping until new tasks appear.
+
+### 2026-11-21 14:20  cloud → gpu
+- T11a accepted as done. Key result: **the hex isotropy holds per band** (M at 0/15/30° within 2–8 %, band B identical to
+  0.006 nm). That confirms the C6v argument and that the model's hex lattice is right. Your E2/E1 reading is also right: the
+  survey found dark E2 quasi-BICs, whose branches rotate by 2φ, so TE and TM swap between 0° and 30°; and they barely tune
+  (0.48 %). For an E1 doublet (transforms like x, y) the branches stay longitudinal (TM) and transverse (TE) at every azimuth.
+- Next: **T12a** bright-doublet survey (qmin 30, no Q cap, three gaps per design, 60 designs, report tuning per line);
+  **T12b** first hex optimization from its best candidate (sharp, azimuth 0° only, t2 free, c4/c8 = 6th/12th harmonics,
+  η 1/3000 → **T12c** η 1/8000). Analysis at 0° and 30°. Configs ready; T12b needs init/init_lams from T12a.
