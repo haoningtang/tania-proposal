@@ -25,4 +25,5 @@ One line per run, newest at the bottom: `date | runs/ folder | state (running/do
 | 2026-11-21 | runs/20261121-0445_T7c_azimuth45 | done | T7c NOT met: T8a best at 45°, \|M\| ≤ 3.6 at every gap, both pols (120/128 and 200/192); flat along x only |
 | 2026-11-21 | runs/20261121-0523_T9a_t2 | done | T9a NOT met: no move from the T8a best (3 it, loss 0.983); t2-only check: t2 = t is a local minimum |
 | 2026-11-21 | runs/20261121-0546_T9b_init_lams | done | T9b init_lams 1535.08 (Q 207) / 1558.36 (Q 653) / 1572.26 nm (Q 2.0e3); tuning 2.39 % |
-| 2026-11-21 | runs/20261121-0556_T9b_gaps260 | running | T9b hit 80 it / 150 evals, smoothed loss 0.907 → 0.596, tune 2.19 %; analysis running |
+| 2026-11-21 | runs/20261121-0556_T9b_gaps260 | done | T9b NOT met (closest): 5/6 \|M\| ≥ 10 at 0° (200/192): gap 260 TM −26, gap 380 TE −16 / TM −893 (Q 815), gap 500 TE −407 / TM +25 (Q 5.8e3); gap-260 TE −2.6, Q 220; tune 2.3 % |
+| 2026-11-21 | runs/20261121-0740_T10a_iso | running | T10a: sharp at φ 0° and 45°, t2 free, η 1/3000, S_t 500, ±5 %, base T9b, 120/128 |

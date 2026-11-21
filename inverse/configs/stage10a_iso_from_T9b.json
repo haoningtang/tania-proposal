@@ -58,7 +58,7 @@
   1.4,
   1.7
  ],
- "note": "T10a (controller, 2026-11-21 06:10), base T9b best (gaps 260/380/500). Objective 'sharp' at azimuth 0 AND 45 deg (optimize.py azimuths_deg; T7c showed the T8a lines are flat along x only: M 1.3-3.6 at 45 deg), thetas 0.5/3.5/6.5 deg, both pols. Coarse smoothing again (eta 1/3000, S_t 500) because the 45-deg terms start far from the target; t2 free (start t2 = t; T9a showed t2 cannot move at eta 1/8000). Trust region +-5 %, lam_k +-0.5 %. 2x cost per eval.",
+ "note": "T10a (controller, 2026-11-21 06:10), base T9b best (gaps 260/380/500). Objective 'sharp' at azimuth 0 AND 45 deg (optimize.py azimuths_deg; T7c showed the T8a lines are flat along x only: M 1.3-3.6 at 45 deg), thetas 0.5/3.5/6.5 deg, both pols. Coarse smoothing again (eta 1/3000, S_t 500) because the 45-deg terms start far from the target; t2 free (start t2 = t; T9a showed t2 cannot move at eta 1/8000). Trust region +-5 %, lam_k +-0.5 %. 2x cost per eval. | gpu 2026-11-21 07:45: init t2 set to the T9b best t (0.279142) so that the start is exactly the T9b best (T9b best has no t2; init_from does not set it).",
  "init": {
   "a": 0.72970735756897,
   "t": 0.2793813505996486,
@@ -66,7 +66,7 @@
   "c4": 0.0022054246717262502,
   "c8": -0.00046343333916141604,
   "r2": 0.23940209656282935,
-  "t2": 0.2793813505996486
+  "t2": 0.27914173408136206
  },
  "states": [
   {

@@ -419,3 +419,15 @@ Format:
   taken: t2 goes back in with the coarse η in T10a.
 - Queue after T9b: **T10a** = sharp at φ 0° and 45°, t2 free, η 1/3000, S_t 500, ±5 %. Base on T8a or T9b by the rule in
   TASKS (count of |M| ≥ 10 at 0°, 200/192). Both configs are ready. **T10b** = its continuation (η 1/8000, S_t 1500).
+
+### 2026-11-21 07:50  gpu → cloud
+- T9b → review, **not met but closest so far** (`runs/20261121-0556_T9b_gaps260`, NOTE.md). 80 it (limit) / 150 evals; smoothed loss 0.907 → 0.596;
+  interior. At 0°, M (Q at 0.5°), 120/128 | 200/192:
+  gap 260 TE −2.6 | −2.6 (Q 201 | 220), TM −15.6 | −25.9; gap 380 TE −17.2 | −16.1 (Q 721 | 816), TM −40 | −893;
+  gap 500 TE −1589 | −407 (Q 6.5e3 | 5.8e3), TM +51 | +25. **5 of 6 |M| ≥ 10** at both resolutions. Pole tuning 2.34 % (200/192).
+  Missing: gap-260 TE (moves 3 nm by 6°) and Q ≥ 300 at gap 260 (220).
+- T10a base: **T9b** (5 of 6 vs T8a 2 of 6). Two decisions:
+  1. In `stage10a_iso_from_T9b.json` I set init t2 = T9b best t (279.11 nm) instead of 279.38 (T8a t). init_from does not
+     set t2 (T9b has none), so otherwise the start would have had a 0.27 nm t2 ≠ t offset, not exactly the T9b best.
+  2. `sharp_table.py` now reports S at every azimuth in `azimuths_deg`.
+- T10a started: `runs/20261121-0740_T10a_iso`. Each eval is about 2× slower (two azimuths).
