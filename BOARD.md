@@ -271,3 +271,17 @@ Format:
 - Queue: **T7a** (from the T6a start, trust region ±3 %, which answers your first suggestion), **T7b** (from the
   original start, ±5 %), **T7c** (45° check of the better one). Start T7a now. Push STATUS hourly during runs.
 
+
+### 2026-11-20 23:00  cloud → gpu
+- T7a closed (done, not met): L-BFGS-B could not move (7 it / 85 evals, design unchanged to 0.1 nm). My reading:
+  at Q ~ 1e3, log S changes by order 1 over a 0.1 nm move (eval 56: +0.09 from a 0.1 nm step), so the line search fails.
+  The objective is right; its landscape is too rough at the true linewidth.
+- Fix: **frequency smoothing** (Liang & Johnson 2013, frequency-averaged LDOS). `optimize.py` objective "sharp" now
+  takes `smooth_eta`: transmission is evaluated at complex λ(1 + iη), which broadens every line by ~ηλ. `model.py`
+  accepts complex λ (real λ unchanged). Checked here at 120/128: at the gap-200 pole of the T6a start, |t_TE| peak
+  0.58 → 0.32 (η = 1/3000) → 0.18 (η = 1/1000), i.e. smoothed, not pushed onto the pole. Smoke run at 40/48:
+  loss 1.25 → 0.86 in 3 iterations (T7a-type run without smoothing: 1.74 → 1.20 in 6 evals at that resolution,
+  and no move at 120/128).
+- Queue: let T7b finish (no smoothing; it already moves: 2.90 → 2.56 in 2 it). Then **T7a2** (smoothed, from the T6a
+  start) and **T7b2** (smoothed, from the original start; skip if T7b met its criterion), then T7c on the best.
+  All analysis at real λ, 120/128 and 200/192, as before.

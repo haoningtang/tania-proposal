@@ -106,9 +106,11 @@ def loss_sharp(z):
     all score badly."""
     p, lams = unpack(z)
     e = cfg.get("fd_frac", 3e-5); logSt = jnp.log(cfg.get("sharp_target", 1000.0))
+    eta = cfg.get("smooth_eta", 0.0)  # > 0: evaluate at complex lam*(1 + i eta), i.e. every line broadened by ~eta*lam.
+    # Without it (T7a) log S is so rough at Q ~ 1e3 that L-BFGS-B could not take a step (7 it / 85 evals, no move).
     L_sh, L_dip = 0.0, 0.0
     for k, st in enumerate(states):
-        lam = lams[k]
+        lam = lams[k] * (1 + 1j * eta) if eta else lams[k]
         lam_pts = jnp.concatenate([jnp.full(th.shape, lam * (1 - e)), jnp.full(th.shape, lam * (1 + e)),
                                    jnp.full(th.shape, lam)])
         th_pts = jnp.concatenate([th, th, th])
@@ -119,7 +121,7 @@ def loss_sharp(z):
             t = o["t_" + pol]
             S = jnp.abs(t[n:2 * n] - t[:n]) / (2 * e)
             L_sh = L_sh + jnp.mean(jax.nn.relu(logSt - jnp.log(S + 1e-6)))
-            L_dip = L_dip + jnp.mean(o["T_" + pol][2 * n:])
+            L_dip = L_dip + jnp.mean(o["T_" + pol][2 * n:])  # T at complex lam if eta > 0 (unused, w_dip 0)
     tune = (jnp.max(lams) - jnp.min(lams)) / jnp.mean(lams)
     L_tune = jax.nn.relu(tune_min - tune) / tune_min
     L = cfg.get("w_sharp", 1.0) * L_sh / (2 * K) + cfg.get("w_dip", 0.0) * L_dip / (2 * K) \

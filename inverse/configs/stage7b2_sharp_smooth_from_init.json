@@ -1,0 +1,88 @@
+{
+ "objective": "sharp",
+ "w_dip": 0.0,
+ "w_tune": 1.0,
+ "tune_min": 0.02,
+ "thetas_deg": [
+  0.5,
+  3.5,
+  6.5
+ ],
+ "n_terms": 120,
+ "ngrid": 128,
+ "maxiter": 80,
+ "bound_window_frac": 0.05,
+ "bound_window_abs": 0.005,
+ "lam_window_frac": 0.005,
+ "design_vars": [
+  "a",
+  "t",
+  "r",
+  "c4",
+  "c8",
+  "r2"
+ ],
+ "fixed": {},
+ "bounds": {
+  "a": [
+   0.6,
+   0.9
+  ],
+  "t": [
+   0.15,
+   0.36
+  ],
+  "r": [
+   0.1,
+   0.34
+  ],
+  "c4": [
+   -0.05,
+   0.05
+  ],
+  "c8": [
+   -0.03,
+   0.03
+  ],
+  "r2": [
+   0.1,
+   0.34
+  ]
+ },
+ "lam_bounds": [
+  1.4,
+  1.7
+ ],
+ "note": "T7b2 (controller, 2026-11-20 23:00): T7b + the same frequency smoothing as T7a2 (complex lam*(1 + i/3000), target S >= 500, fd 1e-4), from the original start, trust region +-5 %.",
+ "init": {
+  "a": 0.733,
+  "t": 0.26,
+  "r": 0.246,
+  "c4": 0.0,
+  "c8": 0.0,
+  "r2": 0.236
+ },
+ "states": [
+  {
+   "gap": 0.2,
+   "shift": 0.0
+  },
+  {
+   "gap": 0.26,
+   "shift": 0.0
+  },
+  {
+   "gap": 0.32,
+   "shift": 0.0
+  }
+ ],
+ "init_lams": [
+  1.502,
+  1.52,
+  1.526
+ ],
+ "fd_frac": 0.0001,
+ "sharp_target": 500.0,
+ "w_sharp": 1.0,
+ "smooth_eta": 0.0003333333333333333
+}

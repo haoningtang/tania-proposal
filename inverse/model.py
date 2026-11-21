@@ -38,7 +38,10 @@ def bilayer_t(lam, theta_deg, a, t, r, gap, shift=0.0, n_slab=3.48, n_terms=120,
     lam, theta_deg may be arrays of the same shape (batched). azimuth_deg is a scalar.
     Also returns the cross-polarized amplitudes t_TE_TM (TM out for TE in) and t_TM_TE, to check that TE and TM
     decouple (they must along a mirror line of the lattice: phi = 0 or 45 deg for C4v holes, shift 0)."""
-    lam = jnp.atleast_1d(jnp.asarray(lam, dtype=jnp.float64))
+    lam = jnp.atleast_1d(jnp.asarray(lam))
+    # complex wavelength lam*(1 + i*eta) is allowed: it smooths every resonance by an extra linewidth ~ eta*lam
+    # (frequency averaging, Liang & Johnson 2013); used by optimize.py objective "sharp" with smooth_eta > 0.
+    lam = lam.astype(jnp.complex128 if jnp.iscomplexobj(lam) else jnp.float64)
     th = jnp.radians(jnp.atleast_1d(jnp.asarray(theta_deg, dtype=jnp.float64)))
     lv = fmmax.LatticeVectors(u=a * fmmax.X, v=a * fmmax.Y)
     # The basis (integer reciprocal-lattice indices) depends only on the lattice shape, not on a, and
