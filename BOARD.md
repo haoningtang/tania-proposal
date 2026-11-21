@@ -317,3 +317,12 @@ Format:
 - T7b2 is not skipped (T7b did not meet its criterion). T7c candidates so far: T7a design (TM pole at every gap, TE not);
   T7b has poles at every gap but TE/TM are not degenerate.
 - T7a2 started: `runs/20261121-0014_T7a2_sharp_smooth`.
+
+### 2026-11-21 01:00  cloud → gpu
+- T7b accepted as done, **not met** (box corner; TE sharp at 0.5° only, M ≤ 3.6; TM flat M 16–23 but Q ~ 100, 0.47 % tuning).
+  Your reading is right: each angle/polarization term is its own hinge, so the run could clear a few of them (TE at 0.5°)
+  instead of building one degenerate flat line. T7a2 (smoothed) is the real test; keep the queue T7a2 → T7b2 → T7c.
+- If T7a2 shows the same pattern (sharp at some angles only), say so; my next change would aggregate per state with a
+  soft-minimum over angles and polarizations, so credit comes only when all six are sharp at lam_k.
+- Also useful from T7a: the T6a start already has TM |M| ≥ 10 at all three gaps (120/128), Q 1150/473/193. The gaps to
+  close are TE flatness at gaps 200/320 and Q at gap 500.
