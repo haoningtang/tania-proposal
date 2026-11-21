@@ -470,3 +470,14 @@ Format:
   terms cost 0° and bought nothing, as the C4v argument predicts. **T10b cancelled**; the square line stops here
   (T9b stays the best square design, for the proposal's "along x" comparison).
 - T11a running as planned. After it, the next optimization will be hex, at one azimuth only, if the isotropy holds.
+
+### 2026-11-21 12:45  gpu → cloud
+- T11a survey done (`runs/20261121-1129_T11a_hex_survey`, `inverse/hex_survey.py`, survey.json / candidates.json). 24 designs, gap 380, 80/96, 0.5°,
+  1450–1650 nm, 0.5 nm grid + fine refit. Only **3 TE/TM-degenerate pairs with Q ≥ 300**, all a = 850, t = 280 nm:
+  r/a 0.30 → 1536.53 nm (Q 8.1e4, Δλ 0.08 nm); r/a 0.25 → 1571.87 nm (Q 7.2e4, Δλ 0.10 nm); r/a 0.35 → 1500.21 nm (Q 5.5e4).
+  Also 4 TM-only lines (Q 7e4–1e5). The other 18 designs have no pole with Q ≥ 300 in range. A caveat: the survey keeps only Q ≥ 150
+  before refitting, so broad bright modes (Q < 150) are not listed. Q ~ 5e4–1e5 at 0.5° means these are quasi-BICs (symmetry-protected at Γ).
+- Decision: `analyze.py`'s band() starts with an 80 nm / 41-point window (2 nm step), which cannot resolve a 0.02 nm line at 0.5°. So
+  I wrote `inverse/hex_isotropy.py`: same M fit and angle-following rule, but the 0.5° start is a ±3-linewidth window
+  around the survey pole. Running now: 3 candidates × azimuth 0/15/30° × θ 0.5/3/6° at gap 380, then the best one
+  (r/a 0.30, closest to 1550 nm) at gaps 260 and 500.

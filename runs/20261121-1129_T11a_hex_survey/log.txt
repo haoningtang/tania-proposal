@@ -1,1 +1,30 @@
 {"a": 0.7, "r_over_a": 0.25, "t": 0.22, "nTE": 0, "nTM": 0, "pairs": [], "s": 181.2}
+/home/haoning/tania-proposal/.venv/lib/python3.13/site-packages/scipy/interpolate/_bary_rational.py:66: RuntimeWarning: AAA failed to converge within 12 iterations.
+  self._compute_weights(z, f, **kwargs)
+{"a": 0.7, "r_over_a": 0.25, "t": 0.28, "nTE": 0, "nTM": 0, "pairs": [], "s": 158.8}
+{"a": 0.7, "r_over_a": 0.3, "t": 0.22, "nTE": 0, "nTM": 0, "pairs": [], "s": 158.6}
+{"a": 0.7, "r_over_a": 0.3, "t": 0.28, "nTE": 0, "nTM": 0, "pairs": [], "s": 158.8}
+{"a": 0.7, "r_over_a": 0.35, "t": 0.22, "nTE": 0, "nTM": 0, "pairs": [], "s": 160.0}
+{"a": 0.7, "r_over_a": 0.35, "t": 0.28, "nTE": 0, "nTM": 0, "pairs": [], "s": 154.9}
+{"a": 0.75, "r_over_a": 0.25, "t": 0.22, "nTE": 0, "nTM": 0, "pairs": [], "s": 145.9}
+{"a": 0.75, "r_over_a": 0.25, "t": 0.28, "nTE": 0, "nTM": 0, "pairs": [], "s": 158.5}
+{"a": 0.75, "r_over_a": 0.3, "t": 0.22, "nTE": 0, "nTM": 0, "pairs": [], "s": 161.4}
+{"a": 0.75, "r_over_a": 0.3, "t": 0.28, "nTE": 0, "nTM": 1, "pairs": [], "s": 178.1}
+{"a": 0.75, "r_over_a": 0.35, "t": 0.22, "nTE": 0, "nTM": 0, "pairs": [], "s": 161.2}
+{"a": 0.75, "r_over_a": 0.35, "t": 0.28, "nTE": 0, "nTM": 0, "pairs": [], "s": 160.2}
+{"a": 0.8, "r_over_a": 0.25, "t": 0.22, "nTE": 0, "nTM": 0, "pairs": [], "s": 158.0}
+{"a": 0.8, "r_over_a": 0.25, "t": 0.28, "nTE": 0, "nTM": 0, "pairs": [], "s": 158.7}
+{"a": 0.8, "r_over_a": 0.3, "t": 0.22, "nTE": 0, "nTM": 0, "pairs": [], "s": 156.3}
+{"a": 0.8, "r_over_a": 0.3, "t": 0.28, "nTE": 0, "nTM": 1, "pairs": [], "s": 170.5}
+{"a": 0.8, "r_over_a": 0.35, "t": 0.22, "nTE": 0, "nTM": 0, "pairs": [], "s": 159.3}
+{"a": 0.8, "r_over_a": 0.35, "t": 0.28, "nTE": 0, "nTM": 0, "pairs": [], "s": 156.5}
+{"a": 0.85, "r_over_a": 0.25, "t": 0.22, "nTE": 0, "nTM": 0, "pairs": [], "s": 154.5}
+{"a": 0.85, "r_over_a": 0.25, "t": 0.28, "nTE": 1, "nTM": 1, "pairs": [[1571.87, 72063]], "s": 202.5}
+{"a": 0.85, "r_over_a": 0.3, "t": 0.22, "nTE": 0, "nTM": 1, "pairs": [], "s": 165.9}
+{"a": 0.85, "r_over_a": 0.3, "t": 0.28, "nTE": 1, "nTM": 1, "pairs": [[1536.53, 80799]], "s": 194.0}
+{"a": 0.85, "r_over_a": 0.35, "t": 0.22, "nTE": 0, "nTM": 0, "pairs": [], "s": 155.1}
+{"a": 0.85, "r_over_a": 0.35, "t": 0.28, "nTE": 1, "nTM": 2, "pairs": [[1500.21, 55107]], "s": 210.0}
+candidates (closest to 1550 nm):
+  a 850 r/a 0.30 t 280: lam 1536.53 nm  dlam +0.079  Q 80799/80961
+  a 850 r/a 0.25 t 280: lam 1571.87 nm  dlam +0.104  Q 72063/72269
+  a 850 r/a 0.35 t 280: lam 1500.21 nm  dlam -0.008  Q 55529/55107
