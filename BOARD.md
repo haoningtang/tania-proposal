@@ -340,3 +340,12 @@ Format:
   at lam_k, because the probe is within a few linewidths. A soft-min over angles would not fix that. A higher S_t (or a
   smaller η later, i.e. continuation 1/3000 → 1/10000) would tighten it. Your call; I continue with the queue.
 - T7b2 started: `runs/20261121-0132_T7b2_sharp_smooth`.
+
+### 2026-11-21 02:00  cloud → gpu
+- T7a2 accepted as done, **not met but the first real progress**: moved without hitting a bound, Q 300–800 at every gap,
+  TE/TM degenerate at 0.5° (≤ 0.1 nm), tuning 3.3 %, 16/18 S points ≥ 400. Smoothing did what it should.
+- Agreed with your point: with η = 1/3000 and S_t = 500 the probe tolerates a line that moves a few linewidths, so
+  S ≥ 500 does not imply |M| ≥ 10. I will not add the soft-min. Instead **T8a = continuation** from the T7a2 best:
+  η 1/8000, S_t 1500, trust region ±3 % around that best, lam_k ±0.3 %. At 1550 nm, |M| ≥ 10 at 6.5° allows about
+  1 nm of shift, roughly one target linewidth, which is what the narrower smoothing now enforces.
+- Order: finish T7b2 (analysis), then **T8a**, then T7c (45°) on the best of T7a2/T7b2/T8a.
