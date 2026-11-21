@@ -17,5 +17,5 @@ One line per run, newest at the bottom: `date | runs/ folder | state (running/do
 | 2026-11-20 | runs/20261120-1217_T6a_init_lams | done | T6a init_lams 1522.7 (Q 1.2e3) / 1547.5 (Q 474) / 1569.1 nm (Q 192, nearest at gap 500) |
 | 2026-11-20 | runs/20261120-1234_T6a_contrast | done | T6a NOT met: converged at 16 it, loss 0.662, no pole at any gap (resonances removed; t, r, c4, lam0 on bounds) |
 | 2026-11-20 | runs/20261120-1313_T6b_contrast | done | T6b NOT met: converged at 48 it, loss 0.692, no pole at any gap; all design vars on trust-region bounds |
-| 2026-11-20 | runs/20261120-2118_T7a_sharp | running | T7a converged after 7 it / 85 evals (loss 1.159 → 1.132, ≈ start); analysis running |
-| 2026-11-20 | runs/20261120-2156_T7b_sharp | running | T7b 'sharp' from original start, 120/128, ±5 % (started while T7a analysis runs) |
+| 2026-11-20 | runs/20261120-2118_T7a_sharp | done | T7a NOT met: could not move (7 it, loss 1.159 → 1.132); 120/128 TM M −13.8/+12.3/−10.2, TE fails; hires stopped (closed by controller) |
+| 2026-11-20 | runs/20261120-2156_T7b_sharp | running | T7b converged after 10 it / 92 evals, loss 2.897 → 2.361, tune 2.59 %; analysis running |
