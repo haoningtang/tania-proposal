@@ -17,3 +17,4 @@ One line per run, newest at the bottom: `date | runs/ folder | state (running/do
 | 2026-11-20 | runs/20261120-1217_T6a_init_lams | done | T6a init_lams 1522.7 (Q 1.2e3) / 1547.5 (Q 474) / 1569.1 nm (Q 192, nearest at gap 500) |
 | 2026-11-20 | runs/20261120-1234_T6a_contrast | done | T6a NOT met: converged at 16 it, loss 0.662, no pole at any gap (resonances removed; t, r, c4, lam0 on bounds) |
 | 2026-11-20 | runs/20261120-1313_T6b_contrast | done | T6b NOT met: converged at 48 it, loss 0.692, no pole at any gap; all design vars on trust-region bounds |
+| 2026-11-20 | runs/20261120-2118_T7a_sharp | running | T7a 'sharp' objective from T6a start, 120/128, ±3 % |
