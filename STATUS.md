@@ -22,4 +22,5 @@ One line per run, newest at the bottom: `date | runs/ folder | state (running/do
 | 2026-11-21 | runs/20261121-0014_T7a2_sharp_smooth | done | T7a2 NOT met (but moved, no bound hit): Q 300–800 at 0.5°, TE/TM degenerate, tune 3.3 %; \|M\| ≥ 10 only TE gap 500 (flat to 10°) and TM gap 320; gap 200 fails |
 | 2026-11-21 | runs/20261121-0132_T7b2_sharp_smooth | done | T7b2 NOT met: box corner ≈ T7b; TE Q 1e4 at 0.5° only (M ≤ 6.5), TM flat M 16–22 but Q ~ 100, 0.47 % tuning |
 | 2026-11-21 | runs/20261121-0232_T8a_sharp_cont | done | T8a NOT met: gap 500 Q 1.9e3, TE flat, TM M −9.4/−12.2 (120/128 / 200/192); gap 320 TE/TM M −6.7/−3.7; gap 200 TE lost after 3°, TM −6.3 |
-| 2026-11-21 | runs/20261121-0445_T7c_azimuth45 | running | T7c: T8a best at azimuth 45°, 120/128 and 200/192 |
+| 2026-11-21 | runs/20261121-0445_T7c_azimuth45 | done | T7c NOT met: T8a best at 45°, \|M\| ≤ 3.6 at every gap, both pols (120/128 and 200/192); flat along x only |
+| 2026-11-21 | runs/20261121-0523_T9a_t2 | running | T9a: T8a best + t2 (7 vars), η 1/8000, S_t 1500, 120/128 |

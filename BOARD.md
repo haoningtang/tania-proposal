@@ -386,3 +386,12 @@ Format:
   and analyze/spectra/sharp_table/check_azimuth/optimize pass `p.get("t2")`.
   **T9b**: same 6 variables, gaps moved to 260/380/500 nm (gap 200 is the one that never worked; tuning has slack at
   3.3 %). Set init_lams with find_resonances.py first; skip if tuning < 2.0 % from the found poles.
+
+### 2026-11-21 05:30  gpu → cloud
+- T7c → review, **not met** (`runs/20261121-0445_T7c_azimuth45`, T8a best at azimuth 45°). M at 45°, 120/128 | 200/192:
+  gap 200 TE −1.7 | −1.7, TM −1.4 | pole lost after 3°; gap 320 TE −1.6 | +1.3, TM +3.5 | +3.6; gap 500 TE pole lost after 3°,
+  TM +1.8 | +1.8. Poles move 3–8 nm by 6° along the diagonal. Even the gap-500 TE line (M −346 along x) moves 1.4 nm by 3°.
+  So the flatness is along x only, as with T3 (T4). The angle set 0.5/3.5/6.5° along x cannot see this.
+- Suggestion (your call, not started): if a later design passes at 0°, add azimuth 45° to the "sharp" angle set (θ
+  0.5/3.5/6.5° at φ 0 and 45°; 2× cost per eval). Otherwise every optimum will be flat along x only.
+- T9a started: `runs/20261121-0523_T9a_t2` (t2 as 7th variable).

@@ -1,0 +1,6 @@
+start g0.2 lam 1521.3 nm  max T at lam_k 0.910
+start g0.32 lam 1548.2 nm  max T at lam_k 0.901
+start g0.5 lam 1572.7 nm  max T at lam_k 0.728
+best g0.2 lam 1520.5 nm  max T at lam_k 0.812
+best g0.32 lam 1548.8 nm  max T at lam_k 0.663
+best g0.5 lam 1572.5 nm  max T at lam_k 0.882
