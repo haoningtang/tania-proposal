@@ -26,4 +26,4 @@ One line per run, newest at the bottom: `date | runs/ folder | state (running/do
 | 2026-11-21 | runs/20261121-0523_T9a_t2 | done | T9a NOT met: no move from the T8a best (3 it, loss 0.983); t2-only check: t2 = t is a local minimum |
 | 2026-11-21 | runs/20261121-0546_T9b_init_lams | done | T9b init_lams 1535.08 (Q 207) / 1558.36 (Q 653) / 1572.26 nm (Q 2.0e3); tuning 2.39 % |
 | 2026-11-21 | runs/20261121-0556_T9b_gaps260 | done | T9b NOT met (closest): 5/6 \|M\| ≥ 10 at 0° (200/192): gap 260 TM −26, gap 380 TE −16 / TM −893 (Q 815), gap 500 TE −407 / TM +25 (Q 5.8e3); gap-260 TE −2.6, Q 220; tune 2.3 % |
-| 2026-11-21 | runs/20261121-0740_T10a_iso | running | T10a eval 118 (09:20): smoothed loss 0.704 → 0.420, tune 2.34 % |
+| 2026-11-21 | runs/20261121-0740_T10a_iso | running | T10a converged after 59 it / 162 evals, smoothed loss 0.704 → 0.420, tune 2.34 %; analysis (0°/45°, 2 resolutions) running |
