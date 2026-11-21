@@ -1,0 +1,32 @@
+{
+ "settings": {
+  "n_terms": 80,
+  "ngrid": 96,
+  "lattice": "hex",
+  "gap": 0.38,
+  "lam_range": [
+   1.45,
+   1.65
+  ],
+  "lam_step": 0.0005,
+  "theta": 0.5,
+  "qmin": 300,
+  "pair_tol": 0.0002
+ },
+ "designs": [
+  {
+   "p": {
+    "a": 0.7,
+    "r_over_a": 0.25,
+    "t": 0.22,
+    "r": 0.175
+   },
+   "poles": {
+    "TE": [],
+    "TM": []
+   },
+   "pairs": [],
+   "wall_s": 181.2
+  }
+ ]
+}
