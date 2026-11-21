@@ -1,0 +1,94 @@
+{
+ "objective": "sharp",
+ "w_dip": 0.0,
+ "w_tune": 1.0,
+ "tune_min": 0.02,
+ "thetas_deg": [
+  0.5,
+  3.5,
+  6.5
+ ],
+ "n_terms": 120,
+ "ngrid": 128,
+ "maxiter": 80,
+ "bound_window_frac": 0.03,
+ "bound_window_abs": 0.005,
+ "lam_window_frac": 0.003,
+ "design_vars": [
+  "a",
+  "t",
+  "r",
+  "c4",
+  "c8",
+  "r2",
+  "t2"
+ ],
+ "fixed": {},
+ "bounds": {
+  "a": [
+   0.6,
+   0.9
+  ],
+  "t": [
+   0.15,
+   0.36
+  ],
+  "r": [
+   0.1,
+   0.34
+  ],
+  "c4": [
+   -0.05,
+   0.05
+  ],
+  "c8": [
+   -0.03,
+   0.03
+  ],
+  "r2": [
+   0.1,
+   0.34
+  ],
+  "t2": [
+   0.15,
+   0.36
+  ]
+ },
+ "lam_bounds": [
+  1.4,
+  1.7
+ ],
+ "note": "T9a (controller, 2026-11-21 05:10): T8a best + one new design variable, the second-slab thickness t2 (start t2 = t; model.py/analyze/spectra/sharp_table now pass t2). Same objective as T8a (sharp, eta 1/8000, S_t 1500), trust region +-3 % around the T8a best, lam_k +-0.3 %. Reason: T7a2 -> T8a traded gap 320 for gap 500 with 6 variables; t2 breaks the up/down symmetry of the bilayer and gives the TE and TM bands of each gap a separate knob.",
+ "init": {
+  "a": 0.72970735756897,
+  "t": 0.2793813505996486,
+  "r": 0.24235684304074726,
+  "c4": 0.0022054246717262502,
+  "c8": -0.00046343333916141604,
+  "r2": 0.23940209656282935,
+  "t2": 0.2793813505996486
+ },
+ "states": [
+  {
+   "gap": 0.2,
+   "shift": 0.0
+  },
+  {
+   "gap": 0.32,
+   "shift": 0.0
+  },
+  {
+   "gap": 0.5,
+   "shift": 0.0
+  }
+ ],
+ "init_lams": [
+  1.5205350780822038,
+  1.5487983484024055,
+  1.5724659821700544
+ ],
+ "fd_frac": 3e-05,
+ "sharp_target": 1500.0,
+ "w_sharp": 1.0,
+ "smooth_eta": 0.000125
+}

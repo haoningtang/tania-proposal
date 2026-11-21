@@ -29,7 +29,7 @@ def scan(p, st, lams, th, kw, chunk=16):
     tTE, tTM = [], []
     for i in range(0, len(lams), chunk):
         o = bilayer_t(lams[i:i + chunk], th, p["a"], p["t"], p["r"], st.get("gap"), shift=st.get("shift", 0.0),
-                      c4=p.get("c4", 0.0), c8=p.get("c8", 0.0), r2=p.get("r2"), **kw)
+                      c4=p.get("c4", 0.0), c8=p.get("c8", 0.0), r2=p.get("r2"), t2=p.get("t2"), **kw)
         tTE.append(np.asarray(o["t_TE"])); tTM.append(np.asarray(o["t_TM"]))
     return {"TE": np.concatenate(tTE), "TM": np.concatenate(tTM)}
 

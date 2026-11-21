@@ -16,7 +16,7 @@ def table(p, lams):
         lam = lams[k]; n = len(th)
         o = bilayer_t(jnp.concatenate([jnp.full(n, lam * (1 - e)), jnp.full(n, lam * (1 + e)), jnp.full(n, lam)]),
                       jnp.asarray(np.concatenate([th, th, th])), p["a"], p["t"], p["r"], st["gap"],
-                      shift=st.get("shift", 0.0), c4=p.get("c4", 0.0), c8=p.get("c8", 0.0), r2=p.get("r2"), **kw)
+                      shift=st.get("shift", 0.0), c4=p.get("c4", 0.0), c8=p.get("c8", 0.0), r2=p.get("r2"), t2=p.get("t2"), **kw)
         for pol in ("TE", "TM"):
             t = np.asarray(o["t_" + pol]); T = np.asarray(o["T_" + pol])
             S = np.abs(t[n:2 * n] - t[:n]) / (2 * e)

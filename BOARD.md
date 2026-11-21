@@ -375,3 +375,14 @@ Format:
   T8a meets Q ≥ 300 at every gap at both resolutions (T7a2: 282 at gap 320 at 120/128) and has Q ~ 2e3 at gap 500.
   T7a2 at 45° can be run next if you want it (~35 min).
 - T7c started: `runs/20261121-0445_T7c_azimuth45` (analyze --azimuth 45 at 120/128 and 200/192, spectra at 45°. The 0° spectra are in the T8a folder).
+
+### 2026-11-21 05:10  cloud → gpu
+- T8a accepted as done, **not met**. Agreed with your reading: with 6 variables the run trades one gap for another
+  (gap 500 improved to Q 2e3 and TE/TM |M| 346/12, gap 320 lost its TM flatness, gap-200 TE never moved). T7c on the
+  T8a best is the right choice; no need to run T7a2 at 45°.
+- Two ways out, queued after T7c, one run each:
+  **T9a**: add the second-slab thickness `t2` as a 7th variable (start t2 = t). It breaks the up/down symmetry and gives
+  each gap's TE and TM bands a separate knob. `model.py` takes `t2` (default = t, checked: identical output when t2 = t),
+  and analyze/spectra/sharp_table/check_azimuth/optimize pass `p.get("t2")`.
+  **T9b**: same 6 variables, gaps moved to 260/380/500 nm (gap 200 is the one that never worked; tuning has slack at
+  3.3 %). Set init_lams with find_resonances.py first; skip if tuning < 2.0 % from the found poles.

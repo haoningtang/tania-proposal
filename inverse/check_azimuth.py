@@ -18,7 +18,7 @@ p = json.loads(args.params); kw = dict(n_terms=args.n_terms, ngrid=args.ngrid)
 lam = np.array([1.48, 1.50, 1.52, 1.55, 1.48, 1.50, 1.52, 1.55])
 th = np.array([0.5, 0.5, 0.5, 0.5, 6.0, 6.0, 6.0, 6.0])
 call = lambda f, az: f(lam, th, p["a"], p["t"], p["r"], args.gap, c4=p.get("c4", 0.0), c8=p.get("c8", 0.0),
-                       r2=p.get("r2"), **kw, **({} if az is None else {"azimuth_deg": az}))
+                       r2=p.get("r2"), t2=p.get("t2"), **kw, **({} if az is None else {"azimuth_deg": az}))
 o0, o90, o45 = call(bilayer_t, 0.0), call(bilayer_t, 90.0), call(bilayer_t, 45.0)
 res = {}
 if args.old:

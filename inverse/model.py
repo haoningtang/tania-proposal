@@ -31,7 +31,7 @@ def hole_eps(r, a, n_slab, ngrid, sx=0.0, sy=0.0, smooth=1.0, c4=0.0, c8=0.0):
     return 1.0 + (n_slab**2 - 1.0) * fill
 
 
-def bilayer_t(lam, theta_deg, a, t, r, gap, shift=0.0, n_slab=3.48, n_terms=120, ngrid=128, r2=None, c4=0.0, c8=0.0,
+def bilayer_t(lam, theta_deg, a, t, r, gap, shift=0.0, n_slab=3.48, n_terms=120, ngrid=128, r2=None, c4=0.0, c8=0.0, t2=None,
               azimuth_deg=0.0):
     """Complex zero-order transmission (t_TE, t_TM) and powers (T_TE, T_TM).
 
@@ -63,7 +63,8 @@ def bilayer_t(lam, theta_deg, a, t, r, gap, shift=0.0, n_slab=3.48, n_terms=120,
         S = fmmax.stack_s_matrix([vac, s1, vac], [jnp.zeros(()), jnp.asarray(t), jnp.zeros(())])
     else:
         S = fmmax.stack_s_matrix([vac, s1, vac, s2, vac],
-                                 [jnp.zeros(()), jnp.asarray(t), jnp.asarray(gap), jnp.asarray(t), jnp.zeros(())])
+                                 [jnp.zeros(()), jnp.asarray(t), jnp.asarray(gap), jnp.asarray(t if t2 is None else t2),
+                                  jnp.zeros(())])  # t2: second-slab thickness (default = t)
     nb = exp.num_terms
     i0 = int(np.argmin(np.sum(np.abs(np.asarray(exp.basis_coefficients)), axis=1)))  # zero order
     out = {}

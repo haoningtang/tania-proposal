@@ -81,7 +81,7 @@ def loss_contrast(z):
                                    jnp.full(th.shape, lam * (1 + d))])
         th_pts = jnp.concatenate([th, th, th])
         o = bilayer_t(lam_pts, th_pts, p["a"], p["t"], p["r"], st["gap"], shift=st.get("shift", 0.0),
-                      c4=p.get("c4", 0.0), c8=p.get("c8", 0.0), r2=p.get("r2"), **kw)
+                      c4=p.get("c4", 0.0), c8=p.get("c8", 0.0), r2=p.get("r2"), t2=p.get("t2"), **kw)
         n = th.shape[0]
         for pol in ("T_TE", "T_TM"):
             T = o[pol]
@@ -115,7 +115,7 @@ def loss_sharp(z):
                                    jnp.full(th.shape, lam)])
         th_pts = jnp.concatenate([th, th, th])
         o = bilayer_t(lam_pts, th_pts, p["a"], p["t"], p["r"], st["gap"], shift=st.get("shift", 0.0),
-                      c4=p.get("c4", 0.0), c8=p.get("c8", 0.0), r2=p.get("r2"), **kw)
+                      c4=p.get("c4", 0.0), c8=p.get("c8", 0.0), r2=p.get("r2"), t2=p.get("t2"), **kw)
         n = th.shape[0]
         for pol in ("TE", "TM"):
             t = o["t_" + pol]
@@ -141,7 +141,7 @@ def loss_fn(z):
                                    jnp.full(th.shape, lam * (1 + dl_frac))])
         th_pts = jnp.concatenate([th, th, th])
         o = bilayer_t(lam_pts, th_pts, p["a"], p["t"], p["r"], st["gap"], shift=st.get("shift", 0.0),
-                      c4=p.get("c4", 0.0), c8=p.get("c8", 0.0), r2=p.get("r2"), **kw)
+                      c4=p.get("c4", 0.0), c8=p.get("c8", 0.0), r2=p.get("r2"), t2=p.get("t2"), **kw)
         n = th.shape[0]
         for pol in ("T_TE", "T_TM"):
             T = o[pol]

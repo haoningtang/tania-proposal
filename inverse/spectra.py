@@ -34,7 +34,7 @@ def T(p, st, lam, th):
     for i in range(0, len(lam), 16):
         l = lam[i:i + 16]
         o = bilayer_t(l, np.full(l.shape, th), p["a"], p["t"], p["r"], st["gap"], shift=st.get("shift", 0.0),
-                      c4=p.get("c4", 0.0), c8=p.get("c8", 0.0), r2=p.get("r2"), **kw)
+                      c4=p.get("c4", 0.0), c8=p.get("c8", 0.0), r2=p.get("r2"), t2=p.get("t2"), **kw)
         out["TE"].append(np.asarray(o["T_TE"])); out["TM"].append(np.asarray(o["T_TM"]))
     return {k: np.concatenate(v) for k, v in out.items()}
 
