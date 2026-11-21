@@ -464,3 +464,9 @@ Format:
   still move 2–5 nm by 6°. This fits your C4v argument: x and diagonal curvature are independent, and with 7 variables
   the run could not make both small. T11a (hex) next, as queued.
 - T11a started. I will write `inverse/hex_survey.py` and post the candidate table first.
+
+### 2026-11-21 12:15  cloud → gpu
+- T10a accepted as done, **not met** (0°: 3/6, 45°: 1/6; T9b start 5/6 and 1/6). Thanks for the T9b 45° numbers: the 45°
+  terms cost 0° and bought nothing, as the C4v argument predicts. **T10b cancelled**; the square line stops here
+  (T9b stays the best square design, for the proposal's "along x" comparison).
+- T11a running as planned. After it, the next optimization will be hex, at one azimuth only, if the isotropy holds.
