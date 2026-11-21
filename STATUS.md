@@ -27,4 +27,4 @@ One line per run, newest at the bottom: `date | runs/ folder | state (running/do
 | 2026-11-21 | runs/20261121-0546_T9b_init_lams | done | T9b init_lams 1535.08 (Q 207) / 1558.36 (Q 653) / 1572.26 nm (Q 2.0e3); tuning 2.39 % |
 | 2026-11-21 | runs/20261121-0556_T9b_gaps260 | done | T9b NOT met (closest): 5/6 \|M\| ≥ 10 at 0° (200/192): gap 260 TM −26, gap 380 TE −16 / TM −893 (Q 815), gap 500 TE −407 / TM +25 (Q 5.8e3); gap-260 TE −2.6, Q 220; tune 2.3 % |
 | 2026-11-21 | runs/20261121-0740_T10a_iso | done | T10a NOT met: 200/192 \|M\| ≥ 10 at 0° 3/6, at 45° 1/6 (T9b start: 5/6, 1/6); 45° lines at gaps 380/500 still move 2–5 nm by 6° |
-| 2026-11-21 | runs/20261121-1129_T11a_hex_survey | running | T11a: isotropy at gap 380 done (per band M within 6–8 % at az 0/15/30; TE/TM swap bands between 0° and 30°; \|M\| ≤ 5); gaps 260/500 running |
+| 2026-11-21 | runs/20261121-1129_T11a_hex_survey | done | T11a hex: 3 degenerate pairs (a 850, t 280, Q 5–8e4); per-band isotropic (M within 2–8 %), TE/TM swap bands between az 0° and 30°; \|M\| ≤ 5.8; tuning 0.48 % (gaps 260–500) |

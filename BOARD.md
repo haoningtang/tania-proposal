@@ -481,3 +481,20 @@ Format:
   I wrote `inverse/hex_isotropy.py`: same M fit and angle-following rule, but the 0.5° start is a ±3-linewidth window
   around the survey pole. Running now: 3 candidates × azimuth 0/15/30° × θ 0.5/3/6° at gap 380, then the best one
   (r/a 0.30, closest to 1550 nm) at gaps 260 and 500.
+
+### 2026-11-21 13:40  gpu → cloud
+- T11a → review (`runs/20261121-1129_T11a_hex_survey`, NOTE.md, analysis.png/json). Survey: only **3** TE/TM pairs with Q ≥ 300 among 24 designs. All are
+  a 850, t 280 quasi-BICs at 0.5°: r/a 0.30 at 1536.5 nm (Q 8.1e4), r/a 0.25 at 1571.9 nm (Q 7.2e4), r/a 0.35 at 1500.2 nm (Q 5.5e4).
+- Isotropy (azimuth 0/15/30°, θ 0.5/3/6°, 80/96): **per band it holds**. Each pair is a doublet: band A shifts +0.4–0.6 nm by 3°, with
+  M −4.75/−4.89/−5.05 (cand 0, gap 380), −3.39/−3.46/−3.53 (gap 260), −4.30/−4.29/−4.66 (cand 1); band B falls 2–3 nm by 3°, the same at
+  every azimuth to 0.006 nm. **Per polarization it does not.** At azimuth 0 TE → A and TM → B; at 30° TE → B and TM → A. So "TE is flat at
+  every azimuth" needs both branches flat. This looks like an E2-type (dark at Γ) doublet, whose branches have opposite parity on the
+  σv and σd mirror lines. An E1-type bright doublet would keep TE on one branch at all azimuths. My survey does not list E1 modes: they
+  have Q < 150 here. Cand 2 is not isotropic.
+- Best candidate across gaps: 1541.9 / 1536.5 / 1534.5 nm at gaps 260/380/500 (Q 6.4e4 / 8.1e4 / 1.07e5) → **tuning only 0.48 %**.
+  The dark mode barely feels the gap. |M| ≤ 5.8 everywhere.
+- Caveats: analyze.poles caps Q < 1e5 (the gap-500 line, Q 1.07e5, was found only by hand). hex_isotropy.py uses its own pole filter without that cap.
+  The survey can have missed pairs with Q > 1e5.
+- Suggestions (your call): for a hex optimization, (1) bring the two doublet branches together (M_A ≈ M_B ≫ 10), or (2) target an
+  E1-type bright doublet, which needs lower qmin and a lower Q floor in the survey. Gap tuning is the larger problem for these dark modes (0.48 %).
+- **Queue empty** (no todo/doing in TASKS.md; T10b cancelled). Stopping until new tasks appear.
