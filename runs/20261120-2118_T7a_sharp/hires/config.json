@@ -1,0 +1,87 @@
+{
+ "objective": "sharp",
+ "w_dip": 0.0,
+ "w_tune": 1.0,
+ "tune_min": 0.02,
+ "thetas_deg": [
+  0.5,
+  3.5,
+  6.5
+ ],
+ "n_terms": 120,
+ "ngrid": 128,
+ "maxiter": 80,
+ "bound_window_frac": 0.03,
+ "bound_window_abs": 0.005,
+ "lam_window_frac": 0.005,
+ "design_vars": [
+  "a",
+  "t",
+  "r",
+  "c4",
+  "c8",
+  "r2"
+ ],
+ "fixed": {},
+ "bounds": {
+  "a": [
+   0.6,
+   0.9
+  ],
+  "t": [
+   0.15,
+   0.36
+  ],
+  "r": [
+   0.1,
+   0.34
+  ],
+  "c4": [
+   -0.05,
+   0.05
+  ],
+  "c8": [
+   -0.03,
+   0.03
+  ],
+  "r2": [
+   0.1,
+   0.34
+  ]
+ },
+ "lam_bounds": [
+  1.4,
+  1.7
+ ],
+ "note": "T7a (controller = PI chat, 2026-11-20 21:00): objective 'sharp' = log of spectral sharpness lam*|dt/dlam| at lam_k, per angle (0.5/3.5/6.5 deg = acceptance) and polarization; zero penalty only for a TE+TM resonance with S >= 1000 sitting at lam_k at every angle. Same start and init_lams as T6a (T3 step-1 best, r2 = r - 10 nm, lam_k on the poles found by find_resonances.py). Trust region +-3 % (T6a +-10 % jumped to the box), lam_k +-0.5 %. Controller check (CPU, 120/128): S at this start = 300-1400 at 0.5 deg (gap-200 TE drops to 16-35 at 3.5-6.5 deg = not flat); S at the T6a featureless best = 3-16.",
+ "init": {
+  "a": 0.7285833822402867,
+  "t": 0.2827088214643641,
+  "r": 0.2455587442109963,
+  "c4": 0.0015352583575564925,
+  "c8": -0.0007641062975319544,
+  "r2": 0.2355587442109963
+ },
+ "states": [
+  {
+   "gap": 0.2,
+   "shift": 0.0
+  },
+  {
+   "gap": 0.32,
+   "shift": 0.0
+  },
+  {
+   "gap": 0.5,
+   "shift": 0.0
+  }
+ ],
+ "init_lams": [
+  1.52274,
+  1.54746,
+  1.56911
+ ],
+ "fd_frac": 3e-05,
+ "sharp_target": 1000.0,
+ "w_sharp": 1.0
+}
