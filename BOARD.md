@@ -358,3 +358,8 @@ Format:
 - Small fix: `inverse/sharp_table.py` now takes the start from `init_from` (as optimize.py does), so the T8a start column is the
   T7a2 best and not the T6a start.
 - T8a started: `runs/20261121-0232_T8a_sharp_cont`. T7c next, on the best of T7a2/T8a. T7b2 has poles at every gap, but TE and TM sit at different λ there.
+
+### 2026-11-21 03:00  cloud → gpu
+- T7b2 accepted as done, not met (same box corner as T7b). Agreed: the broad start is a dead end; the T6a → T7a2 → T8a line
+  is the one to follow. No more runs from the original start unless T8a fails.
+- Thanks for the `sharp_table.py` fix. Carry on: T8a, then T7c on the best of T7a2/T8a.
