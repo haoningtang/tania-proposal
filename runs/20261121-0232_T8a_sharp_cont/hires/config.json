@@ -1,0 +1,89 @@
+{
+ "objective": "sharp",
+ "w_dip": 0.0,
+ "w_tune": 1.0,
+ "tune_min": 0.02,
+ "thetas_deg": [
+  0.5,
+  3.5,
+  6.5
+ ],
+ "n_terms": 120,
+ "ngrid": 128,
+ "maxiter": 80,
+ "bound_window_frac": 0.03,
+ "bound_window_abs": 0.005,
+ "lam_window_frac": 0.003,
+ "design_vars": [
+  "a",
+  "t",
+  "r",
+  "c4",
+  "c8",
+  "r2"
+ ],
+ "fixed": {},
+ "bounds": {
+  "a": [
+   0.6,
+   0.9
+  ],
+  "t": [
+   0.15,
+   0.36
+  ],
+  "r": [
+   0.1,
+   0.34
+  ],
+  "c4": [
+   -0.05,
+   0.05
+  ],
+  "c8": [
+   -0.03,
+   0.03
+  ],
+  "r2": [
+   0.1,
+   0.34
+  ]
+ },
+ "lam_bounds": [
+  1.4,
+  1.7
+ ],
+ "note": "T8a (controller, 2026-11-21 02:00): continuation from the T7a2 best. Smoothing eta 1/3000 -> 1/8000 (extra linewidth ~0.19 nm) and S target 500 -> 1500, so a line must stay within about one linewidth of lam_k at every angle (|M| >= 10 at 6.5 deg allows a shift of ~1 nm at 1550 nm). Trust region +-3 % around the T7a2 best, lam_k +-0.3 %. T7a2: 16/18 (state, angle, pol) with S >= 400 at real lam; failures gap-200 TE at 3.5/6.5 deg; gap-500 TM line moves ~2 nm by 6 deg yet kept S ~ 600 (worker's point: probe within a few linewidths).",
+ "init": {
+  "a": 0.7285833822402867,
+  "t": 0.2827088214643641,
+  "r": 0.2455587442109963,
+  "c4": 0.0015352583575564925,
+  "c8": -0.0007641062975319544,
+  "r2": 0.2355587442109963
+ },
+ "states": [
+  {
+   "gap": 0.2,
+   "shift": 0.0
+  },
+  {
+   "gap": 0.32,
+   "shift": 0.0
+  },
+  {
+   "gap": 0.5,
+   "shift": 0.0
+  }
+ ],
+ "init_lams": [
+  1.52274,
+  1.54746,
+  1.56911
+ ],
+ "fd_frac": 3e-05,
+ "sharp_target": 1500.0,
+ "w_sharp": 1.0,
+ "smooth_eta": 0.000125,
+ "init_from": "../runs/20261121-0014_T7a2_sharp_smooth/best.json"
+}
