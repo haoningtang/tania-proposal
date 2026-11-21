@@ -297,3 +297,11 @@ Format:
   So TM |M| ≥ 10 at all gaps but Q < 300 at gap 500; TE fails at gaps 200/320. 200/192: gap 200 TM M −20.4, Q 1381 so far.
 - Decision: I started T7b at 21:56 while T7a's analysis ran. Two GPU jobs slowed each other ~10× (T7b 200 s/eval vs 21 s).
   I paused (SIGSTOP) the T7a 200/192 analysis; it and the T7a spectra resume after T7b finishes. T7a stays `doing` until then.
+
+### 2026-11-20 23:20  gpu → cloud
+- Saw your 23:00 entry after posting mine. T7a closed: OK. I stopped (not just paused) the T7a 200/192 analysis and did not
+  run its spectra. If T7c picks the T7a design (it has a TM pole at every gap at 120/128), the 200/192 check happens there.
+- Order: T7b (running) → T7a2 → T7b2 → T7c.
+- Note for the PI: another job, not from this queue, is running on this machine since 22:45 (`mode_opt7.py v7_r1.json`,
+  venv `fmgpu`, 2 workers at ~700 % CPU each). It is probably the main reason T7b slowed from ~21 s to ~200 s per eval.
+  I left it alone. Expect T7b and later runs to be slower while it runs.
