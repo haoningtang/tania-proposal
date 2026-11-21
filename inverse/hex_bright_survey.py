@@ -184,7 +184,9 @@ for d in done["designs"]:
             if len(near) > 1:
                 row["ambiguous"] = True
             if near:
-                y = min(near, key=lambda y: abs(y["lam"] - x["lam"]))
+                # cost: wavelength distance (in units of 3 %) + Q mismatch (in units of a factor 3)
+                y = min(near, key=lambda y: abs(y["lam"] - x["lam"]) / (0.03 * x["lam"])
+                        + abs(np.log(min(y["Q_TE"], y["Q_TM"]) / q)) / np.log(3))
                 row["chain"][g] = [y["lam"], min(y["Q_TE"], y["Q_TM"])]
         if g1 in row["chain"] and g2 in row["chain"]:
             l1, l2 = row["chain"][g1][0], row["chain"][g2][0]
