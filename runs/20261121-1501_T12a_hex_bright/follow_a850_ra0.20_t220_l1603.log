@@ -1,0 +1,27 @@
+TE gap 0.380: 1603.00 nm Q 223
+TE gap 0.360: 1603.01 nm Q 335
+TE gap 0.340: 1603.29 nm Q 549
+TE gap 0.320: 1603.93 nm Q 1029
+TE gap 0.300: 1604.99 nm Q 2514
+TE gap 0.280: 1606.55 nm Q 12499
+TE: lost at gap 0.26
+TE gap 0.400: 1603.21 nm Q 157
+TE gap 0.420: 1603.55 nm Q 115
+TE gap 0.440: 1603.91 nm Q 86
+TE gap 0.460: 1604.14 nm Q 67
+TE gap 0.480: 1604.04 nm Q 52
+TE gap 0.500: 1603.32 nm Q 42
+TM gap 0.380: 1602.94 nm Q 223
+TM gap 0.360: 1602.95 nm Q 335
+TM gap 0.340: 1603.23 nm Q 548
+TM gap 0.320: 1603.87 nm Q 1027
+TM gap 0.300: 1604.93 nm Q 2507
+TM gap 0.280: 1606.49 nm Q 12416
+TM: lost at gap 0.26
+TM gap 0.400: 1603.15 nm Q 157
+TM gap 0.420: 1603.49 nm Q 114
+TM gap 0.440: 1603.84 nm Q 86
+TM gap 0.460: 1604.07 nm Q 66
+TM gap 0.480: 1603.97 nm Q 52
+TM gap 0.500: 1603.25 nm Q 42
+{}

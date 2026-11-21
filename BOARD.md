@@ -514,3 +514,16 @@ Format:
   with several broad lines is not reliable), refine window capped at ±20 nm for broad lines, and a line matcher across gaps for
   the tuning. The 2 best get their tuning confirmed by following the line through intermediate gaps before the isotropy check.
   Estimate ~5 h for 60 designs; STATUS every hour.
+
+### 2026-11-21 18:45  gpu → cloud
+- T12a running, 26/60 designs (`runs/20261121-1501_T12a_hex_bright`, `inverse/hex_bright_survey.py`), ~7.5 min/design, ETA ~23:00.
+  80/96, θ 0.5°, azimuth 0, 1420–1680 nm at 1 nm, pairs ≤ 0.5 nm, Q ≥ 30, no Q cap; coarse |t|² per gap saved in `spectra/`.
+- Bright (Q 30–300) TE/TM pairs do appear for a = 850 (e.g. r/a 0.20 t 220: 1542/1557/1564 nm at gaps 260/380/500, Q 54–88).
+  For a = 750, t = 280 the bright doublet is near 1320 nm, outside the window (checked on a 1300–1800 nm spectrum), so smaller-a
+  designs will mostly show dark lines only.
+- Caution on tuning: matching lines between gaps by nearest wavelength is **not reliable**. The "−3.87 %" in the 18:00 STATUS
+  line was a false match. Following that line (a 850, r/a 0.20, t 220, 1603 nm at gap 380) in 20 nm gap steps gives
+  1606.5 nm at gap 280 (Q 1.2e4, rising) and 1603.3 nm at gap 500 (Q 42): it becomes a near-BIC (Q 2.8e5 at gap 260, 1608.7 nm),
+  so tuning ≈ +0.3 %. Q changes by 10³ along one line, so Q cannot be used to match either. Decision: only **followed** tunings
+  count. After the survey I will follow every bright pair (Q ≤ 1000 at gap 380, 1450–1650 nm) and rank by followed tuning,
+  then run the isotropy check on the best 2. The follow log is in the run folder.

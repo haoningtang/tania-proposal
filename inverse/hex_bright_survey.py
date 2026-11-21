@@ -130,9 +130,12 @@ if a.follow:
                 if direction > 0 and g == 0.38:
                     continue
                 w = 0.012 if Q is None else min(max(4 * l / Q, 0.002), 0.03)
-                ll = np.linspace(l - w, l + w, 41)
-                P = poles_nocap(ll, scan(p, dict(gap=float(g), shift=0.0), ll, th, kw)[pol], ll[0], ll[-1])
-                P = [x for x in P if x[1] >= 0.5 * a.qmin]
+                for w in (w, w / 10, w / 100):   # retry narrower if the line has become very sharp
+                    ll = np.linspace(l - w, l + w, 41)
+                    P = poles_nocap(ll, scan(p, dict(gap=float(g), shift=0.0), ll, th, kw)[pol], ll[0], ll[-1])
+                    P = [x for x in P if x[1] >= 0.5 * a.qmin and abs(x[0] - l) < max(w, 0.01)]
+                    if P:
+                        break
                 if not P:
                     print(f"{pol}: lost at gap {g}", flush=True); break
                 l, Q = min(P, key=lambda x: abs(x[0] - l))
