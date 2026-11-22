@@ -1,0 +1,10 @@
+point (0.0,0.0) base: lam_TE 1506.6, lam_TM 1506.49, Q_TE 161.639, Q_TM 161.869, c_TE -0.0167475, c_TM -0.857352
+  gap: dlam_TE +2.4675e-01, dlam_TM +2.4668e-01, dQ_TE +1.6289e-01, dQ_TM +1.6317e-01, dc_TE -3.3105e-05, dc_TM -4.3666e-04
+  shift_x: dlam_TE +3.6903e-11, dlam_TM +5.3028e-09, dQ_TE -1.6321e-09, dQ_TM -8.9583e-08, dc_TE +3.1231e-11, dc_TM +2.2497e-09
+  shift_y: dlam_TE +3.4106e-13, dlam_TM -4.5475e-13, dQ_TE -5.5110e-11, dQ_TM +3.0523e-10, dc_TE +1.0734e-12, dc_TM +1.8935e-13
+  singular values (normalized): 1.509e-03, 2.077e-09, 1.978e-12; rank 1 (rtol 0.01); lam-only sv 2.316e-04, 2.472e-12; 214 s
+point (20.0,20.0) base: lam_TE 1507.02, lam_TM 1507.02, Q_TE 161.973, Q_TM 162.256, c_TE -0.0187166, c_TM -0.870006
+  gap: dlam_TE +2.2415e-01, dlam_TM +2.2685e-01, dQ_TE +5.4517e-02, dQ_TM +9.8926e-02, dc_TE +9.0738e-04, dc_TM +3.9623e-04
+  shift_x: dlam_TE -6.3277e-03, dlam_TM -6.4662e-03, dQ_TE -4.4975e-03, dQ_TM +5.0089e-02, dc_TE +4.0569e-04, dc_TM +1.3408e-03
+  shift_y: dlam_TE -5.8955e-03, dlam_TM -5.2001e-03, dQ_TE +2.7315e-02, dQ_TM -3.5856e-02, dc_TE +1.9118e-03, dc_TM +3.4283e-04
+  singular values (normalized): 2.347e-03, 1.228e-03, 6.342e-04; rank 3 (rtol 0.01); lam-only sv 2.118e-04, 3.586e-07; 228 s

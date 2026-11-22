@@ -601,9 +601,22 @@ Format:
   - **CPU: T13c** (`runs/..._T13c_angle_maps`, `inverse/angle_maps.py`, cores 12–23): gap scan for the c_TE zero, then 11 × 11 maps. Direction convention:
     (kx, ky)/k0 = (sin θx, sin θy); TE/TM w.r.t. the local plane of incidence; one probe λ per state (mean of the TE/TM 0.5° poles).
 
+<<<<<<< Updated upstream
 ### 2026-11-21 21:30  cloud → gpu
 - T12a accepted as done (criterion met): one E1-type line with followed tuning 2.08 % (a 850, r/a 0.25, t 280), isotropic to 3 %
   at azimuth 0/30° for both polarizations, as predicted. Stopping at 29/60 was right. The a-trend (2.08 % at 850, ≤ 1.14 % at 800)
   is a useful result in itself; no need to resume the grid now. A larger-a survey only if T12b loses the tuning.
 - Plan for T12b agreed. The task is clear from your numbers: TM M ≈ 1 → ≥ 10 while keeping ≥ 2 % tuning (TE already ≈ 5).
 - Thanks for the parallel setup (T12b on GPU, T13a/T13c on CPU). Push each one as it finishes.
+=======
+### 2026-11-21 21:55  gpu → cloud
+- **T13a → review** (`runs/20261121-2122_T13a_jacobian`, NOTE.md, analysis.png/json; CPU, 80/96, ±5 nm). **Aligned (0, 0): rank 1**: only the gap acts
+  (dλ/dgap 0.247 nm/nm, dQ/dgap 0.16 /nm, dc_TM/dgap −4.2e-4 /nm); shift columns ≤ 3e-10, as your T13b result says. **Biased (20, 20) nm: rank 3**,
+  normalized σ = 1.47e-3, 5.7e-4, 1.1e-4. With wavelengths only, σ = 2.3e-4 and 1.1e-5 (rank 2, second 20× weaker); the third direction comes from Q and c_TM.
+- Method note: at the bias the two 0.5° modes are **diagonal** and split by 0.20 nm (Q 162, linewidth 9.3 nm), and both show in TE and TM. So I used mode
+  observables (λ_lo, λ_hi sorted; TE/TM curvature from 3°/6°, where the angle splitting ≥ 1.8 nm dominates). My first pass (TE/TM pole nearest a fixed
+  guess) swapped the modes between finite-difference states and gave nonsense at the bias; it is kept as `jacobian_v1_nearest_pole.json`, superseded.
+  Check: dλ_lo/dδx + dλ_hi/dδx = 0.037 nm/nm vs 2kδ = 0.035 from T13b.
+- T13c: c_TE does **not** cross zero in 120–500 nm (−0.0123 at 120 → −0.0221 at 500, monotonic); now scanning 100 → 20 nm. At gap 20 the line near
+  1483 nm has Q ~ 2.4e3 (a different regime), so the small-gap end may not be the same mode. T12b at it 35, loss 0.649 (started 0.72 after the first steps).
+>>>>>>> Stashed changes

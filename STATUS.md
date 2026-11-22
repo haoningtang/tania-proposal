@@ -29,3 +29,4 @@ One line per run, newest at the bottom: `date | runs/ folder | state (running/do
 | 2026-11-21 | runs/20261121-0740_T10a_iso | done | T10a NOT met: 200/192 \|M\| ≥ 10 at 0° 3/6, at 45° 1/6 (T9b start: 5/6, 1/6); 45° lines at gaps 380/500 still move 2–5 nm by 6° |
 | 2026-11-21 | runs/20261121-1129_T11a_hex_survey | done | T11a hex: 3 degenerate pairs (a 850, t 280, Q 5–8e4); per-band isotropic (M within 2–8 %), TE/TM swap bands between az 0° and 30°; \|M\| ≤ 5.8; tuning 0.48 % (gaps 260–500) |
 | 2026-11-21 | runs/20261121-1501_T12a_hex_bright | done | T12a met (barely): best E1 line a 850 r/a 0.25 t 280, 1478/1499/1509 nm, Q 102–133, followed tuning −2.08 %; M az 0/30: TE 4.7–5.4, TM 1.0–1.1 (within 3 %); 29/60 designs |
+| 2026-11-21 | runs/20261121-2122_T13a_jacobian | done | T13a Jacobian (prelim, 80/96, ±5 nm): aligned rank 1 (gap only, dλ/dgap 0.247 nm/nm); biased (20,20) rank 3, σ 1.5e-3 / 5.7e-4 / 1.1e-4 (normalized); λ-only rank 2 |

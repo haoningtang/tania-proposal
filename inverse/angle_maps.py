@@ -43,6 +43,9 @@ def curv(g):
     b = band(p, dict(gap=g * 1e-3, shift=0.0), guess, a.thetas, kw)
     row = dict(gap=g)
     for pol in ("TE", "TM"):
+        if b[pol] is None:                     # no pole found near the guess for this polarization
+            row.update({f"lam_{pol}": float("nan"), f"Q_{pol}": float("nan"), f"c_{pol}": float("nan"), f"pts_{pol}": []})
+            continue
         pts = b[pol]["pts"]
         s2 = np.sin(np.radians([q[0] for q in pts])) ** 2
         y = np.array([q[1] for q in pts]); y = (y - y[0]) / y[0]
@@ -62,7 +65,7 @@ for g in a.gaps:
     if g not in done:
         curv(g)
 if "g_zero" not in res:
-    S = res["scan"]
+    S = [s for s in res["scan"] if np.isfinite(s["c_TE"])]
     br = [(S[i], S[i + 1]) for i in range(len(S) - 1) if np.sign(S[i]["c_TE"]) != np.sign(S[i + 1]["c_TE"])]
     if not br:
         print("no sign change of c_TE in the scanned gaps; using the gap of smallest |c_TE|", flush=True)
@@ -79,7 +82,7 @@ if "g_zero" not in res:
                 lo = m
             else:
                 hi = m
-        best = min(res["scan"], key=lambda s: abs(s["c_TE"]))
+        best = min([s for s in res["scan"] if np.isfinite(s["c_TE"])], key=lambda s: abs(s["c_TE"]))
     res["g_zero"] = best["gap"]; json.dump(res, open(fn, "w"), indent=1)
 print(f"TE zero-curvature gap: {res['g_zero']} nm", flush=True)
 

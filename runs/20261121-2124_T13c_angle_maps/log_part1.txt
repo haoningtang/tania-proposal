@@ -1,0 +1,13 @@
+gap 120.00: TE 1477.802 nm Q 154 c -0.01227 | TM 1477.696 nm Q 154 c -0.82500
+gap 160.00: TE 1494.706 nm Q 156 c -0.01517 | TM 1494.598 nm Q 157 c -0.83994
+gap 200.00: TE 1506.604 nm Q 162 c -0.01675 | TM 1506.493 nm Q 162 c -0.85735
+gap 240.00: TE 1514.855 nm Q 169 c -0.01793 | TM 1514.741 nm Q 170 c -0.87424
+gap 280.00: TE 1520.547 nm Q 180 c -0.01889 | TM 1520.430 nm Q 180 c -0.88929
+gap 320.00: TE 1524.471 nm Q 194 c -0.01969 | TM 1524.352 nm Q 194 c +0.50868
+gap 400.00: TE 1529.088 nm Q 233 c -0.02095 | TM 1528.966 nm Q 233 c -0.03148
+gap 500.00: TE 1531.818 nm Q 316 c -0.02213 | TM 1531.693 nm Q 317 c -0.38756
+no sign change of c_TE in the scanned gaps; using the gap of smallest |c_TE|
+TE zero-curvature gap: 120 nm
+map gap 120: done in 103 s
+map gap 200: done in 87 s
+figure written

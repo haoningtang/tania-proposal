@@ -1,0 +1,10 @@
+gap 20.00: TE 1483.342 nm Q 2365 c +nan | TM 1483.688 nm Q 2345 c -0.19052
+Traceback (most recent call last):
+  File "/home/haoning/tania-proposal/inverse/angle_maps.py", line 63, in <module>
+    curv(g)
+    ~~~~^^^
+  File "/home/haoning/tania-proposal/inverse/angle_maps.py", line 46, in curv
+    pts = b[pol]["pts"]
+          ~~~~~~^^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+gap 100.00: TE 1467.075 nm Q 154 c -0.00871 | TM 1466.970 nm Q 154 c -0.82017

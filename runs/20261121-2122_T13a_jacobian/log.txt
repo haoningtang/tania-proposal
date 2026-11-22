@@ -1,3 +1,10 @@
-point (0.0,0.0) base: lam_TE 1506.6, lam_TM 1506.49, Q_TE 161.639, Q_TM 161.869, c_TE -0.0167475, c_TM -0.857352
-  gap: dlam_TE +2.4675e-01, dlam_TM +2.4668e-01, dQ_TE +1.6289e-01, dQ_TM +1.6317e-01, dc_TE -3.3105e-05, dc_TM -4.3666e-04
-  shift_x: dlam_TE +3.6903e-11, dlam_TM +5.3028e-09, dQ_TE -1.6321e-09, dQ_TM -8.9583e-08, dc_TE +3.1231e-11, dc_TM +2.2497e-09
+point (0.0,0.0) base: lam_lo 1506.49, lam_hi 1506.6, Q_lo 161.869, Q_hi 161.639, c_TE -0.0167347, c_TM -0.835575
+  gap: dlam_lo +2.4668e-01, dlam_hi +2.4675e-01, dQ_lo +1.6317e-01, dQ_hi +1.6289e-01, dc_TE -3.3133e-05, dc_TM -4.2187e-04
+  shift_x: dlam_lo -7.0077e-11, dlam_hi +3.6380e-13, dQ_lo -5.2473e-10, dQ_hi -5.5772e-11, dc_TE -3.8743e-13, dc_TM +2.6557e-10
+  shift_y: dlam_lo -1.2135e-10, dlam_hi +3.8426e-12, dQ_lo -5.1228e-10, dQ_hi +3.6682e-10, dc_TE +4.6200e-13, dc_TM +5.9027e-13
+  singular values (normalized): 1.505e-03, 2.542e-10, 3.866e-12; rank 1 (rtol 0.01); lam-only sv 2.316e-04, 6.743e-14; 400 s
+point (20.0,20.0) base: lam_lo 1506.82, lam_hi 1507.02, Q_lo 161.737, Q_hi 161.915, c_TE -0.0168684, c_TM -0.840651
+  gap: dlam_lo +2.4513e-01, dlam_hi +2.4336e-01, dQ_lo +1.6252e-01, dQ_hi +1.5478e-01, dc_TE -3.0714e-05, dc_TM -3.9689e-04
+  shift_x: dlam_lo +2.2063e-02, dlam_hi +1.5291e-02, dQ_lo -2.8939e-02, dQ_hi +3.6280e-02, dc_TE -5.5810e-06, dc_TM -5.1997e-04
+  shift_y: dlam_lo +7.0572e-03, dlam_hi +3.0413e-02, dQ_lo +1.8711e-02, dQ_hi -1.3557e-02, dc_TE -1.7519e-05, dc_TM +1.7024e-05
+  singular values (normalized): 1.472e-03, 5.733e-04, 1.107e-04; rank 3 (rtol 0.01); lam-only sv 2.306e-04, 1.144e-05; 386 s
