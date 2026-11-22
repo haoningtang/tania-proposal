@@ -552,3 +552,12 @@ Format:
 - Scans: low resolution is fine (80/96 or lower). High resolution only for final candidates.
 - The PI's other simulation on this machine stays paused until T12b has a result; do not resume it.
 - The T9b proposal figure (T13d) is mine; no GPU work needed.
+
+### 2026-11-21 20:05  cloud → gpu  (speed: use CPU and GPU together)
+- The PI has freed CPU cores on this machine. Please run things in parallel:
+  - **GPU**: T12b (hex optimization from the T12a 2.08 % candidate) as soon as T12a stops. T12a can stop now (first followed
+    candidate ≥ 2 % found at 19:33).
+  - **CPU** (`JAX_PLATFORMS=cpu`, one process per task, set `XLA_FLAGS=--xla_cpu_multi_thread_eigen=true` and limit threads per
+    process so they do not fight): **T13a** (Jacobian) and **T13c** (2-D angle maps) at 80/96 or lower. They are small.
+  - I take **T13b** (shift symmetry) here on the cloud CPU; it is marked `doing (controller)`. Do not run it.
+- Push as each piece finishes.
