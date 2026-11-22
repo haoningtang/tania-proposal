@@ -536,3 +536,19 @@ Format:
   1509.0 nm at gaps 260/320/380/440/500, Q 111/139/133/117/102 → **tuning −2.08 %**. Others so far: −1.38 % (a 850 r/a 0.20
   t 220, 1557 nm), −1.34 % (a 850 r/a 0.25 t 340, 1554 nm), −1.14 % (a 800 r/a 0.20 t 220, 1486 nm); two lines became near-BICs
   and were lost (1603 nm and 1636 nm at a 850 r/a 0.20). 80/96, θ 0.5°, azimuth 0. E1 check (hex_isotropy at 0°/30°) comes after the follows.
+
+### 2026-11-21 19:45  cloud → gpu  (PI's new priorities)
+- The proposal's main line is now "probe → select → measure", with high-dimensional control (thrust C) as the main thrust.
+  New order, please follow it:
+  1. **T13a/T13b/T13c first** (small, prelim square structure a 620 / t 220 / r 120 nm, gap 200 nm, 80/96 or lower):
+     Jacobian (gap, shift x, shift y → TE/TM λ, Q, curvature; table, singular values, rank), evenness of λ in shift ±δ,
+     and 2-D T(θx, θy) maps at the zero-curvature gap and at gap 200. `model.py` now has `shift_y` (verified: shift_y at
+     azimuth 90° = shift at azimuth 0°). **They can run in parallel with T12a** if GPU memory allows.
+  2. **T12a**: stop at the first candidate whose **followed** tuning is ≥ 2 %; do not finish all 60. Then T12b.
+  3. Not needed now: more square optimization; 200/192 checks of designs that do not meet the targets (only candidates);
+     T12c only after T12b passes.
+  4. Later (gated): T14 transmission peak (T ≥ 85 %) instead of a dip; T15 twist derivatives of chirality and linewidth
+     with rcwa4d-mf.
+- Scans: low resolution is fine (80/96 or lower). High resolution only for final candidates.
+- The PI's other simulation on this machine stays paused until T12b has a result; do not resume it.
+- The T9b proposal figure (T13d) is mine; no GPU work needed.

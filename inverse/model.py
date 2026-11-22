@@ -50,12 +50,13 @@ def hole_eps(r, a, n_slab, ngrid, sx=0.0, sy=0.0, smooth=1.0, c4=0.0, c8=0.0, la
 
 
 def bilayer_t(lam, theta_deg, a, t, r, gap, shift=0.0, n_slab=3.48, n_terms=120, ngrid=128, r2=None, c4=0.0, c8=0.0, t2=None,
-              azimuth_deg=0.0, lattice="square"):
+              azimuth_deg=0.0, lattice="square", shift_y=0.0):
     """Complex zero-order transmission (t_TE, t_TM) and powers (T_TE, T_TM).
 
     lam, theta_deg may be arrays of the same shape (batched). azimuth_deg is a scalar.
     Also returns the cross-polarized amplitudes t_TE_TM (TM out for TE in) and t_TM_TE, to check that TE and TM
-    decouple (they must along a mirror line of the lattice: phi = 0 or 45 deg for C4v holes, shift 0)."""
+    decouple (they must along a mirror line of the lattice: phi = 0 or 45 deg for C4v holes, shift 0).
+    shift, shift_y: lateral offset of slab 2 along u and v, in fractions of the period (shift_y added 2026-11-21 for T13a)."""
     lam = jnp.atleast_1d(jnp.asarray(lam))
     # complex wavelength lam*(1 + i*eta) is allowed: it smooths every resonance by an extra linewidth ~ eta*lam
     # (frequency averaging, Liang & Johnson 2013); used by optimize.py objective "sharp" with smooth_eta > 0.
@@ -79,7 +80,7 @@ def bilayer_t(lam, theta_deg, a, t, r, gap, shift=0.0, n_slab=3.48, n_terms=120,
                                                 expansion=exp, formulation=fmmax.Formulation.FFT)
     vac = solve(jnp.ones((1, 1), dtype=jnp.complex128))
     e1 = hole_eps(r, a, n_slab, ngrid, c4=c4, c8=c8, lattice=lattice).astype(jnp.complex128)
-    e2 = hole_eps(r if r2 is None else r2, a, n_slab, ngrid, sx=shift, c4=c4, c8=c8, lattice=lattice).astype(jnp.complex128)
+    e2 = hole_eps(r if r2 is None else r2, a, n_slab, ngrid, sx=shift, sy=shift_y, c4=c4, c8=c8, lattice=lattice).astype(jnp.complex128)
     s1, s2 = solve(e1), solve(e2)
     if gap is None:
         S = fmmax.stack_s_matrix([vac, s1, vac], [jnp.zeros(()), jnp.asarray(t), jnp.zeros(())])
