@@ -38,8 +38,9 @@ def observe(z):
     near = [p for p in P if 1495 < p[0] < 1525]
     tr = max(near, key=lambda p: p[2]) if near else (np.nan, np.nan, np.nan)
     i = np.argmax(np.abs(cd)); Ti = np.interp(lam_sa, l, z["Tx"])
-    dl = np.gradient(l)
-    return dict(N=int(z["N"]), theta=float(z["theta"]), gap=float(z["gap"]), T_mean=float(np.sum(z["Tx"] * dl) / np.sum(dl)),
+    dl = np.gradient(l); ext = 1 - z["Tx"]
+    lc = float(np.sum(l * ext * dl) / np.sum(ext * dl)); sw = float(np.sqrt(np.sum((l - lc) ** 2 * ext * dl) / np.sum(ext * dl)))
+    return dict(lam_c=lc, width=sw, ext_int=float(np.sum(ext * dl)),N=int(z["N"]), theta=float(z["theta"]), gap=float(z["gap"]), T_mean=float(np.sum(z["Tx"] * dl) / np.sum(dl)),
                 CD_band=float(np.sum(cd * dl) / np.sum(dl)), CD_ext=float(cd[i]), lam_CD_ext=float(l[i]),
                 CD0_ext=float(cd0[np.argmax(np.abs(cd0))]), rms_vs_stack_avg=float(np.sqrt(np.mean((Ti - T_sa) ** 2))),
                 c4_err=float(np.abs(z["Tx"] - z["Ty"]).max()), energy_err=float(z["err"].max()),
@@ -74,7 +75,7 @@ for key in ("CD_band", "CD_ext", "CD_at_lam"):
     y = np.array([o[key] for o in pos]); s = th <= 1.0
     c = np.linalg.lstsq(np.c_[th[s], th[s] ** 3], y[s], rcond=None)[0]
     fits[key] = dict(c1_per_deg=float(c[0]), c3_per_deg3=float(c[1]), slope_0p1=float(y[0] / th[0]) if th[0] == 0.1 else None)
-for key in ("lam", "Q", "T_mean"):
+for key in ("lam", "Q", "T_mean", "lam_c", "width"):
     y = np.array([o[key] for o in pos]); s = (th <= 1.0) & np.isfinite(y)
     c = np.linalg.lstsq(np.c_[np.ones(s.sum()), th[s] ** 2], y[s], rcond=None)[0]
     fits[key] = dict(limit_theta0=float(c[0]), c2_per_deg2=float(c[1]), second_derivative_per_deg2=float(2 * c[1]))
@@ -84,17 +85,17 @@ res["fits_N5_theta_le_1"] = fits
 J = None
 need = [(5, 1.0, 195.0), (5, 1.0, 205.0), (5, 0.9, 200.0), (5, 1.1, 200.0), (5, 1.0, 200.0)]
 if all(k in obs for k in need):
-    O = ["lam", "Q", "CD_at_lam", "CD_band"]
+    O = ["lam_c", "width", "CD_band", "ext_int"]
     b = obs[(5, 1.0, 200.0)]
     J = np.array([[(obs[(5, 1.0, 205.0)][o] - obs[(5, 1.0, 195.0)][o]) / 10.0, (obs[(5, 1.1, 200.0)][o] - obs[(5, 0.9, 200.0)][o]) / 0.2] for o in O])
-    sc = np.array([b["lam"], b["Q"], 1.0, 1.0])
+    sc = np.array([b["lam_c"], b["width"], 1.0, b["ext_int"]])
     Jn = J / sc[:, None]; sv = np.linalg.svd(Jn, compute_uv=False)
     res["jacobian_theta1_N5"] = dict(observables=O, controls=["gap (per nm)", "twist (per deg)"], J_raw=J.tolist(), J_norm=Jn.tolist(),
                                      sv=sv.tolist(), cond=float(sv[0] / sv[1]), base={o: b[o] for o in O},
-                                     note="normalized rows: dlam/lam, dQ/Q, dCD, dCD_band; columns per nm and per deg (unit choice sets cond)")
+                                     note="observables: extinction centroid lam_c and rms width of (1 - T_x) over 1480-1580 nm, band-mean CD, integrated extinction; normalized rows: dlam_c/lam_c, dwidth/width, dCD_band, dext/ext; columns per nm (gap) and per deg (twist); unit choice sets cond. Pole-tracked lam, Q are not used: the tracked pole switches lines between neighbouring states")
 json.dump(res, open(os.path.join(D, "analysis.json"), "w"), indent=1, default=float)
 
-keys = ["N", "theta", "gap", "lam", "Q", "CD_at_lam", "CD_band", "CD_ext", "lam_CD_ext", "CD0_ext", "T_mean", "rms_vs_stack_avg", "c4_err", "energy_err"]
+keys = ["N", "theta", "gap", "lam_c", "width", "ext_int", "lam", "Q", "CD_at_lam", "CD_band", "CD_ext", "lam_CD_ext", "CD0_ext", "T_mean", "rms_vs_stack_avg", "c4_err", "energy_err"]
 with open(os.path.join(D, "table.csv"), "w") as f:
     f.write(",".join(keys) + "\n")
     for k in sorted(obs):

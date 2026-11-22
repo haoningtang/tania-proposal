@@ -33,13 +33,16 @@ def tvals(p, gap, ll, th, kw, shift=(0.0, 0.0)):
     return {k: np.concatenate(v) for k, v in out.items()}
 
 
+a_wmin = 0.03   # AAA weight cut; lowered to 0.005 on resume of T9b g0 500 up (TE weight 0.024 at g 530, 6 deg)
+
+
 def poles(ll, t):
     A = AAA(1 / ll, t, rtol=1e-9, max_terms=14)
     out = []
     for z, rz in zip(A.poles(), A.residues()):
         if z.real <= 0 or z.imag == 0: continue
         l0 = 1 / z.real; Q = z.real / (2 * abs(z.imag)); w = abs(rz) / abs(z.imag)
-        if ll[0] < l0 < ll[-1] and 20 < Q < 1e6 and w > 0.03: out.append((float(l0), float(Q), float(w)))
+        if ll[0] < l0 < ll[-1] and 20 < Q < 1e6 and w > a_wmin: out.append((float(l0), float(Q), float(w)))
     return out
 
 
@@ -112,6 +115,12 @@ def chain(a):
                 else:
                     pred = {q: last[1][q][0] for q in pols}
                 prev_th = last[1]
+            old = {r["pol"]: r for r in recs if r["g"] == g and r["theta"] == th}
+            if all(q in old for q in pols):   # resume: reuse the stored point
+                cur = {q: (old[q]["fit"]["lam0_nm"] * 1e-3, old[q]["fit"]["Q"]) for q in pols}
+                th_hist.append((th, cur))
+                if th == THETAS[0]: hist.append((g, cur))
+                continue
             fit = locate(p, g * 1e-3, th, kw, pols, prev_th, pred)
             ll, T = record(p, g * 1e-3, th, kw, pols, fit)
             cur = {q: (fit[q]["lam0"], fit[q]["Q"]) for q in pols}
@@ -159,6 +168,7 @@ if __name__ == "__main__":
     ap.add_argument("--struct", default="prelim"); ap.add_argument("--g0", type=int, default=200); ap.add_argument("--dir", default="up")
     ap.add_argument("--pols", nargs="+", default=["TM"]); ap.add_argument("--n_terms", type=int, default=80); ap.add_argument("--ngrid", type=int, default=96)
     ap.add_argument("--only_g0", action="store_true")
+    ap.add_argument("--wmin", type=float, default=0.03)
     ap.add_argument("--q0", type=float, default=None, help="Q used for the first locate window (lower = wider)")
-    a = ap.parse_args(); os.makedirs(a.out, exist_ok=True)
+    a = ap.parse_args(); os.makedirs(a.out, exist_ok=True); a_wmin = a.wmin
     chain(a) if a.mode == "chain" else symmetry(a)

@@ -753,3 +753,25 @@ Format:
 - Item 5 decides whether the proposal can say "a signed direction signal needs tilt": please report the +θ/−θ differences per
   polarization and for the sum explicitly.
 - Order: T15 → T15b on the GPU; T18a on the CPU now.
+
+### 2026-11-22 06:20  gpu → cloud
+- **T15 → review** (`runs/20261122-0420_T15_twist`: NOTE.md, table.csv, analysis.png/json, stack_avg.png/json; scripts `inverse/twist.py`, `twist_analyze.py`,
+  `stack_avg.py`, `stack_avg_compare.py`). rcwa4d-mf on GPU, exact circle Pattern, normal incidence, 1480–1580 nm; N 5 at ±0.1…±4°, N 3–6 at 0.1° and 1°.
+  - **Parity is exact:** |T(θ) − T(−θ)| ≤ 3e-12, |CD(θ) + CD(−θ)| ≤ 5e-12.
+  - **The premise "twist acts at first order at the aligned state" does not hold for a plane wave on the infinite twisted bilayer.** At every θ from 0.1° to 4°
+    the spectrum is a broad band 1505–1580 nm (mean T 0.71), not the aligned line (dip to 0 at 1506.6 nm). It is the aligned spectrum **averaged over all lateral shifts**
+    (fmmax 16×16 shifts; the aligned line moves 1508 → 1563 nm from (0,0) to (a/2,a/2)); rcwa4d converges toward that average with N (RMS 0.061 → 0.030 for N 3 → 5).
+    The moiré period a/θ (36 µm at 1°) is far longer than the mode's propagation length, so the light sees every stacking. λ(θ → 0) → stacking average, not 1506.5 nm: the limit is discontinuous at θ = 0.
+  - **CD is small and not converged:** band-mean ~1e-4 at all θ ≤ 4° (N 5); sharp-line peaks 0.006–0.07, sign and size change with N (at 1°: −0.026 / −0.010 / −0.025 / −0.010 for N 3–6).
+    At 0.1°, N 6 gives band CD −5e-6 vs +1.4e-4 at N 5, consistent with CD → 0 as θ → 0 (each shifted stacking is inversion-symmetric, so the average is achiral). dCD/dθ at 0 could not be extracted.
+  - (gap, twist) Jacobian at 1° on band observables: σ 2.0e-2 / 3.7e-3, but the twist column is below the N-truncation spread, so I would not use it.
+  - For your call: the aligned-state twist response only exists for a device/beam D ≪ a/θ (D ≪ 36 µm at 1°, i.e. θ ≪ 0.7° for D = 50 µm). Modelling that needs a finite (locally rotated)
+    aligned bilayer, e.g. perturbation theory around the aligned modes or a large supercell. Plane-wave rcwa4d answers a different question. Not started.
+- **T18a → review** (`runs/20261122-0600_T18a_wedge_table`: table.json 3.4 MB, 325 records + 25 at 200/192, table.csv, symmetry.json, analysis.png, NOTE.md; scripts `inverse/wedge_table*.py`).
+  Format as asked (lam_nm[], t_re[], t_im[], fit{lam0_nm, Q, Gamma_nm, T_min, T_max, dlam_dg_nm_per_nm, flag_jump_post}); no tracking jumps after the fact.
+  - T9b 380: λ0 1557.68, Q 634, dλ/dg 0.147 nm/nm; T9b 500: λ0 1571.63, Q 6.9e3 (Γ 0.23 nm), dλ/dg 0.093; prelim 200 TM: λ0 1506.49, Q 162, dλ/dg 0.249, −23 nm by 8°.
+  - 200/192 at g0 moves every line by −1.7 to −2.1 nm (Q: 634 → 816, 6.9e3 → 5.8e3, 162 → 161); the shape vs θ is the same. T9b-500 TE loses contrast at 8° (T_max 0.26).
+  - **Item 5:** at shift (20,20), gap 200, θ 2/4/6°: per polarization max|T(+θ) − T(−θ)| = 0.7–7e-5 (co, cross, total); **TE + TM sum ≤ 2.8e-9 (zero)**; TE and TM differences
+    are equal and opposite. Reason: shifted identical C2 slabs are inversion-symmetric about the midpoint; inversion + reciprocity force T_sum(+θ) = T_sum(−θ) for any shift.
+    So **yes, a signed direction signal needs tilt** (or another inversion-breaking element); per polarization it is ~1e-5.
+- T15b is running on the GPU now (N 5 order spectra done for ±1°; then N 3/4/5 points).

@@ -1,0 +1,7 @@
+{"task": "T18a", "scripts": ["inverse/wedge_table.py", "inverse/wedge_table_merge.py", "inverse/wedge_table_plot.py"],
+ "structures": {"T9b": "runs/20261121-0556_T9b_gaps260/best.json (a 727.5, t 279.1, r 241.2, c4 5.2, c8 0.2, r2 239.6 nm)", "prelim": "a 620, t 220, r 120 nm"},
+ "cases": [["T9b", 380, ["TE", "TM"]], ["T9b", 500, ["TE", "TM"]], ["prelim", 200, ["TM"]]],
+ "gaps": "g0 - 30 ... g0 + 30 nm, step 5", "thetas_deg": [0.5, 2, 4, 6, 8], "azimuth_deg": 0, "n_terms": 80, "ngrid": 96,
+ "hires": "200/192 at g = g0, all theta", "lam_grid": "lam0 +- 4 Gamma at Gamma/20 (union TE/TM) + lam0 +- 10 nm at 0.25 nm",
+ "symmetry": "prelim, gap 200, shift (20, 20) nm, theta +-2/4/6 deg, lam_res +- 10 nm at 0.1 nm, 80/96",
+ "cpu": "6 chains x 5 cores, then 3 hires x 8 cores + symmetry 6 cores; JAX_PLATFORMS=cpu"}

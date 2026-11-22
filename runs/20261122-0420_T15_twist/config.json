@@ -1,0 +1,8 @@
+{"task": "T15", "solver": "rcwa4d-mf (github.com/haoningtang/rcwa4d-mf, commit as cloned 2026-11-22, ~/rcwa4d-mf; venv ~/venvs/r4d, torch 2.14.1+cu126, RTX 4090)",
+ "checks": "tests/check_gradient.py OK; examples/minimal.py matches README",
+ "structure": "square lattice a 620 nm, eps 12.11, exact Pattern circle r 120 nm, d 220 nm, gap 200 nm (195/205 for the Jacobian), twist about the hole centre",
+ "incidence": "normal; x, y (solve_lab_basis) and sigma+- = (x +- i y)/sqrt(2) from the complex amplitudes of every order",
+ "N5_twists_deg": [0.1, -0.1, 0.25, -0.25, 0.5, -0.5, 1, -1, 2, -2, 4, -4, 0.9, 1.1], "N_convergence_at_1deg": [3, 4, 5, 6], "N_convergence_at_0.1deg": [3, 4, 5, 6],
+ "lam_grid": "1480-1580 nm, 1 nm (spectra/), 0.5 nm (explore/)",
+ "stack_avg": "fmmax 80/96 aligned, normal incidence, 16x16 shifts over the cell (45 C4v-distinct), 1480-1580 nm at 1 nm (inverse/stack_avg.py, stack_avg_compare.py)",
+ "scripts": ["inverse/twist.py", "inverse/twist_analyze.py", "inverse/stack_avg.py", "inverse/stack_avg_compare.py"]}

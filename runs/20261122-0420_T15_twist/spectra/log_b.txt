@@ -2,3 +2,12 @@
 N 5 th +2 gap 200: 200s err 2.0e-11 max|CD| 2.564e-02
 N 5 th -2 gap 200: 196s err 2.1e-11 max|CD| 2.564e-02
 N 5 th +4 gap 200: 185s err 9.9e-12 max|CD| 6.903e-02
+N 5 th -4 gap 200: 181s err 8.5e-12 max|CD| 6.903e-02
+N 5 th +0.9 gap 200: 211s err 7.4e-12 max|CD| 2.136e-02
+N 5 th +1.1 gap 200: 196s err 7.4e-12 max|CD| 1.571e-02
+[W1122 05:27:32.022334272 Context.cpp:508] Warning: torch.backends.cuda.preferred_linalg_library is an experimental feature. If you see any error or unexpected behavior when this flag is set please file an issue on GitHub. (function operator())
+N 5 th +1 gap 195: 247s err 1.3e-11 max|CD| 1.454e-02
+N 5 th +1 gap 205: 269s err 8.7e-12 max|CD| 1.600e-02
+[W1122 05:36:15.394328300 Context.cpp:508] Warning: torch.backends.cuda.preferred_linalg_library is an experimental feature. If you see any error or unexpected behavior when this flag is set please file an issue on GitHub. (function operator())
+N 6 th +1 gap 200: 675s err 5.8e-12 max|CD| 1.012e-02
+N 6 th +0.1 gap 200: 704s err 1.5e-11 max|CD| 7.448e-03

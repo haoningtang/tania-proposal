@@ -1,0 +1,3 @@
+theta 2.0: lam_res 1505.18; max|T(+)-T(-)| TE_co 6.97e-06, TE_cross 1.65e-05, TM_co 3.26e-05, TM_cross 1.65e-05, TE_total 1.61e-05, TM_total 1.61e-05, sum 3.73e-10
+theta 4.0: lam_res 1500.13; max|T(+)-T(-)| TE_co 1.76e-05, TE_cross 3.65e-05, TM_co 7.31e-05, TM_cross 3.69e-05, TE_total 3.62e-05, TM_total 3.62e-05, sum 8.76e-10
+theta 6.0: lam_res 1492.64; max|T(+)-T(-)| TE_co 2.54e-05, TE_cross 2.27e-05, TM_co 4.59e-05, TM_cross 2.32e-05, TE_total 2.27e-05, TM_total 2.27e-05, sum 2.76e-09

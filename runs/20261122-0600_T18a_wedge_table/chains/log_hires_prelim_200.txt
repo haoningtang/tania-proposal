@@ -1,0 +1,5 @@
+prelim g0 200 g 200 th 0.5: TM 1504.802 Q 161  (241 pts, 402s)
+prelim g0 200 g 200 th 2.0: TM 1503.178 Q 165  (241 pts, 309s)
+prelim g0 200 g 200 th 4.0: TM 1498.301 Q 174  (241 pts, 297s)
+prelim g0 200 g 200 th 6.0: TM 1491.026 Q 188  (241 pts, 299s)
+prelim g0 200 g 200 th 8.0: TM 1482.118 Q 205  (241 pts, 309s)
