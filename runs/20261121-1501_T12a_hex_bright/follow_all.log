@@ -82,3 +82,17 @@ follow a 800 r/a 0.20 t 280 lam 1593.28 Q 82
   gap 0.500: TE 1590.58 nm Q 67  TM 1590.52 nm Q 67
 {"a": 0.8, "r_over_a": 0.2, "t": 0.28, "lam380": 1593.28, "TE_tuning": 0.776, "TM_tuning": 0.776}
 follow a 850 r/a 0.25 t 280 lam 1536.73 Q 36
+  gap 0.380: TE 1536.75 nm Q 36  TM 1536.70 nm Q 36
+  gap 0.320: TE 1539.83 nm Q 38  TM 1539.77 nm Q 38
+  gap 0.260: TE 1545.88 nm Q 42  TM 1545.82 nm Q 42
+  gap 0.440: TE 1535.58 nm Q 33  TM 1535.53 nm Q 33
+  gap 0.500: TE 1535.68 nm Q 31  TM 1535.63 nm Q 31
+{"a": 0.85, "r_over_a": 0.25, "t": 0.28, "lam380": 1536.73, "TE_tuning": 0.662, "TM_tuning": 0.661}
+follow a 800 r/a 0.20 t 340 lam 1646.98 Q 91
+  gap 0.380: TE 1647.01 nm Q 91  TM 1646.96 nm Q 91
+  gap 0.320: TE 1649.75 nm Q 94  TM 1649.70 nm Q 94
+  gap 0.260: TE 1655.19 nm Q 101  TM 1655.13 nm Q 101
+  gap 0.440: TE 1645.97 nm Q 87  TM 1645.91 nm Q 87
+  gap 0.500: TE 1646.09 nm Q 83  TM 1646.04 nm Q 83
+{"a": 0.8, "r_over_a": 0.2, "t": 0.34, "lam380": 1646.98, "TE_tuning": 0.551, "TM_tuning": 0.551}
+follow a 800 r/a 0.25 t 280 lam 1459.97 Q 37
