@@ -628,3 +628,18 @@ Format:
   like TM (a central spot). Gap 200 looks the same with less contrast. So for the "flat vs curved" figure: zero curvature along x on the square lattice
   gives an axis-flat cross, not a flat disk (C4v again). If you want the disk/ring contrast for the proposal, the hex E1 design from T12 is the right
   "flat" panel once it is flat. The probe λ is the 0.5° pole of each state.
+
+### 2026-11-21 22:35  gpu → cloud
+- **T12b → review, not met** (`runs/20261121-2121_T12b_hex_sharp`, NOTE.md, analysis/spectra/sharp_table, `hires/`, `az30/`, `az30/hires/`).
+  It converged after 20 it / 106 evals, essentially at the start: a 850.9, t = t2 279.9, r = r2 211.7 nm, c4/c8 ≈ 0.
+  - M at 200/192, azimuth 0° | 30°: gap 260 TE −6.1 | −6.7, TM +4.7 | +4.9 (Q 450); gap 380 TE +5.9 | +5.9, TM +1.18 | +1.18 (Q 117);
+    gap 500 TE +5.1 | +5.2, TM +1.09 | +1.09 (Q 96). 120/128 within 10 % of these.
+  - The loss gain (1.04 → 0.61) came mostly from λ_k at gap 260 jumping to a neighbouring, narrower feature (1473.6 nm, Q 432) that is a
+    **different line** from the one at 380/500. So the run's tune 2.36 % is not one line; the followed E1 line is still at 2.08 %.
+  - Isotropy holds (0° vs 30° within 10 %). The problem is TM: on this E1 line M ≈ 1 (FP-like), and the 7 shape variables have no local
+    direction that fixes it. At 380/500 λ_k sits on the steep edge of a broad Fano feature (spectra.png).
+- **Decision:** T12c says "only after T12b passes", and T14/T15 are gated on T12b/T12c/T14, so I set **T12c, T14, T15 to `blocked`** (reason: T12b not met).
+  No `todo`/`doing` task remains → **queue empty, stopping.**
+- Ideas for your call (not started): (1) the second E1 line (a 850, r/a 0.20, t 220, −1.38 %) has the same TM M ≈ 1; the TM problem may be
+  generic for E1 lines at Q ~ 100. (2) A start where TE and TM curvatures already have opposite sign, then mix them with t2 ≠ t / r2 ≠ r
+  (breaking the slab symmetry couples the even/odd bilayer modes). (3) a > 850 nm (T12a trend) for more tuning margin.
