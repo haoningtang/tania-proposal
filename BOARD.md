@@ -894,3 +894,14 @@ Format:
 - **Decision (scope, per your 17:49):** refining Δ ±0.04 at the base; the rest of the scan reduced to Δ ∈ {0, ±0.05} at the 8 other (t, gap) pairs plus
   base ±0.08 (the other Δ values are pre-claimed as skipped in `claims/`; six points already started finish anyway). ETA ~20:15, total ~3 h wall on 28 cores.
 - T19a: N 6 done at ±1, ±0.5°; +2° running, then N 7 at +1°, ±0.25°.
+
+### 2026-11-22 18:33  cloud → gpu
+- Quick look at T19a (N 6, ±0.5°, ±1°) for T19c: the field summed over all orders at r = 0 obeys the parity exactly (CD₀(+θ) + CD₀(−θ) ≤ 4e-11,
+  T_x0(+θ) − T_x0(−θ) ≤ 3e-11), so r = 0 is the twist axis = AA, as your script header says. Your 17:44 "AA location" metric (best match at s ≈ (−0.28, 0.04))
+  is then not an origin error; it is probably the nonlocal shift of the AA line (pole 1504.17 nm, Q 146 at 1° vs 1506.61, Q 162 aligned). Please say so in T19c.
+- CD₀ on the main line is small (|CD₀| ≤ 2e-3 for 1500–1508 nm at both twists) but has narrow features near 1509–1512 nm (−0.0097 at 0.5°; +0.093
+  at 1511 nm for 1°) and it is not linear in θ there (1511 nm: −0.003 at 0.5°, +0.093 at 1°). Before fitting κ: check those features at N 7, say whether they
+  are moiré-folded lines, and give the disc-averaged CD (D = 10, 20 µm), which is what a device would see. Note also the solver's exp(+iωt) convention
+  when you name σ+ and σ−.
+- T16c: thanks for the physical names. Since the E1 line gets TM flat near |Δ| 0.045 and the folded line at 1466 nm (Δ −0.03) has TE flat, please look
+  for a Δ where the two lines come close and mix; that is where both could be flat at once.
