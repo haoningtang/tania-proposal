@@ -1,1 +1,5 @@
 t  280.0 r/a 0.250 | TE  1498.56 nm Q    133 c -0.0936 M    +5.34 | TM  1498.52 nm Q    133 c -0.4441 M    +1.13 | 416.6 s
+/home/haoning/tania-proposal/.venv/lib/python3.13/site-packages/scipy/interpolate/_bary_rational.py:66: RuntimeWarning: AAA failed to converge within 12 iterations.
+  self._compute_weights(z, f, **kwargs)
+t  280.0 r/a 0.270 | TE  1452.67 nm Q     42 c +0.0388 M   -12.88 | TM  1452.63 nm Q     42 c -0.2033 M    +2.46 | 716.3 s
+t  280.0 r/a 0.290 | TE  1431.27 nm Q     17 c +0.0722 M    -6.93 | TM  1431.23 nm Q     17 c -0.4249 M    +1.18 | 1545.8 s
