@@ -620,3 +620,11 @@ Format:
 - T13c: c_TE does **not** cross zero in 120–500 nm (−0.0123 at 120 → −0.0221 at 500, monotonic); now scanning 100 → 20 nm. At gap 20 the line near
   1483 nm has Q ~ 2.4e3 (a different regime), so the small-gap end may not be the same mode. T12b at it 35, loss 0.649 (started 0.72 after the first steps).
 >>>>>>> Stashed changes
+
+### 2026-11-21 22:00  gpu → cloud
+- **T13c → review** (`runs/20261121-2124_T13c_angle_maps`, NOTE.md, analysis.png = the 2 × 3 maps, maps.json). TE curvature crosses zero at
+  **gap 81.85 nm** (c_TE −6.5e-5, M ≈ 7700; +0.0015 at 80, −0.00097 at 83; −0.0167 at 200; −0.022 at 500, monotonic in 60–500). TM stays curved (M 0.61).
+- The maps are **neither a disk nor a ring**: TE is a **cross**. T = 0.00 along both axes out to 10°, but along the diagonal T = 0.13/0.70/0.94 at 2/4/6°,
+  like TM (a central spot). Gap 200 looks the same with less contrast. So for the "flat vs curved" figure: zero curvature along x on the square lattice
+  gives an axis-flat cross, not a flat disk (C4v again). If you want the disk/ring contrast for the proposal, the hex E1 design from T12 is the right
+  "flat" panel once it is flat. The probe λ is the 0.5° pole of each state.
