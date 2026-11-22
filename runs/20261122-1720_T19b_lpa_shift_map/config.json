@@ -1,0 +1,6 @@
+{"task": "T19b", "solver": "fmmax via inverse/model.py bilayer_t, CPU (4 processes x 4 cores)", "n_terms": 80, "ngrid": 96,
+ "structure": "aligned square bilayer: a 620, t 220, r 120, gap 200 nm, n 3.48; slab 2 shifted by delta = (i, j) a/16",
+ "shifts": "16 x 16 grid, 45 C4v-distinct shifts computed (part*.npz), the rest by J(g delta) = M_g J M_g^T (lpa_jones.npz, J[i, j, lam, out, in])",
+ "lam_nm": "T19a grid: 1480-1580 step 2 plus 1500.5-1512.5 step 0.5 (70 values)", "incidence": "normal",
+ "basis": "x = TM block, y = TE block at azimuth 0; fmmax exp(-i w t) (rcwa4d-mf uses exp(+i w t): compare powers, not phases)",
+ "scripts": ["inverse/lpa_shift_map.py", "inverse/lpa_shift_analyze.py"]}

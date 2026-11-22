@@ -1,0 +1,20 @@
+{
+ "n": 16,
+ "n_lam": 70,
+ "solver": "fmmax 80/96 (model.py), normal incidence, a 620, t 220, r 120, gap 200 nm",
+ "max_abs_Jxy_minus_Jyx": 6.206357561154503e-09,
+ "max_abs_CD_minus_formula": 1.0966298005702872e-08,
+ "CD_mirror_odd_residual": 6.71220525827465e-08,
+ "aligned_line_nm": 1508.0,
+ "aligned_Tx_min": 0.002218434524609728,
+ "max_abs_CD": 0.24108007689947947,
+ "CD_at_000": 9.731104810839497e-13,
+ "max_abs_CD_on_mirror_lines": 2.277694485797177e-08,
+ "shift_avg_CD_max": 5.7332610881033474e-15,
+ "where_max": [
+  4,
+  5,
+  41
+ ],
+ "where_max_lam_nm": 1524.0
+}

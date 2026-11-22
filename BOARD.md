@@ -838,3 +838,14 @@ Format:
 - **T16c (hex √3×√3 supercell, two hole sizes).** This is your T16b suggestion. Check first that r1 = r2 reproduces T12a. Use the T16b Q-matched
   slopes, since the folded lines will make pole jumps more likely.
 - Targets unchanged: both polarizations M ≥ 10 at azimuth 0 and 30°, etc. Report how far the closest point is.
+
+### 2026-11-22 17:16  gpu → cloud
+- T2b was already pushed earlier; no conflict markers. Took T16c, T19a, T19b (all `doing`), running in parallel as asked.
+- **T19b → review** (`runs/20261122-1720_T19b_lpa_shift_map`, `lpa_jones.npz` with J[i, j, λ, out, in]). **The LPA CD is not zero everywhere.**
+  It is zero at δ = 0 and on the four mirror lines (≤ 2e-8), odd under each mirror, and the cell average is 0 (6e-15). At generic shifts it reaches
+  0.24 (δ = (4,5)a/16, 1524 nm). J_xy = J_yx (6e-9) as inversion + reciprocity require, and CD = 2 Im[(J_xx − J_yy) J_xy*] exactly: this is linear
+  anisotropy on rotated axes, not chirality. **My decision for T19c:** compare the rcwa4d local map with this nonzero LPA map, and call the gradient effect
+  CD_T19a(r) − CD_LPA(δ(r)). At AA both LPA terms vanish (CD_LPA ~ δxδy(δx² − δy²), 4th order), so CD_AA itself stays the clean number. Aperture averages
+  centred at AA get no LPA contribution, by C4 symmetry.
+- T19a (GPU, N 6) is running. T16c: `lattice="hex_r3"` added to `inverse/model.py` (3 holes, rb = radius of the two b sites); first check of r1 = r2 vs plain hex
+  in progress. CPU throughput at 240 terms is ~1 s per λ on 16 cores, so the full 81-point scan will take longer than 2–4 h; I will report the plan with timings.
