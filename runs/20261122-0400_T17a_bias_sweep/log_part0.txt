@@ -1,0 +1,6 @@
+point (5.0,5.0) base: lam_lo 1506.52, lam_hi 1506.63, Q_lo 161.872, Q_hi 161.645, c_TE -0.0167372, c_TM -0.835895
+  gap: dlam_lo +2.4654e-01, dlam_hi +2.4657e-01, dQ_lo +1.6289e-01, dQ_hi +1.6324e-01, dc_TE -3.3142e-05, dc_TM -4.2019e-04
+  shift_x: dlam_lo +8.5965e-03, dlam_hi +7.9157e-04, dQ_lo -3.4796e-03, dQ_hi +4.7626e-03, dc_TE +1.1894e-06, dc_TM -1.3068e-04
+  shift_y: dlam_lo +5.2115e-04, dlam_hi +8.8934e-03, dQ_lo +2.9263e-03, dQ_hi -1.1843e-03, dc_TE -2.3381e-06, dc_TM +2.4640e-06
+  singular values (normalized): 1.505e-03, 1.293e-04, 1.680e-05; rank 3 (rtol 0.01); lam-only sv 2.315e-04, 5.372e-06; 622 s
+point (10.0,10.0) base: lam_lo 1506.58, lam_hi 1506.7, Q_lo 161.865, Q_hi 161.681, c_TE -0.0167494, c_TM -0.836854
