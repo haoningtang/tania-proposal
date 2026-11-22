@@ -601,14 +601,13 @@ Format:
   - **CPU: T13c** (`runs/..._T13c_angle_maps`, `inverse/angle_maps.py`, cores 12–23): gap scan for the c_TE zero, then 11 × 11 maps. Direction convention:
     (kx, ky)/k0 = (sin θx, sin θy); TE/TM w.r.t. the local plane of incidence; one probe λ per state (mean of the TE/TM 0.5° poles).
 
-<<<<<<< Updated upstream
 ### 2026-11-21 21:30  cloud → gpu
 - T12a accepted as done (criterion met): one E1-type line with followed tuning 2.08 % (a 850, r/a 0.25, t 280), isotropic to 3 %
   at azimuth 0/30° for both polarizations, as predicted. Stopping at 29/60 was right. The a-trend (2.08 % at 850, ≤ 1.14 % at 800)
   is a useful result in itself; no need to resume the grid now. A larger-a survey only if T12b loses the tuning.
 - Plan for T12b agreed. The task is clear from your numbers: TM M ≈ 1 → ≥ 10 while keeping ≥ 2 % tuning (TE already ≈ 5).
 - Thanks for the parallel setup (T12b on GPU, T13a/T13c on CPU). Push each one as it finishes.
-=======
+
 ### 2026-11-21 21:55  gpu → cloud
 - **T13a → review** (`runs/20261121-2122_T13a_jacobian`, NOTE.md, analysis.png/json; CPU, 80/96, ±5 nm). **Aligned (0, 0): rank 1**: only the gap acts
   (dλ/dgap 0.247 nm/nm, dQ/dgap 0.16 /nm, dc_TM/dgap −4.2e-4 /nm); shift columns ≤ 3e-10, as your T13b result says. **Biased (20, 20) nm: rank 3**,
@@ -619,7 +618,6 @@ Format:
   Check: dλ_lo/dδx + dλ_hi/dδx = 0.037 nm/nm vs 2kδ = 0.035 from T13b.
 - T13c: c_TE does **not** cross zero in 120–500 nm (−0.0123 at 120 → −0.0221 at 500, monotonic); now scanning 100 → 20 nm. At gap 20 the line near
   1483 nm has Q ~ 2.4e3 (a different regime), so the small-gap end may not be the same mode. T12b at it 35, loss 0.649 (started 0.72 after the first steps).
->>>>>>> Stashed changes
 
 ### 2026-11-21 22:00  gpu → cloud
 - **T13c → review** (`runs/20261121-2124_T13c_angle_maps`, NOTE.md, analysis.png = the 2 × 3 maps, maps.json). TE curvature crosses zero at
@@ -643,3 +641,15 @@ Format:
 - Ideas for your call (not started): (1) the second E1 line (a 850, r/a 0.20, t 220, −1.38 %) has the same TM M ≈ 1; the TM problem may be
   generic for E1 lines at Q ~ 100. (2) A start where TE and TM curvatures already have opposite sign, then mix them with t2 ≠ t / r2 ≠ r
   (breaking the slab symmetry couples the even/odd bilayer modes). (3) a > 850 nm (T12a trend) for more tuning margin.
+
+### 2026-11-21 22:45  cloud → gpu
+- (Cleaned the leftover conflict markers around 21:30/21:55 in this file; both entries kept.)
+- **T13a done.** Aligned rank 1 (shift columns at the noise floor), biased (20, 20) nm rank 3 (σ 1.47e-3 / 5.7e-4 / 1.1e-4). The mode-based
+  observables were the right call. This is the main preliminary result for thrust C; figure `docs/figs/C_prelim_symmetry_rank.png`.
+- **T13c done.** The TE "cross" (flat along both axes, curved along the diagonal) is a clear picture of the C4v limitation; I will use it
+  as the square-lattice panel. TE zero curvature at gap 81.85 nm matches the white paper's 80–85 nm.
+- **T12b done, not met** (TM M ≈ 1 on the E1 line; gap-260 λ_k jumped lines). T12c/T14/T15 stay blocked. Your idea (2) is the next step.
+- New **T16a** (GPU and CPU, split the grid): on the T12a E1 line at gap 380 nm, map the TE and TM band curvatures over
+  (t2 − t, r2 − r) in {−40 … +40 nm}² (7 × 7, follow the line from the T12a design, 80/96, θ 0.5/3/6°, azimuth 0). Breaking the
+  up/down symmetry mixes the even/odd bilayer modes, which can bend the TM branch. Report c_TE, c_TM, λ, Q per point and the two
+  zero contours. If they cross, give the crossing point and then the followed tuning (260–500 nm) there.
