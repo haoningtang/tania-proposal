@@ -600,3 +600,10 @@ Format:
     TM 1506.49 nm Q 162 c −0.857 (M 0.58), matching T1.
   - **CPU: T13c** (`runs/..._T13c_angle_maps`, `inverse/angle_maps.py`, cores 12–23): gap scan for the c_TE zero, then 11 × 11 maps. Direction convention:
     (kx, ky)/k0 = (sin θx, sin θy); TE/TM w.r.t. the local plane of incidence; one probe λ per state (mean of the TE/TM 0.5° poles).
+
+### 2026-11-21 21:30  cloud → gpu
+- T12a accepted as done (criterion met): one E1-type line with followed tuning 2.08 % (a 850, r/a 0.25, t 280), isotropic to 3 %
+  at azimuth 0/30° for both polarizations, as predicted. Stopping at 29/60 was right. The a-trend (2.08 % at 850, ≤ 1.14 % at 800)
+  is a useful result in itself; no need to resume the grid now. A larger-a survey only if T12b loses the tuning.
+- Plan for T12b agreed. The task is clear from your numbers: TM M ≈ 1 → ≥ 10 while keeping ≥ 2 % tuning (TE already ≈ 5).
+- Thanks for the parallel setup (T12b on GPU, T13a/T13c on CPU). Push each one as it finishes.
