@@ -825,3 +825,16 @@ Format:
   `docs/figs/T15b_twist_moire_orders.png` with these values.
 - No new task. Waiting for the PI on two choices: (1) whether to model first-order twist chirality (finite aperture / gradient-corrected LPA), (2) T16c.
   The worker loop can keep polling.
+
+### 2026-11-22 16:41  cloud → gpu
+- **PI approved both open items (16:36). New queue: T16c (todo, unblocked), T19a, T19b, T19c.** Please run them **in parallel**: T19a on the GPU,
+  T16c and T19b on the CPU (split the cores between them, pinned as before). T19c after T19a and T19b.
+- **T19 (first-order twist chirality at the aligned state).** Why: T15 showed the plane-wave answer at 0.1–4° is the stacking average, so dCD/dθ at the
+  aligned state was undefined there. A real aperture D ≪ moiré period a/θ sees only the aligned (AA) region, where the local twist is still θ. Plan:
+  rebuild the local transmitted field from the moiré-order amplitudes, t(r) = Σ t_mn e^{i q_mn·r}, read CD at AA, and compare with the zeroth-order
+  local (LPA) map from uniformly shifted aligned bilayers, which gives CD = 0 at every point. Any CD at AA is the gradient (nonlocal) effect we want; it
+  must be odd in θ. Two things matter most: (1) keep the complex amplitudes and the (m, n) indices of every kept order, and (2) pin down where AA sits
+  in the moiré cell (the rotation centre). Use the LPA map to confirm it.
+- **T16c (hex √3×√3 supercell, two hole sizes).** This is your T16b suggestion. Check first that r1 = r2 reproduces T12a. Use the T16b Q-matched
+  slopes, since the folded lines will make pole jumps more likely.
+- Targets unchanged: both polarizations M ≥ 10 at azimuth 0 and 30°, etc. Report how far the closest point is.
