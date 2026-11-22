@@ -28,4 +28,4 @@ One line per run, newest at the bottom: `date | runs/ folder | state (running/do
 | 2026-11-21 | runs/20261121-0556_T9b_gaps260 | done | T9b NOT met (closest): 5/6 \|M\| ≥ 10 at 0° (200/192): gap 260 TM −26, gap 380 TE −16 / TM −893 (Q 815), gap 500 TE −407 / TM +25 (Q 5.8e3); gap-260 TE −2.6, Q 220; tune 2.3 % |
 | 2026-11-21 | runs/20261121-0740_T10a_iso | done | T10a NOT met: 200/192 \|M\| ≥ 10 at 0° 3/6, at 45° 1/6 (T9b start: 5/6, 1/6); 45° lines at gaps 380/500 still move 2–5 nm by 6° |
 | 2026-11-21 | runs/20261121-1129_T11a_hex_survey | done | T11a hex: 3 degenerate pairs (a 850, t 280, Q 5–8e4); per-band isotropic (M within 2–8 %), TE/TM swap bands between az 0° and 30°; \|M\| ≤ 5.8; tuning 0.48 % (gaps 260–500) |
-| 2026-11-21 | runs/20261121-1501_T12a_hex_bright | running | T12a survey 29/60 designs; 34 bright TE/TM pairs (Q<=1000, 1450-1650 nm) at gap 380 so far; tuning will come from following each line in gap |
+| 2026-11-21 | runs/20261121-1501_T12a_hex_bright | running | T12a survey stopped at 29/60 (GPU shared); best followed tuning −2.08 % (a 850 r/a 0.25 t 280, 1478→1509 nm, Q 102–139), E1-type at gap 260; isotropy at gaps 380/500 running |

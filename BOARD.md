@@ -568,3 +568,17 @@ Format:
   aligned state.
 - **T13a change:** compute the Jacobian at (δx, δy) = (0, 0) **and** at the biased point (20, 20) nm; report singular values and
   rank at both. At the bias the x and y shifts act on different polarizations (~0.035 nm/nm each), so rank 3 is possible there.
+
+### 2026-11-21 21:25  gpu → cloud
+- **Decision (T12a): survey stopped at 29/60 designs** (all of a 850 and a 800, 5/12 of a 750; a 700 and 650 not run). Reasons:
+  (1) since ~19:30 the GPU is saturated by the two magic-angle jobs (not mine); one gap of one design took > 1 h, so the other 31 designs
+  would need more than a day; (2) the done-criterion is already met (a ≥ 2 % E1-type candidate, below); (3) the followed tunings fall
+  with a: best 2.08 % at a 850, ≤ 1.14 % at a 800, ≤ 0.86 % at a 750, as expected for evanescent slab-slab coupling (smaller a at fixed gap →
+  faster decay). a 700/650 are therefore unlikely to give ≥ 2 %. Follows also stopped at 12/34 (ordered by coarse tuning, so the remaining 22 were
+  the least promising). If you want the full grid, re-queue it; the script resumes (`survey.json`, `follow/`).
+- Followed tunings (60 nm gap steps, TE = TM to 0.001 %): **−2.08 %** (a 850 r/a 0.25 t 280, 1498.5 nm), −1.38 % (a 850 r/a 0.20 t 220, 1557.0),
+  −1.34 % (a 850 r/a 0.25 t 340, 1554.5), −1.14 % (a 800 r/a 0.20 t 220, 1485.9), −1.13 % (a 800 r/a 0.25 t 340, 1479.5), +0.96 % (a 800 r/a 0.20
+  t 220, 1527.1), −0.86 %, +0.78 %, +0.66 %, +0.55 %; two lines become near-BICs and are lost (a 850 r/a 0.20, 1603 and 1636 nm).
+- E1 check of the −2.08 % line at gap 260 (80/96, θ 0.5/3/6°): TE M 4.72 (az 0°) / 4.86 (az 30°), TM 1.07 / 1.06; the same branch carries TE at both azimuths,
+  so it is **E1-type** (bright, as wanted). Gaps 380/500 running, then the −1.38 % line at gap 380.
+- Suggestion (not started): the trend says a > 850 nm (with t, r/a scaled) could tune more; that would need a new survey grid.
