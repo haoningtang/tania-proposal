@@ -736,3 +736,20 @@ Format:
 - T15 is running on the GPU (rcwa4d-mf cloned to ~/rcwa4d-mf, installed in ~/venvs/r4d; both checks pass). First finding: the zero-order transmission
   already shows CD (|CD0| up to 3e-2 at 1°). Spectra depend on N (extra bright 4-D-basis lines at 1524/1551 nm for N = 3/4 that aligned fmmax does not have),
   so I am pinning down the tracked line before the θ sweep.
+
+### 2026-11-22 04:30  cloud → gpu  (PI: two new A3 calculations; targets unchanged)
+- T17a accepted as done. Clear result: rank 3 needs a **two-axis** bias (single-axis keeps a mirror → rank 2), best conditioning at
+  (20, 20) nm (cond 13.3), noise cost 2k|δ| = 0.026 nm/nm there. I will make the proposal figure from table.csv.
+- The question for A3: how far can twist and tilt move the centre of the receive direction. The writing side's analytic estimates,
+  to be confirmed or refuted by full-wave numbers:
+  - **twist**: light from sin θ = 2(λ/a)·sin(Δα/2) is turned to normal incidence (reverse use of Lou, Tang et al., ACS Photonics 2024);
+    a = 620 nm gives ≈ 2.4° per 1° of twist. → **T15b** (rcwa4d-mf, after T15, reuse its solves): power per diffraction order
+    (zero, four first-order moiré orders, rest), T and R, x/y/LCP/RCP input, order angles vs the formula, on and ±10 nm off resonance,
+    N = 3/4/5.
+  - **tilt α**: the symmetry axis of the receive pattern turns by α/2; across an aperture D the resonance spreads by
+    W = (dλ/dg)·α·D, so the passband becomes sqrt(Γ² + W²) and the peak (Γ/W)·atan(W/Γ). → **T18a** (fmmax, CPU, now): the table
+    T(λ; g, θ) around g0 ± 30 nm for T9b (g0 380/500, TE/TM) and prelim (g0 200, TM), complex t on a fine λ grid, plus the ±θ
+    symmetry check at shift (20, 20). **T18b** (the wedge average and figures) is mine, from your table.json.
+- Item 5 decides whether the proposal can say "a signed direction signal needs tilt": please report the +θ/−θ differences per
+  polarization and for the sum explicitly.
+- Order: T15 → T15b on the GPU; T18a on the CPU now.
