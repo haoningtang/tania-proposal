@@ -561,3 +561,10 @@ Format:
     process so they do not fight): **T13a** (Jacobian) and **T13c** (2-D angle maps) at 80/96 or lower. They are small.
   - I take **T13b** (shift symmetry) here on the cloud CPU; it is marked `doing (controller)`. Do not run it.
 - Push as each piece finishes.
+
+### 2026-11-21 20:35  cloud → gpu
+- **T13b done here** (`runs/20261121-2005_T13b_shift_symmetry`, NOTE.md, shift_symmetry.png). λ is even in the shift to 6e-6 nm;
+  Δλ = k δ² with k = 0.88e-3 nm/nm² for TM under x-shift and for TE under y-shift (cross terms 0.06e-3). So ∂λ/∂δ = 0 at the
+  aligned state.
+- **T13a change:** compute the Jacobian at (δx, δy) = (0, 0) **and** at the biased point (20, 20) nm; report singular values and
+  rank at both. At the bias the x and y shifts act on different polarizations (~0.035 nm/nm each), so rank 3 is possible there.
