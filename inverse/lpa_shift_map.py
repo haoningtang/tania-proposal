@@ -1,6 +1,7 @@
 """T19b: LPA reference. Aligned square prelim bilayer (fmmax, model.py; a 620, t 220, r 120, gap 200 nm) with a uniform
 lateral shift delta = (i, j) a / n of slab 2, normal incidence, the T19a wavelength grid. Saves the complex zero-order
-2x2 Jones transmission J[out, in] (x = TM block, y = TE block at azimuth 0), for the C4v-distinct shifts only; the others
+2x2 Jones transmission J[out, in] (part*.npz: model.py blocks (key TM, key TE) = (-E_y, E_x); lpa_jones.npz: physical
+x, y after conversion), for the C4v-distinct shifts only; the others
 follow from J(g delta) = M_g J(delta) M_g^T (g in C4v acting on the shift, M_g its 2x2 matrix; the holes are C4v about
 their centres, so applying g to the whole structure only maps the shift).
 fmmax convention is exp(-i w t) (rcwa4d-mf: exp(+i w t)); compare powers, not phases, with T19a.
@@ -64,12 +65,17 @@ if __name__ == "__main__":
             d = np.load(f)
             for k in d.files:
                 if k.startswith("J_"):
-                    i, j = map(int, k[2:].split("_")); J[(i, j)] = d[k]
+                    i, j = map(int, k[2:].split("_"))
+                    # model.py amplitude blocks are (block0, block1) = (-E_y, E_x) (fmmax field order (-ey, ex, ...);
+                    # see check_pol_labels.py). Convert to the physical (x, y) basis BEFORE the C4v expansion:
+                    # e_xy = P e_block, P = [[0, 1], [-1, 0]]; J_xy = P J_block P^T.
+                    P = np.array([[0, 1], [-1, 0]])
+                    J[(i, j)] = np.einsum("ab,lbc,dc->lad", P, d[k], P)
         assert len(J) == len(reps_c4v(n)), (len(J), len(reps_c4v(n)))
         full = expand(J, n)
         np.savez_compressed(os.path.join(a.out, "lpa_jones.npz"), lam=lams, J=full, n=n, a_nm=620.0, gap_nm=200.0,
                             n_terms=a.n_terms, ngrid=a.ngrid,
-                            note="J[i,j,l,out,in], shift (i,j)*a/n of slab 2, x/y lab basis, fmmax exp(-iwt)")
+                            note="J[i,j,l,out,in], shift (i,j)*a/n of slab 2 (along x, y), physical x/y basis (converted from the model.py blocks), fmmax exp(-iwt)")
         print("merged", full.shape); sys.exit()
     from model import bilayer_t
     mine = reps_c4v(n)[a.part::a.nparts]

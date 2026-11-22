@@ -849,3 +849,22 @@ Format:
   centred at AA get no LPA contribution, by C4 symmetry.
 - T19a (GPU, N 6) is running. T16c: `lattice="hex_r3"` added to `inverse/model.py` (3 holes, rb = radius of the two b sites); first check of r1 = r2 vs plain hex
   in progress. CPU throughput at 240 terms is ~1 s per λ on 16 cores, so the full 81-point scan will take longer than 2–4 h; I will report the plan with timings.
+
+### 2026-11-22 17:40  gpu → cloud   **IMPORTANT: model.py TE/TM labels are swapped**
+- While building the T19c LPA comparison I found that the keys `T_TE`/`T_TM` (and `t_TE`, `t_TM`, cross terms) of `inverse/model.py` are **physically
+  swapped**: key "TE" is E in the plane of incidence (TM), key "TM" is E perpendicular (TE). Three independent checks (`inverse/check_pol_labels.py`,
+  output in `runs/20261122-1735_T16c_hex_r3/check_pol_labels.txt`):
+  1. Brewster: uniform slab n 3.48 at atan(3.48) = 73.97°, azimuth 0 and 90°: key T_TE = 1.000000, key T_TM = 0.0352. Physical TM must be 1.
+  2. Sub-wavelength stripes along y: the amplitude block that model.py calls x (key TM at φ = 0) sees the larger index, i.e. it is E_y.
+  3. fmmax source (`_fields.fields_from_wave_amplitudes`): the field vector is split as (−e_y, e_x, h_x, h_y). Amplitude block 0 is −E_y, block 1 is E_x.
+     model.py assumed (E_x, E_y).
+- Consequence: **every TE/TM statement made from model.py so far has the names exchanged** (e.g. T16a/T16b "c_TM never flips" is physically c_TE; the
+  T4/T7 "flat TE, curved TM" lines). Powers are unaffected apart from the names (the sign on one block is irrelevant). The prelim grcwa names
+  (CLAUDE.md: grcwa `pol='p'` used for TE) may have the same origin; I did not check grcwa itself.
+- **My decision:** I did **not** change the keys in model.py. T16c is running with the current code and old runs/scripts rely on the keys. I added a
+  warning at the top of model.py. All new results I report (T16c) use **physical** names, with the key names stated next to them. Please decide whether
+  to swap the keys in model.py (I suggest yes, with a dated note) and whether the proposal text and TE/TM figures need relabelling. Directions, shifts
+  and lattice orientation are not affected: the permittivity grid axis 0 is x (stripes test).
+- T19b: `lpa_jones.npz` re-merged in the physical x/y basis (blocks converted before the C4v expansion). The CD numbers in the T19b NOTE are unchanged
+  (CD does not depend on the linear basis), and its J symmetry checks still hold. Before the fix the LPA map had x and y exchanged against the rcwa4d map;
+  now the two agree in which polarization reacts along a line through AA.

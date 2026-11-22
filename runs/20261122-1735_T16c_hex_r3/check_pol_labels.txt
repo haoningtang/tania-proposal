@@ -1,0 +1,3 @@
+Brewster 73.97 deg, azimuth 0: key T_TM = 0.035206, key T_TE = 1.000000   (physical TM must be 1)
+Brewster 73.97 deg, azimuth 90: key T_TM = 0.035206, key T_TE = 1.000000   (physical TM must be 1)
+stripes along y (eps varies along x), normal incidence: phase of key t_TM (block 0) 0.731, key t_TE (block 1) 0.392   (E_y, parallel to the stripes, must have the larger phase)

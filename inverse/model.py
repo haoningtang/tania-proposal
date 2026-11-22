@@ -1,5 +1,10 @@
 """Differentiable forward model for an ALIGNED Si photonic-crystal bilayer (fmmax / JAX).
 
+WARNING (worker, 2026-11-22; check_pol_labels.py): the keys "TE"/"TM" below are SWAPPED with respect to the physical
+definition (TE = E perpendicular to the plane of incidence). fmmax amplitude blocks are (-E_y, E_x), not (E_x, E_y):
+key "TM" is physically TE and key "TE" is physically TM (Brewster test: key T_TE = 1.000000 at atan(3.48)). The keys
+are left unchanged for now so that old and running results stay comparable; the controller decides on the fix.
+
 Stack (top to bottom): vacuum | slab 1 | air gap | slab 2 (laterally shifted) | vacuum.
 Lengths in micrometres. Returns the complex zero-order transmission coefficient for TE (E perpendicular to the
 plane of incidence) and TM (E in the plane of incidence), for a plane wave at polar angle theta and azimuth phi

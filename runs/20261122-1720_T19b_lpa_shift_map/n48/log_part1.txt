@@ -1,0 +1,11 @@
+shift (0,1)/48 mult 4: 58s, min Tx 0.002 at 1508.0, max|CD| 5.3e-11
+shift (0,4)/48 mult 4: 38s, min Tx 0.000 at 1508.0, max|CD| 8.5e-10
+shift (0,7)/48 mult 4: 41s, min Tx 0.002 at 1508.0, max|CD| 2.1e-09
+shift (0,10)/48 mult 4: 37s, min Tx 0.000 at 1508.5, max|CD| 3.0e-09
+shift (0,13)/48 mult 4: 37s, min Tx 0.000 at 1509.0, max|CD| 2.9e-08
+shift (0,16)/48 mult 4: 40s, min Tx 0.000 at 1509.5, max|CD| 2.0e-08
+shift (0,19)/48 mult 4: 38s, min Tx 0.002 at 1510.0, max|CD| 1.8e-08
+shift (0,22)/48 mult 4: 37s, min Tx 0.000 at 1510.0, max|CD| 2.3e-08
+shift (1,1)/48 mult 4: 38s, min Tx 0.000 at 1508.0, max|CD| 2.0e-12
+shift (1,4)/48 mult 8: 39s, min Tx 0.001 at 1508.0, max|CD| 2.7e-04
+shift (1,7)/48 mult 8: 37s, min Tx 0.002 at 1508.5, max|CD| 5.6e-04
