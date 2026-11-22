@@ -1,0 +1,79 @@
+34 bright pairs to follow
+follow a 850 r/a 0.20 t 220 lam 1557.04 Q 66
+  gap 0.380: TE 1557.06 nm Q 66  TM 1557.02 nm Q 66
+  gap 0.340: TE 1553.45 nm Q 61  TM 1553.40 nm Q 61
+  gap 0.300: TE 1548.68 nm Q 57  TM 1548.64 nm Q 57
+  gap 0.260: TE 1542.38 nm Q 54  TM 1542.33 nm Q 54
+  gap 0.420: TE 1559.85 nm Q 72  TM 1559.80 nm Q 72
+  gap 0.460: TE 1562.03 nm Q 79  TM 1561.98 nm Q 79
+  gap 0.500: TE 1563.80 nm Q 88  TM 1563.75 nm Q 88
+{"a": 0.85, "r_over_a": 0.2, "t": 0.22, "lam380": 1557.04, "TE_tuning": -1.379, "TM_tuning": -1.379}
+follow a 850 r/a 0.20 t 220 lam 1602.97 Q 223
+  gap 0.380: TE 1603.00 nm Q 223  TM 1602.94 nm Q 223
+  gap 0.340: TE 1603.29 nm Q 549  TM 1603.23 nm Q 548
+  gap 0.300: TE 1604.99 nm Q 2514  TM 1604.93 nm Q 2507
+  TE: lost at gap 0.26
+  TM: lost at gap 0.26
+  gap 0.260: 
+  gap 0.420: TE 1603.55 nm Q 115  TM 1603.49 nm Q 114
+  gap 0.460: TE 1604.14 nm Q 67  TM 1604.07 nm Q 66
+  gap 0.500: TE 1603.32 nm Q 42  TM 1603.25 nm Q 42
+{"a": 0.85, "r_over_a": 0.2, "t": 0.22, "lam380": 1602.97}
+follow a 850 r/a 0.20 t 280 lam 1516.93 Q 63
+34 bright pairs to follow
+follow a 850 r/a 0.20 t 280 lam 1636.43 Q 920
+  gap 0.380: TE 1636.45 nm Q 920  TM 1636.41 nm Q 923
+  TE: lost at gap 0.32
+  TM: lost at gap 0.32
+  gap 0.320: 
+  gap 0.260: 
+  TE: lost at gap 0.44
+  TM: lost at gap 0.44
+  gap 0.440: 
+  gap 0.500: 
+{"a": 0.85, "r_over_a": 0.2, "t": 0.28, "lam380": 1636.43}
+follow a 850 r/a 0.25 t 280 lam 1498.54 Q 133
+  gap 0.380: TE 1498.56 nm Q 133  TM 1498.52 nm Q 133
+  gap 0.320: TE 1490.30 nm Q 139  TM 1490.26 nm Q 139
+  gap 0.260: TE 1477.93 nm Q 111  TM 1477.89 nm Q 111
+  gap 0.440: TE 1504.55 nm Q 117  TM 1504.50 nm Q 117
+  gap 0.500: TE 1509.02 nm Q 102  TM 1508.97 nm Q 102
+{"a": 0.85, "r_over_a": 0.25, "t": 0.28, "lam380": 1498.54, "TE_tuning": -2.081, "TM_tuning": -2.081}
+follow a 850 r/a 0.25 t 340 lam 1554.48 Q 132
+  gap 0.380: TE 1554.50 nm Q 132  TM 1554.46 nm Q 132
+  gap 0.320: TE 1548.89 nm Q 157  TM 1548.85 nm Q 157
+  gap 0.260: TE 1541.18 nm Q 196  TM 1541.14 nm Q 196
+  gap 0.440: TE 1558.74 nm Q 113  TM 1558.69 nm Q 113
+  gap 0.500: TE 1562.04 nm Q 99  TM 1561.99 nm Q 99
+{"a": 0.85, "r_over_a": 0.25, "t": 0.34, "lam380": 1554.48, "TE_tuning": -1.344, "TM_tuning": -1.344}
+follow a 800 r/a 0.20 t 220 lam 1485.85 Q 68
+  gap 0.380: TE 1485.88 nm Q 68  TM 1485.83 nm Q 68
+  gap 0.320: TE 1481.48 nm Q 57  TM 1481.44 nm Q 57
+  gap 0.260: TE 1474.78 nm Q 50  TM 1474.74 nm Q 50
+  gap 0.440: TE 1489.03 nm Q 85  TM 1488.98 nm Q 85
+  gap 0.500: TE 1491.62 nm Q 114  TM 1491.58 nm Q 114
+{"a": 0.8, "r_over_a": 0.2, "t": 0.22, "lam380": 1485.85, "TE_tuning": -1.136, "TM_tuning": -1.135}
+follow a 800 r/a 0.25 t 340 lam 1479.51 Q 107
+  gap 0.380: TE 1479.53 nm Q 107  TM 1479.49 nm Q 107
+  gap 0.320: TE 1475.04 nm Q 123  TM 1475.00 nm Q 123
+  gap 0.260: TE 1468.86 nm Q 145  TM 1468.82 nm Q 145
+  gap 0.440: TE 1482.93 nm Q 95  TM 1482.89 nm Q 95
+  gap 0.500: TE 1485.60 nm Q 85  TM 1485.56 nm Q 85
+{"a": 0.8, "r_over_a": 0.25, "t": 0.34, "lam380": 1479.51, "TE_tuning": -1.133, "TM_tuning": -1.133}
+follow a 800 r/a 0.20 t 220 lam 1527.14 Q 77
+  gap 0.380: TE 1527.17 nm Q 77  TM 1527.11 nm Q 77
+  gap 0.320: TE 1529.85 nm Q 153  TM 1529.79 nm Q 153
+  gap 0.260: TE 1534.14 nm Q 478  TM 1534.08 nm Q 477
+  gap 0.440: TE 1523.96 nm Q 49  TM 1523.90 nm Q 49
+  gap 0.500: TE 1519.44 nm Q 38  TM 1519.38 nm Q 38
+{"a": 0.8, "r_over_a": 0.2, "t": 0.22, "lam380": 1527.14, "TE_tuning": 0.963, "TM_tuning": 0.963}
+follow a 750 r/a 0.20 t 340 lam 1543.57 Q 300
+  gap 0.380: TE 1543.59 nm Q 300  TM 1543.55 nm Q 300
+  gap 0.320: TE 1540.00 nm Q 351  TM 1539.96 nm Q 351
+  gap 0.260: TE 1534.59 nm Q 417  TM 1534.55 nm Q 417
+  gap 0.440: TE 1546.08 nm Q 259  TM 1546.04 nm Q 259
+  gap 0.500: TE 1547.90 nm Q 226  TM 1547.85 nm Q 226
+{"a": 0.75, "r_over_a": 0.2, "t": 0.34, "lam380": 1543.57, "TE_tuning": -0.864, "TM_tuning": -0.863}
+follow a 800 r/a 0.20 t 280 lam 1593.28 Q 82
+  gap 0.380: TE 1593.31 nm Q 82  TM 1593.26 nm Q 82
+  gap 0.320: TE 1596.78 nm Q 91  TM 1596.72 nm Q 91

@@ -24,6 +24,7 @@ ap.add_argument("--match_tol", type=float, default=0.08)
 ap.add_argument("--win", type=float, default=0.07, help="AAA window width (um); windows overlap by half")
 ap.add_argument("--follow", type=float, nargs=4, default=None, metavar=("A", "R_OVER_A", "T", "LAM380"))
 ap.add_argument("--gap_step", type=float, default=0.02)
+ap.add_argument("--follow_all", action="store_true"); ap.add_argument("--qmax_follow", type=float, default=1000)
 a = ap.parse_args()
 cfg = json.load(open(a.config)); sv = cfg["survey"]
 kw = dict(n_terms=cfg.get("n_terms", 80), ngrid=cfg.get("ngrid", 96), lattice=cfg.get("lattice", "hex"))
@@ -115,41 +116,84 @@ def params(A, ra, T):
     return dict(a=A, t=T, r=ra * A, r2=ra * A, t2=T, c4=0.0, c8=0.0)
 
 
-if a.follow:
-    # follow one TE/TM line from gap 0.38 down to min(gaps) and up to max(gaps) in steps of gap_step
-    A, ra, T, l380 = a.follow
+def follow_line(A, ra, T, l380, Q380=None, step=None):
+    """follow one TE/TM line from gap 0.38 down to min(gaps) and up to max(gaps) in steps of `step`; one scan per step
+    gives TE and TM. Window +-4 linewidths (2 .. 30 nm), retried 10x and 100x narrower if the line has become sharp."""
+    step = step or a.gap_step
     p = params(A, ra, T)
-    res = dict(p=dict(a=A, r_over_a=ra, t=T), settings=dict(kw, theta=th, gap_step=a.gap_step), TE=[], TM=[])
+    res = dict(p=dict(a=A, r_over_a=ra, t=T), lam380=l380, settings=dict(kw, theta=th, gap_step=step), TE=[], TM=[])
     for pol in ("TE", "TM"):
-        pts = {}
-        for direction in (-1, 1):
-            l, Q = l380, None
-            g_end = min(gaps) if direction < 0 else max(gaps)
-            gg = np.round(np.arange(0.38, g_end + direction * 1e-9, direction * a.gap_step), 4)
-            for g in gg:
-                if direction > 0 and g == 0.38:
+        res[pol] = []
+    for direction in (-1, 1):
+        cur = {pol: (l380, Q380) for pol in ("TE", "TM")}; alive = {"TE": True, "TM": True}
+        g_end = min(gaps) if direction < 0 else max(gaps)
+        gg = np.round(np.arange(0.38, g_end + direction * 1e-9, direction * step), 4)
+        for g in gg:
+            if direction > 0 and g == 0.38:
+                continue
+            cache = []   # (center, half-width, ll, t): TM reuses the TE scan when the windows nearly coincide
+            for pol in ("TE", "TM"):
+                if not alive[pol]:
                     continue
-                w = 0.012 if Q is None else min(max(4 * l / Q, 0.002), 0.03)
-                for w in (w, w / 10, w / 100):   # retry narrower if the line has become very sharp
-                    ll = np.linspace(l - w, l + w, 41)
-                    P = poles_nocap(ll, scan(p, dict(gap=float(g), shift=0.0), ll, th, kw)[pol], ll[0], ll[-1])
-                    P = [x for x in P if x[1] >= 0.5 * a.qmin and abs(x[0] - l) < max(w, 0.01)]
+                l, Q = cur[pol]
+                w0 = 0.012 if Q is None else min(max(4 * l / Q, 0.002), 0.03)
+                P = []
+                for w in (w0, w0 / 10, w0 / 100):
+                    hit = [c for c in cache if abs(c[0] - l) < 0.1 * w and abs(c[1] / w - 1) < 0.3]
+                    if hit:
+                        ll, t = hit[0][2], hit[0][3]
+                    else:
+                        ll = np.linspace(l - w, l + w, 41)
+                        t = scan(p, dict(gap=float(g), shift=0.0), ll, th, kw); cache.append((l, w, ll, t))
+                    P = [x for x in poles_nocap(ll, t[pol], ll[0], ll[-1])
+                         if x[1] >= 0.5 * a.qmin and abs(x[0] - l) < max(w, 0.01)]
                     if P:
                         break
                 if not P:
-                    print(f"{pol}: lost at gap {g}", flush=True); break
-                l, Q = min(P, key=lambda x: abs(x[0] - l))
-                pts[float(g)] = (l, Q)
-                print(f"{pol} gap {g:.3f}: {l*1e3:.2f} nm Q {Q:.0f}", flush=True)
-        res[pol] = sorted([g, *v] for g, v in pts.items())
+                    alive[pol] = False; print(f"  {pol}: lost at gap {g}", flush=True); continue
+                cur[pol] = min(P, key=lambda x: abs(x[0] - l))
+                res[pol].append([float(g), *cur[pol]])
+            print(f"  gap {g:.3f}: " + "  ".join(f"{pol} {cur[pol][0]*1e3:.2f} nm Q {cur[pol][1] or 0:.0f}"
+                                              for pol in ("TE", "TM") if alive[pol]), flush=True)
     for pol in ("TE", "TM"):
+        res[pol].sort()
         d = {g: l for g, l, _ in res[pol]}
         if min(gaps) in d and max(gaps) in d:
             l1, l2 = d[min(gaps)], d[max(gaps)]
             res[pol + "_tuning"] = (l1 - l2) / (0.5 * (l1 + l2))
-    fn = os.path.join(a.out, f"follow_a{A*1e3:.0f}_ra{ra:.2f}_t{T*1e3:.0f}_l{l380*1e3:.0f}.json")
+    fn = os.path.join(a.out, "follow", f"a{A*1e3:.0f}_ra{ra:.2f}_t{T*1e3:.0f}_l{l380*1e4:.0f}.json")
+    os.makedirs(os.path.dirname(fn), exist_ok=True)
     json.dump(res, open(fn, "w"), indent=1)
-    print(json.dumps({k: v for k, v in res.items() if k.endswith("tuning")}))
+    print(json.dumps(dict(a=A, r_over_a=ra, t=T, lam380=round(l380 * 1e3, 2),
+                          **{k: round(100 * v, 3) for k, v in res.items() if k.endswith("tuning")})), flush=True)
+    return res
+
+
+if a.follow:
+    follow_line(*a.follow)
+    raise SystemExit
+
+if a.follow_all:
+    # follow every bright pair at gap 0.38 (Q <= qmax_follow, 1450-1650 nm) in the existing survey.json; skip done ones
+    S = json.load(open(os.path.join(a.out, "survey.json")))["designs"]
+    todo = [(d["p"], x) for d in S for x in d["gaps"]["0.38"]["pairs"]
+            if min(x["Q_TE"], x["Q_TM"]) <= a.qmax_follow and 1.45 <= x["lam"] <= 1.65]
+    def coarse_tune(P, x):   # ordering heuristic only (nearest pair within 80 nm at the end gaps); not reported
+        D = next(d for d in S if d["p"] == P)["gaps"]; ls = []
+        for g in (str(min(gaps)), str(max(gaps))):
+            c = [y["lam"] for y in D[g]["pairs"] if abs(y["lam"] - x["lam"]) <= 0.08]
+            if not c:
+                return 0.0
+            ls.append(min(c, key=lambda l: abs(l - x["lam"])))
+        return abs(ls[0] - ls[1]) / x["lam"]
+    todo.sort(key=lambda px: -coarse_tune(*px))
+    print(f"{len(todo)} bright pairs to follow", flush=True)
+    for P, x in todo:
+        fn = os.path.join(a.out, "follow", f"a{P['a']*1e3:.0f}_ra{P['r_over_a']:.2f}_t{P['t']*1e3:.0f}_l{x['lam']*1e4:.0f}.json")
+        if os.path.exists(fn):
+            continue
+        print(f"follow a {P['a']*1e3:.0f} r/a {P['r_over_a']:.2f} t {P['t']*1e3:.0f} lam {x['lam']*1e3:.2f} Q {min(x['Q_TE'], x['Q_TM']):.0f}", flush=True)
+        follow_line(P["a"], P["r_over_a"], P["t"], x["lam"], min(x["Q_TE"], x["Q_TM"]), step=a.gap_step)
     raise SystemExit
 
 fn = os.path.join(a.out, "survey.json")
