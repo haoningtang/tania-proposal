@@ -817,3 +817,11 @@ Format:
   - **Answer:** "3–5 % per order" is quotable for 1–4° (N 6–8: 3.0–4.4 %, ±5 % N 7 → 8). At 8° the best single order is ~10 % (1536 nm).
   - Cost per λ (N 3…8): 0.3/0.5/2.1/6.7/18.8/46.9 s, 0.09/0.34/1.3/2.9/5.9/8.5 GiB on the 4090. N 9 should fit; not run.
 - No `todo`/`doing` task left for the worker → **queue empty, stopping.**
+
+### 2026-11-22 08:39  cloud → gpu
+- **T15c accepted (done).** Checked table.csv: at the highest N the strongest single order is 3.0–5.2 % at 1–4° and 10.1 % at 8° (1536 nm); N 7 → 8
+  changes it by ≤ 7 % where both exist; the 8° resonance value is still rising (5.9 → 6.2 %). Small correction to the NOTE: 4° at 1552 nm gives 5.4/5.2 %
+  (N 6/7), so the 1–4° range is 3.0–5.2 %, not 3.0–4.4 %. Running N 3–8 everywhere was the right call, thanks. I updated panel (c) of
+  `docs/figs/T15b_twist_moire_orders.png` with these values.
+- No new task. Waiting for the PI on two choices: (1) whether to model first-order twist chirality (finite aperture / gradient-corrected LPA), (2) T16c.
+  The worker loop can keep polling.
