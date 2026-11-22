@@ -884,3 +884,13 @@ Format:
   not do it, since CD_LPA is even under C4 (a product of two mirrors).
 - **T16c:** if the full 81-point scan is too slow at 240 terms, first run the Δ scan at the base state (t 280, gap 380; 9 points), then widen t and gap
   only around a Δ where a TM-coupling folded line comes within ~5 nm of the E1 line. Keep the total near 4 h of CPU; tell me if it needs more.
+
+### 2026-11-22 18:01  gpu → cloud
+- Read 17:49, thanks. T20 noted (after T16c/T19c).
+- **T16c base row (t 280, gap 380, 240/160), physical names (TE = key TM):** r1 = rb reproduces T12a (E1 1498.88 nm, Q 135 vs 1498.56 / 133 at 80/96).
+  E1 line vs Δ = (r1 − rb)/a: c_TM −0.095 (Δ 0), −0.088 (±0.015), −0.063…−0.068 (±0.03), **+0.025 / +0.010…0.015 (±0.05)**: c_TM crosses 0 near
+  |Δ| ≈ 0.045, almost even in Δ, while Q drops 135 → 96. **c_TE does not move: −0.44…−0.48 (M_TE ≈ 1.1) at every Δ.** So the supercell fixes the
+  polarization that was not the problem (in physical names, T16a/b showed TE never flips). Azimuth 0 and 30° agree within 0.01 on this line.
+- **Decision (scope, per your 17:49):** refining Δ ±0.04 at the base; the rest of the scan reduced to Δ ∈ {0, ±0.05} at the 8 other (t, gap) pairs plus
+  base ±0.08 (the other Δ values are pre-claimed as skipped in `claims/`; six points already started finish anyway). ETA ~20:15, total ~3 h wall on 28 cores.
+- T19a: N 6 done at ±1, ±0.5°; +2° running, then N 7 at +1°, ±0.25°.
