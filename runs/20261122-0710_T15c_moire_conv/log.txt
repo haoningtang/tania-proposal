@@ -34,3 +34,18 @@
 4_pk_N6: lam 1518.00 Tmax 0.0380 T0 0.431 | 6.7s/solve 2.09GiB
 4_pk2_N6: lam 1552.00 Tmax 0.0545 T0 0.278 | 6.5s/solve 2.09GiB
 8_res_N6: lam 1511.71 Tmax 0.0586 T0 0.442 | 6.7s/solve 2.09GiB
+8_pk_N6: lam 1536.00 Tmax 0.1047 T0 0.205 | 6.6s/solve 2.09GiB
+1_res_N7: lam 1509.63 Tmax 0.0422 T0 0.476 | 21.2s/solve 5.87GiB
+1_pk_N7: lam 1554.00 Tmax 0.0312 T0 0.400 | 18.2s/solve 4.37GiB
+2_res_N7: lam 1508.05 Tmax 0.0434 T0 0.545 | 19.2s/solve 4.37GiB
+2_pk_N7: lam 1552.00 Tmax 0.0416 T0 0.394 | 18.0s/solve 4.37GiB
+4_res_N7: lam 1506.69 Tmax 0.0322 T0 0.642 | 19.1s/solve 4.37GiB
+4_pk_N7: lam 1518.00 Tmax 0.0384 T0 0.432 | 18.6s/solve 4.37GiB
+4_pk2_N7: lam 1552.00 Tmax 0.0523 T0 0.287 | 18.2s/solve 4.37GiB
+8_res_N7: lam 1511.71 Tmax 0.0625 T0 0.416 | 18.8s/solve 4.37GiB
+8_pk_N7: lam 1536.00 Tmax 0.1033 T0 0.175 | 18.2s/solve 4.37GiB
+[W1122 07:36:39.974996033 Context.cpp:508] Warning: torch.backends.cuda.preferred_linalg_library is an experimental feature. If you see any error or unexpected behavior when this flag is set please file an issue on GitHub. (function operator())
+1_pk_N8: lam 1554.00 Tmax 0.0302 T0 0.394 | 46.1s/solve 8.48GiB
+2_res_N8: lam 1508.05 Tmax 0.0437 T0 0.528 | 48.4s/solve 8.47GiB
+2_pk_N8: lam 1552.00 Tmax 0.0393 T0 0.386 | 45.9s/solve 8.48GiB
+8_pk_N8: lam 1536.00 Tmax 0.1007 T0 0.135 | 47.1s/solve 8.47GiB

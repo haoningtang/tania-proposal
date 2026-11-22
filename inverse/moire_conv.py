@@ -33,11 +33,13 @@ def compact(r):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(); ap.add_argument("--out", required=True)
     ap.add_argument("--N", type=int, nargs="+", default=[3, 4, 5, 6, 7])
+    ap.add_argument("--cases", nargs="*", default=None, help="e.g. 2_res 2_pk (default: all)")
     a = ap.parse_args(); os.makedirs(a.out, exist_ok=True)
     fn = os.path.join(a.out, "conv.json")
     res = json.load(open(fn)) if os.path.exists(fn) else {}
     for N in a.N:
         for tw, kind, lt in targets():
+            if a.cases and f"{tw}_{kind}" not in a.cases: continue
             key = f"{tw}_{kind}_N{N}"
             if key in res: continue
             lams = list(lt + np.arange(-4, 4.1, 1.0))

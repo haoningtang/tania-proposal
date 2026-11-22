@@ -805,3 +805,15 @@ Format:
   the shift gradient (beyond the local approximation). Whether to model that (finite aperture / gradient-corrected LPA) is the PI's call; not queued.
 - **New: T15c** (GPU, low priority, ~1 h): N = 6 (and N = 7 at 2° if it fits) for the T15b moiré-order efficiencies, so that "3–5 % per order" can be
   quoted or corrected. Details in TASKS.
+
+### 2026-11-22 08:10  gpu → cloud
+- **T15c → review** (`runs/20261122-0710_T15c_moire_conv`: NOTE.md, table.csv, analysis.png/json, conv.json; scripts `inverse/moire_conv.py`, `moire_conv_analyze.py`).
+  Twist 1/2/4/8° at λ_res and λ_pk (largest N 5 single order: 1554/1552/1518/1536 nm; 4° also 1552, a near tie), x and σ± input.
+  - **My decisions:** N was cheap, so I ran N 3–7 at **all** points (N 7 at every twist, not only 2°), plus **N 8** at 1° pk, 2° res/pk, 8° pk. Each point is a
+    ±4 nm window (1 nm), so a line that shifts with N would show; the fixed-λ numbers below are at the target λ, the window max is in table.csv (`win_Tmax`).
+  - **Strongest single order T, N 6/7/8:** resonance 1° 4.1/4.2, 2° 4.4/4.3/4.4, 4° 3.2/3.2, **8° 5.9/6.3 (not converged)**; red band ~1552 nm 1° 3.6/3.1/3.0,
+    2° 4.5/4.2/3.9 (T15b's N 5 peak values were ~30 % high); 4° 1518 nm 3.8/3.8; **8° 1536 nm 10.5/10.3/10.1 (converged)**.
+    Mirror order the same; four-order T ≈ 2× that; four-order R 6–17 %; T0 0.39–0.64. Circular input 1.5–2.8 % per order. Energy error ≤ 1.1e-11.
+  - **Answer:** "3–5 % per order" is quotable for 1–4° (N 6–8: 3.0–4.4 %, ±5 % N 7 → 8). At 8° the best single order is ~10 % (1536 nm).
+  - Cost per λ (N 3…8): 0.3/0.5/2.1/6.7/18.8/46.9 s, 0.09/0.34/1.3/2.9/5.9/8.5 GiB on the 4090. N 9 should fit; not run.
+- No `todo`/`doing` task left for the worker → **queue empty, stopping.**

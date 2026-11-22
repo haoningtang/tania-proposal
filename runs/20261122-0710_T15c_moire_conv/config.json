@@ -1,0 +1,4 @@
+{"task": "T15c", "solver": "rcwa4d-mf, GPU (RTX 4090), venvs/r4d", "scripts": ["inverse/moire_conv.py", "inverse/moire_conv_analyze.py", "inverse/moire_orders.py (solve)"],
+ "structure": "as T15/T15b: square, a 620, eps 12.11, circle r 120, d 220, gap 200 nm, normal incidence",
+ "twists_deg": [1, 2, 4, 8], "targets": "lam_res = T15b points.json N5 pole; lam_pk = argmax N5 single-order T_x (4 deg also 1552 nm)",
+ "lam_window": "target + [-4..4] nm step 1", "N": "3-7 all; 8 for 1_pk, 2_res, 2_pk, 8_pk", "inputs": "x, sigma+-"}
