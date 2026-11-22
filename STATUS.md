@@ -42,3 +42,5 @@ One line per run, newest at the bottom: `date | runs/ folder | state (running/do
 | 2026-11-22 | runs/20261122-0710_T15c_moire_conv | done | T15c: strongest moiré order (x, at λ_res / red band) 3.0–4.4 % at 1–4° for N 6–8 (converged ±5 %); 8°: 10.1 % at 1536 nm (converged), 6.3 % at λ_res (not converged); N 8: 47 s, 8.5 GiB per λ |
 | 2026-11-22 | runs/20261122-1720_T19b_lpa_shift_map | done | T19b: LPA Jones map 16×16 shifts, 80/96; J symmetric (6e-9); CD_LPA = 0 at δ = 0 and on mirror lines but up to 0.24 at generic shifts (= 2 Im[(Jxx−Jyy)Jxy*], linear anisotropy on rotated axes); cell average 0 |
 | 2026-11-22 | runs/20261122-1710_T19a_twist_maps | running | T19a: N 6 twists ±0.5, ±1, 2 (then N 7 at +1°, ±0.25°), GPU |
+| 2026-11-22 | runs/20261122-1735_T16c_hex_r3 | running | T16c 18:02: 7/81 points (base row t 280 gap 380, 240/160). r1 = rb reproduces T12a (1498.88 nm Q 135 vs 1498.56/133). E1 line, PHYSICAL names: c_TM −0.095 (Δ 0) → +0.025 (Δ ±0.05), crosses 0 near |Δ| 0.045; c_TE stays −0.44…−0.48 (M ≈ 1.1). Refining Δ ±0.04 |
+| 2026-11-22 | runs/20261122-1710_T19a_twist_maps | running | T19a 18:02: N 6 done at +1, −1, +0.5, −0.5; +2 running |
