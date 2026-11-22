@@ -1,0 +1,60 @@
+{
+ "task": "T16b",
+ "scripts": [
+  "inverse/curv_map_sym.py",
+  "inverse/curv_map_sym_analyze.py",
+  "inverse/hires_check_t16b.py"
+ ],
+ "a_nm": 850,
+ "gap_nm": 380,
+ "symmetric": true,
+ "t_grid_nm": [
+  220,
+  240,
+  260,
+  280,
+  300,
+  320,
+  340
+ ],
+ "ra_grid": [
+  0.19,
+  0.21,
+  0.23,
+  0.25,
+  0.27,
+  0.29,
+  0.31
+ ],
+ "base": {
+  "t_nm": 280,
+  "ra": 0.25,
+  "lam_nm": 1498.56,
+  "Q": 133,
+  "source": "T12a E1 line"
+ },
+ "n_terms": 80,
+ "ngrid": 96,
+ "thetas": [
+  0.5,
+  3,
+  6
+ ],
+ "azimuth": 0,
+ "nsub": 5,
+ "wide": {
+  "half_width_nm": 25,
+  "n": 201,
+  "thetas": [
+   0.5,
+   3
+  ]
+ },
+ "processes": "map_cpu.json: rows 220-260 (CPU); map_cpuA/B.json: rows 280-340 (started on GPU, 6 points, then CPU); gpu_stopped/: logs of the stalled GPU processes",
+ "analysis_rules": {
+  "dark": "Q>1e4 at 0.5 deg masked",
+  "split": "TE and TM poles at 0.5 deg further apart than half a linewidth -> not the E1 doublet, masked",
+  "curvature": "Q-matched 0.5->3 deg slope from the wide scans (pole at 3 deg within max(4 linewidths, 3 nm) and Q within x2); else 3-angle fit, or 0.5->3 deg tracker slope if the tracker switched poles (Q x2)"
+ },
+ "hires": "hires/: 200/192 spot check at (340, 0.21)"
+}

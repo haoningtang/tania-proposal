@@ -1,0 +1,13 @@
+t  280.0 r/a 0.230 | TE  1553.10 nm Q    782 c -0.1228 M    +4.07 | TM  1553.06 nm Q    781 c -0.4453 M    +1.12 | 260.2 s
+t  280.0 r/a 0.210 | TE  1585.14 nm Q 457240 c +0.1485 M    -3.37 | TM  1585.00 nm Q 458944 c -0.2391 M    +2.09 | 300.9 s
+t  280.0 r/a 0.190 | TE  1593.49 nm Q 451198 c +0.1627 M    -3.07 | TM  1593.32 nm Q 453824 c +nan M     +nan | 233.9 s
+t  300.0 r/a 0.250 | TE  1513.77 nm Q  18590 c -0.0289 M   +17.32 | TM  1513.73 nm Q  18757 c -0.3375 M    +1.48 | 243.4 s
+t  300.0 r/a 0.270 | TE  1502.70 nm Q   8317 c +0.0426 M   -11.73 | TM  1502.67 nm Q   8388 c -0.2134 M    +2.34 | 263.9 s
+t  300.0 r/a 0.290 | TE  1472.34 nm Q   6196 c +0.0507 M    -9.86 | TM  1472.31 nm Q   6158 c -0.1823 M    +2.74 | 333.5 s
+t  300.0 r/a 0.310 | TE  1438.09 nm Q   5425 c +0.0570 M    -8.77 | TM  1438.06 nm Q   5399 c -0.1665 M    +3.00 | 362.5 s
+t  300.0 r/a 0.230 | TE  1544.96 nm Q     96 c +0.1455 M    -3.44 | TM  1544.92 nm Q     96 c +0.1095 M    -4.57 | 250.1 s
+t  300.0 r/a 0.210 | TE  1565.29 nm Q     85 c +0.1809 M    -2.76 | TM  1565.24 nm Q     85 c -0.0041 M  +121.58 | 122.5 s
+/home/haoning/tania-proposal/.venv/lib/python3.13/site-packages/scipy/interpolate/_bary_rational.py:66: RuntimeWarning: AAA failed to converge within 12 iterations.
+  self._compute_weights(z, f, **kwargs)
+t  300.0 r/a 0.190 | TE  1583.69 nm Q     90 c +0.2232 M    -2.24 | TM  1583.63 nm Q     90 c -0.1665 M    +3.00 | 121.6 s
+done

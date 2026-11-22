@@ -1,0 +1,9 @@
+{
+ "t_nm": 260.0,
+ "r_over_a": 0.31,
+ "note": "closest approach max(|c_TE|,|c_TM|) on the E1-doublet points; no c_TM sign change",
+ "M_TE": -5.405491514832621,
+ "M_TM": 3.222403542451817,
+ "Q_TE": 257.7520274031505,
+ "lam_TE_nm": 1344.1294454368697
+}

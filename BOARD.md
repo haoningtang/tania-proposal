@@ -681,3 +681,25 @@ Format:
   So TM can be flattened by level repulsion if a suitable dark singlet sits close to the E1 line. Instead of shift or c4/c8 (which break
   symmetry), **T16b** moves the dark modes with the symmetric shape: r/a × t grid at a = 850, gap 380, recording c_TE, c_TM and the
   nearest other pole. We look for a sign change of c_TM.
+
+### 2026-11-22 03:40  gpu → cloud
+- **T16b → review, not met** (`runs/20261122-0036_T16b_sym_map`: NOTE.md, analysis.png/json, table.csv, `hires/`; scripts
+  `inverse/curv_map_sym.py`, `inverse/curv_map_sym_analyze.py`, `inverse/hires_check_t16b.py`). Symmetric r/a 0.19–0.31 × t 220–340 nm,
+  a 850, gap 380, 80/96, θ 0.5/3/6°, azimuth 0, followed from the T12a base (reproduced), plus a ±25 nm neighbour scan at 0.5° and 3°.
+- **c_TM never changes sign.** On the 31 points where TE and TM are one E1 doublet, c_TM runs from −0.55 to −0.036 (M_TM 0.91–3.2, apart from one
+  Q-17 point with M_TM 14 and M_TE −1.0). Masked: 7 points on Q > 1e4 lines, and 17 points (mostly t ≤ 260, r/a ≤ 0.23) where TE and TM are on different lines.
+- Two families: (a) the T12a line: c_TE ≈ −0.10, c_TM ≈ −0.45…−0.51 (M_TM ≈ 1.1), with no TM pole within ±25 nm at most points. (b) r/a ≤ 0.21 at
+  t ≥ 300 and r/a ≥ 0.27 at t ≤ 300: a partner pole sits 1.2–7 nm away, c_TM drops to −0.15…−0.25 (M_TM 2–3.2), and c_TE turns positive.
+  So level repulsion from a nearby pole halves |c_TM| (corr with log distance −0.49), but here it saturates and never flips it.
+  Closest to both-flat: (t 260, r/a 0.31), λ 1344, Q 258, M_TE −5.4, M_TM +3.2.
+- **Pitfall I hit (please note for any curvature numbers):** at 28/49 points the 3°/6° tracker jumped to the partner 1–3 nm away (Q ×2–4), and the raw
+  3-angle fit then showed false TM-flat points (M_TM 122 at (300, 0.21), 18.7 at (340, 0.21)). The table uses the Q-matched 0.5→3° slope from the
+  neighbour scans instead. The T16a numbers came from the same tracker, so some of its "levels off at c_TM ≈ −0.12…−0.19" points may be affected too (not re-checked).
+- 200/192 at (340, 0.21): the line moves 1668.5 → 1667.25 nm and Q goes 281 → 2428 (80/96 poorly converged there). TM is still curved: c_TM ≈ −0.35, partner −0.23.
+- Decisions taken: GPU processes stalled (> 1 h/point while CPU did ~150 s/point; two parallel CPU JAX processes also starved each other),
+  so the whole map ran on CPU, pinned 16+16 cores. The task asks for the nearest pole "at 0.5°". I also scanned at 3°, because Q ~ 1e5 dark lines are
+  too narrow at 0.5° to show on a 0.25 nm grid; neither scan found a dark TM partner within ±25 nm at most family-(a) points.
+- No `todo`/`doing` task left (T12c/T14/T15 still blocked) → **queue empty, stopping.**
+- Ideas for your call (not started): (1) the partner coupling in family (b) is the right mechanism but too weak; a C6v-keeping third parameter
+  (e.g. a ring/annular hole or a second hole size in a √3×√3 supercell, which folds K-point modes to Γ) could bring a TM-coupling singlet
+  closer. (2) Re-check T16a's c_TM with the Q-matched method (cheap: post-processing only if I add the 3° neighbour scan, otherwise ~1 h).
