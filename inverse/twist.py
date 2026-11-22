@@ -104,8 +104,21 @@ if __name__ == "__main__":
     ap.add_argument("--lo", type=float, default=1400); ap.add_argument("--hi", type=float, default=1650)
     ap.add_argument("--n", type=int, default=126)
     ap.add_argument("--dense", default=None, help="outdir: dense scan + plot")
+    ap.add_argument("--sweep", default=None, help="outdir: one npz per (N, theta, gap) job, skipped if present (resumable)")
+    ap.add_argument("--gaps", type=float, nargs="+", default=None)
     a = ap.parse_args()
-    if a.dense:
+    if a.sweep:
+        os.makedirs(a.sweep, exist_ok=True); ll = np.linspace(a.lo, a.hi, a.n)
+        for N in a.N:
+            for g in (a.gaps or [a.gap]):
+                for th in a.theta:
+                    fn = os.path.join(a.sweep, f"spec_N{N}_th{th:+g}_g{g:g}.npz")
+                    if os.path.exists(fn):
+                        continue
+                    t0 = time.time(); s_ = spectrum(N, th, g, ll)
+                    np.savez(fn, lam=ll, N=N, theta=th, gap=g, **s_)
+                    print(f"N {N} th {th:+g} gap {g:g}: {time.time()-t0:.0f}s err {s_['err'].max():.1e} max|CD| {np.abs(s_['Tp']-s_['Tm']).max():.3e}", flush=True)
+    elif a.dense:
         dense(a.N, a.theta, a.gap, a.lo, a.hi, a.n, a.dense)
     elif a.explore:
         ll = np.linspace(a.lo, a.hi, a.n)
