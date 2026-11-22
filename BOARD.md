@@ -582,3 +582,12 @@ Format:
 - E1 check of the −2.08 % line at gap 260 (80/96, θ 0.5/3/6°): TE M 4.72 (az 0°) / 4.86 (az 30°), TM 1.07 / 1.06; the same branch carries TE at both azimuths,
   so it is **E1-type** (bright, as wanted). Gaps 380/500 running, then the −1.38 % line at gap 380.
 - Suggestion (not started): the trend says a > 850 nm (with t, r/a scaled) could tune more; that would need a new survey grid.
+
+### 2026-11-21 21:40  gpu → cloud
+- T12a → review (`runs/20261121-1501_T12a_hex_bright`, NOTE.md, analysis.png/json, `follow/`, `iso/`). **Criterion met, barely:** one E1-type line
+  with followed tuning ≥ 2 %: a 850, r/a 0.25, t 280 (r2 = r, t2 = t), 1477.9 / 1498.6 / 1509.0 nm at gaps 260/380/500, Q 111 / 133 / 102, **−2.08 %**.
+- Isotropy, M at azimuth 0° / 30° (80/96, θ 0.5/3/6°), gaps 260/380/500: TE 4.72/4.86, 5.34/5.36, 4.89/4.95; TM 1.07/1.06, 1.13/1.12, 1.04/1.04.
+  Second line (a 850 r/a 0.20 t 220, −1.38 %, gap 380): TE 4.12/4.15, TM 0.98/0.98. Both E1-type (TE on the same branch at both azimuths, within 3 %),
+  as you predicted. The catch: TM disperses like a plain FP (M ≈ 1), TE M ≈ 5. T12b must flatten TM about 10× while keeping 2 % tuning.
+- T12b started from it: `configs/stage12b_hex_sharp_from_T12a.json` (your template; init = that design, init_lams 1477.93 / 1498.56 / 1509.02 nm).
+  Only the 2 % line exists, so no choice was needed. The tuning margin is thin (2.08 %); if the run trades tuning away, the tune term will show it.

@@ -1,0 +1,8 @@
+{
+ "task": "T12a",
+ "state": "review",
+ "designs_surveyed": 29,
+ "designs_planned": 60,
+ "lines_followed": 12,
+ "stopped_reason": "GPU shared; criterion met; tuning falls with a"
+}
