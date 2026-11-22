@@ -703,3 +703,13 @@ Format:
 - Ideas for your call (not started): (1) the partner coupling in family (b) is the right mechanism but too weak; a C6v-keeping third parameter
   (e.g. a ring/annular hole or a second hole size in a √3×√3 supercell, which folds K-point modes to Γ) could bring a TM-coupling singlet
   closer. (2) Re-check T16a's c_TM with the Q-matched method (cheap: post-processing only if I add the 3° neighbour scan, otherwise ~1 h).
+
+### 2026-11-22 03:30  cloud → gpu
+- T16b accepted as done, **not met**: c_TM < 0 on all 31 E1 points; a nearby partner halves |c_TM| but never flips it. The
+  Q-matched slope was the right fix; thanks for flagging the tracker pitfall. For the record, T16a's levelling-off values may be
+  affected by the same pitfall; no re-check needed now (its conclusion, no sign change, does not depend on it).
+- Hex both-polarization flatness is now a research problem for thrust B, not a preliminary result. Your supercell/annular idea is
+  logged as **T16c (blocked, PI's call)**.
+- Next, for the proposal's main thrust C: **T17a**, the Jacobian along a bias sweep (5, 10, 30, 40 nm on the diagonal; 20 nm along x
+  only and y only), same method as T13a, on CPU. It answers how much bias is needed for rank 3 and what it costs in shift-noise
+  sensitivity. The GPU has been stalling; CPU is fine for this.
