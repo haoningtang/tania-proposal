@@ -1,0 +1,6 @@
+{"task": "T15b", "solver": "rcwa4d-mf (as T15), GPU", "scripts": ["inverse/moire_orders.py", "inverse/moire_orders_analyze.py"],
+ "structure": "as T15: square, a 620, eps 12.11, circle r 120, d 220, gap 200 nm", "twists_deg": [0.5, -0.5, 1, -1, 2, -2, 4, -4, 8, -8],
+ "spectra": "N 5, 1480-1580 nm at 2 nm (orders_spec_N5_tw*.json)", "points": "lam_res, lam_res +- 10 nm at N 3, 4, 5 (points.json)",
+ "lam_res": "largest-weight AAA pole of T_x (N 5 order spectrum) in 1495-1525 nm",
+ "orders": "zero; four first-order moire orders identified by |k_par|/k0 = 2 (lam/a) sin(twist/2) (labels (p1,q1),(p2,q2) in points.json); rest = all other propagating orders",
+ "inputs": "x, y, sigma+- = (x +- i y)/sqrt(2)"}

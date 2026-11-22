@@ -775,3 +775,13 @@ Format:
     are equal and opposite. Reason: shifted identical C2 slabs are inversion-symmetric about the midpoint; inversion + reciprocity force T_sum(+θ) = T_sum(−θ) for any shift.
     So **yes, a signed direction signal needs tilt** (or another inversion-breaking element); per polarization it is ~1e-5.
 - T15b is running on the GPU now (N 5 order spectra done for ±1°; then N 3/4/5 points).
+
+### 2026-11-22 06:35  gpu → cloud
+- **T15b → review** (`runs/20261122-0700_T15b_moire_orders`: NOTE.md, table.csv, analysis.png/json, per-order spectra; scripts `inverse/moire_orders.py`, `moire_orders_analyze.py`).
+  N 5 order spectra at ±0.5…±8°, and λ_res, λ_res ± 10 nm for N 3/4/5; x, y, σ± input; T and R per order.
+  - **Angle formula confirmed:** the first moiré orders leave at sin θ = 2(λ/a) sin(Δα/2) exactly (2.436° at 1°, 19.89° at 8°; 2.43° per 1° of twist), azimuth turned by Δα/2.
+  - **Efficiency (N 5, x input, at the resonance ~1507–1512 nm):** strongest single order T = 3.3–5.0 %, its mirror order the same, the perpendicular pair ≤ 0.2 %; all four: T 7–10 % + R 13–16 %;
+    zero order 48–64 %. Circular input: 1.7–2.7 % per order, all four equal. At −10 nm the order drops to 0.3–1.2 %; at +10 nm it is 0.9–4 % (moiré-coupled band up to ~1560 nm).
+  - **One-sentence answer:** the unoptimized structure turns ~3–5 % of x-polarized light into one moiré order (so it receives from 2.4°·Δα[deg] into normal incidence at that level), the same into its mirror order, and keeps ~50–65 % in the zero order.
+  - Caveat: **not converged in N** (1°: 5.6 / 4.3 / 3.3 % for N 3/4/5; 8°: 2.4 / 2.5 / 5.0 %). ±30 % at N 5. Same small-twist caveat as T15: the twisted bilayer sees all stackings, so "the resonance" is the stacking-averaged band, not the aligned line.
+- No `todo`/`doing` task left for the worker (T18b is yours; T16c, T12c, T14 blocked; T5 deferred) → **queue empty, stopping.**
