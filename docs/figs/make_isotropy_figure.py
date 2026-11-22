@@ -34,11 +34,11 @@ a.set_xlabel("|M| along a lattice axis (azimuth 0°)"); a.set_ylabel("|M| along 
 a.set_title("(a) Flatness at two azimuths", loc="left", fontsize=9.5, color=INK); a.legend(frameon=False, fontsize=7.5, loc="upper left")
 b = ax[1]
 def shift(r): q = np.array([p[:2] for p in r["pts"]]); return q[:, 0], (q[:, 1] - q[0, 1]) * 1e3
-t, y = shift(sq0[1]["TM"]); b.plot(t, y, "-s", color=SQ, lw=2, ms=5, mec="white", mew=0.8, label="square TM, azimuth 0°")
-t, y = shift(sq45[1]["TM"]); b.plot(t, y, "--s", color=SQ, lw=2, ms=5, mfc="white", mew=1.2, label="square TM, azimuth 45°")
+t, y = shift(sq0[1]["TM"]); b.plot(t, y, "-s", color=SQ, lw=2, ms=5, mec="white", mew=0.8, label="square TE, azimuth 0°")
+t, y = shift(sq45[1]["TM"]); b.plot(t, y, "--s", color=SQ, lw=2, ms=5, mfc="white", mew=1.2, label="square TE, azimuth 45°")
 h0 = [r for r in hx if r["gap"] == 0.38 and r["p"]["t"] == 0.28]
-t, y = shift(h0[0]["TE"]); b.plot(t, y, "-", color=HX, lw=7, alpha=0.3, solid_capstyle="round", label="hex TE, azimuth 0°")
-t, y = shift(h0[1]["TE"]); b.plot(t, y, "--o", color=HX, lw=2, ms=5, mfc="white", mew=1.2, label="hex TE, azimuth 30°")
+t, y = shift(h0[0]["TE"]); b.plot(t, y, "-", color=HX, lw=7, alpha=0.3, solid_capstyle="round", label="hex TM, azimuth 0°")
+t, y = shift(h0[1]["TE"]); b.plot(t, y, "--o", color=HX, lw=2, ms=5, mfc="white", mew=1.2, label="hex TM, azimuth 30°")
 b.text(6.25, -3.35, "square: flat along x,\nnot along the diagonal", fontsize=7, color=SQ, va="center")
 b.text(6.25, -1.45, "hex: the same curve at 0° and 30°\n(not yet flattened)", fontsize=7, color=HX, va="center")
 b.set_xlabel("angle of incidence θ (deg)"); b.set_ylabel("resonance shift Δλ (nm)")
@@ -46,7 +46,7 @@ b.set_title("(b) One line, two azimuths (gap 380 nm)", loc="left", fontsize=9.5,
 b.set_xlim(0, 10.6)
 for x_ in ax: x_.grid(True, color=GRID, lw=0.6); x_.set_axisbelow(True)
 fig.text(0.01, -0.04, "Square: inverse-designed Si bilayer T9b (gaps 260/380/500 nm), fmmax 200/192; open square = pole lost after 3°, M from the 3° shift. "
-         "Hexagonal: two bright E1 lines (a 850 nm), gaps 260/380/500 nm, fmmax 80/96 (|M| ≈ 1–6, not yet optimized).", fontsize=6.6, color=INK2)
+         "Hexagonal: two bright E1 lines (a 850 nm), gaps 260/380/500 nm, fmmax 80/96 (|M| ≈ 1–6, not yet optimized).\nTE/TM are physical names (TE: E perpendicular to the plane of incidence); model.py keys are swapped, corrected 2026-11-22.", fontsize=6.6, color=INK2)
 plt.tight_layout()
 for ext in ("png", "pdf"): plt.savefig(f"docs/figs/isotropy_square_vs_hex.{ext}", dpi=200, bbox_inches="tight")
 print("square pairs", [(round(x,1), round(y,1)) for x, y in zip(xs, ys)])

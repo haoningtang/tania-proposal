@@ -11,8 +11,8 @@ def lam(th, ax, dl, pol):
 J = json.load(open("runs/20261121-2122_T13a_jacobian/jacobian.json"))["points"]
 fig, ax = plt.subplots(1, 2, figsize=(8.2, 3.2), gridspec_kw=dict(width_ratios=[1.15, 1]))
 a = ax[0]
-for pol, c, mk, axis, lab, fill in (("TM", ORANGE, "s", "x", "TM, shift along x", True), ("TE", BLUE, "o", "y", "TE, shift along y", False),
-                                     ("TE", INK2, "^", "x", "TE, shift along x (cross term)", True)):
+for pol, c, mk, axis, lab, fill in (("TM", ORANGE, "s", "x", "TE, shift along x", True), ("TE", BLUE, "o", "y", "TM, shift along y", False),
+                                     ("TE", INK2, "^", "x", "TM, shift along x (cross term)", True)):
     b0 = lam(0.5, "none", 0, pol)
     ds = np.array([-20, -10, -5, 0, 5, 10, 20]); ys = np.array([0 if d == 0 else (lam(0.5, axis, int(d), pol) - b0) * 1e3 for d in ds])
     k = np.polyfit(ds.astype(float) ** 2, ys, 1)[0]; xx = np.linspace(-22, 22, 120)
@@ -32,7 +32,7 @@ b.axhline(J["0,0"]["sv"][0] * 1e-2, color=INK2, lw=0.8, ls="--"); b.text(3.05, J
 b.set_xticks(idx, ["σ₁", "σ₂", "σ₃"]); b.set_ylabel("singular value of J (normalized, per nm)")
 b.set_title("(b) Jacobian (gap, δx, δy) → optics", loc="left", fontsize=9.5, color=INK); b.legend(frameon=False, fontsize=7.5, loc="lower left")
 for x_ in ax: x_.grid(True, color=GRID, lw=0.6); x_.set_axisbelow(True)
-fig.text(0.01, -0.03, "Prelim square Si bilayer (a 620, t 220, r 120 nm, gap 200 nm), fmmax RCWA 80/96, θ = 0.5°. J rows: λ, Q of the two modes and TE/TM band curvature; "
+fig.text(0.01, -0.03, "Prelim square Si bilayer (a 620, t 220, r 120 nm, gap 200 nm), fmmax RCWA 80/96, θ = 0.5°. J rows: λ, Q of the two modes and TE/TM band curvature (physical names; model.py keys are swapped, corrected 2026-11-22); "
          "±5 nm central differences.", fontsize=6.8, color=INK2)
 plt.tight_layout()
 for ext in ("png", "pdf"): plt.savefig(f"docs/figs/C_prelim_symmetry_rank.{ext}", dpi=200, bbox_inches="tight")

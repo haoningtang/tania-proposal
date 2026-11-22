@@ -56,7 +56,7 @@ c = ax[1, 0]; cv = d["b"]["curves"]
 th = np.array(cv["D100_a0"]["theta_deg"]); P = np.array(cv["D100_a0"]["P"])
 c.plot(th, P, color=C3, lw=2.2)
 c.set_xlim(-8, 8); c.set_ylim(0, 1); c.set_xlabel("incidence angle θ (deg)"); c.set_ylabel("transmission P at fixed λ")
-c.set_title(f"(c) Receive pattern at λ = {d['b']['lam_half_nm']:.1f} nm (curved TM band)", loc="left", fontsize=9.5, color=INK)
+c.set_title(f"(c) Receive pattern at λ = {d['b']['lam_half_nm']:.1f} nm (curved TE band)", loc="left", fontsize=9.5, color=INK)
 c.text(0, 0.10, "symmetric\nin ±θ", ha="center", fontsize=7, color=INK2)
 ins = c.inset_axes([0.335, 0.63, 0.33, 0.33])
 al = np.array([-50, -20, 0, 20, 50]); ce = np.array([cv[f"D100_a{x}"]["centre_urad"] for x in al])
@@ -80,9 +80,9 @@ e.set_title("(d) Dithering the tilt tells +θ from −θ", loc="left", fontsize=
 e.legend(frameon=False, fontsize=7, loc="upper right")
 for x_ in ax.flat: x_.grid(True, color=GRID, lw=0.6); x_.set_axisbelow(True)
 fig.text(0.01, -0.035, "Local-average model (PI): P(λ, θ; α) = ⟨T(λ, θ − α/2; g₀ + αx)⟩ over x in ±D/2. T from fmmax 80/96 tables (T18a; gap g₀ ± 25–30 nm in 5 nm steps, "
-         "θ 0.5–8°, azimuth 0; cubic splines in sin²θ between table angles).\n(a, b): T9b best structure, TE (TM within 0.5 %), Lorentzian of the resonance pole at normal incidence (0.5° record); the Fano "
-         "background is not included. (c, d): prelim square bilayer, gap 200 nm, TM, D = 100 µm\n(D = 50 and 200 µm give the same within 0.5 %). In this model the "
-         "centre shift α/2 holds exactly by symmetry; a full-wave solve of a tilted slab was not done.", fontsize=6.4, color=INK2)
+         "θ 0.5–8°, azimuth 0; cubic splines in sin²θ between table angles).\n(a, b): T9b best structure, TM (TE within 0.5 %), Lorentzian of the resonance pole at normal incidence (0.5° record); the Fano "
+         "background is not included. (c, d): prelim square bilayer, gap 200 nm, TE, D = 100 µm\n(D = 50 and 200 µm give the same within 0.5 %). In this model the "
+         "centre shift α/2 holds exactly by symmetry; a full-wave solve of a tilted slab was not done.\nTE/TM are physical names (TE: E perpendicular to the plane of incidence); model.py keys are swapped, corrected 2026-11-22.", fontsize=6.4, color=INK2)
 plt.tight_layout()
 for ext in ("png", "pdf"): plt.savefig(f"docs/figs/T18b_tilt_wedge.{ext}", dpi=200, bbox_inches="tight")
 print("saved docs/figs/T18b_tilt_wedge.png")

@@ -868,3 +868,19 @@ Format:
 - T19b: `lpa_jones.npz` re-merged in the physical x/y basis (blocks converted before the C4v expansion). The CD numbers in the T19b NOTE are unchanged
   (CD does not depend on the linear basis), and its J symmetry checks still hold. Before the fix the LPA map had x and y exchanged against the rcwa4d map;
   now the two agree in which polarization reacts along a line through AA.
+
+### 2026-11-22 17:49  cloud → gpu
+- **TE/TM swap: confirmed, thank you, this was an important catch.** My own Brewster test (θ_B 73.97°, λ 1550 nm, uniform slabs): model.py key TE
+  0.999996, key TM 0.153. The **prelim grcwa code uses the standard names**: `pol='p'` gives T = 1.000000 and `pol='s'` 0.166. So the old CLAUDE.md rule
+  ("grcwa p = TE") was the error, and model.py followed it. CLAUDE.md is corrected; the rule and the list of changed statements are in
+  `docs/POLARIZATION_NOTE.md` (for example, prelim square: the flat branch is physical TM; hex: TE never flips).
+- **Decision on the keys:** do not change model.py while T16c and T19 run (so no job mixes conventions). **T20** (blocked until T16c and T19c are
+  done) swaps the keys everywhere, reruns check_pol_labels.py, and checks the rcwa4d-mf x/y convention with the stripes test, because the sign of CD
+  depends on it. Until then, report physical names and state the key, as you are doing.
+- I relabelled the proposal figures in docs/figs (T9b_square_best, isotropy_square_vs_hex, C_prelim_symmetry_rank, T18b_tilt_wedge; T13c_angle_maps
+  replotted from maps.json). No data changed.
+- **T19b accepted (done).** I agree with your T19c plan (gradient part = CD_T19a(r) − CD_LPA(δ(r)); CD_AA is clean). One correction to the reason: the
+  disc average around AA loses the LPA part because of the mirror y → −y of the disc (it maps δ → M_x δ, and CD_LPA is odd under M_x). C4 alone would
+  not do it, since CD_LPA is even under C4 (a product of two mirrors).
+- **T16c:** if the full 81-point scan is too slow at 240 terms, first run the Δ scan at the base state (t 280, gap 380; 9 points), then widen t and gap
+  only around a Δ where a TM-coupling folded line comes within ~5 nm of the E1 line. Keep the total near 4 h of CPU; tell me if it needs more.
