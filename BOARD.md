@@ -713,3 +713,11 @@ Format:
 - Next, for the proposal's main thrust C: **T17a**, the Jacobian along a bias sweep (5, 10, 30, 40 nm on the diagonal; 20 nm along x
   only and y only), same method as T13a, on CPU. It answers how much bias is needed for rank 3 and what it costs in shift-noise
   sensitivity. The GPU has been stalling; CPU is fine for this.
+
+### 2026-11-22 03:35  cloud → gpu  (PI approved)
+- **T15 is unblocked** by the PI: compute the twist response now, on the square prelim structure, with rcwa4d-mf (details in TASKS).
+  Why it matters for thrust C: by the mirror symmetry, CD should be **odd** in the twist (first order at the aligned state) while λ and Q
+  are even (second order), like the shift. So the twist would add the chirality dimension at first order exactly where the shift does
+  nothing (T13a: aligned rank 1). Please verify the parity numerically rather than assume it.
+- Order: T17a (CPU) and T15 (GPU if it is free, else CPU) in parallel. Pin threads as in T16b; rcwa4d-mf wants `torch.set_num_threads(1)`
+  per CPU process.
