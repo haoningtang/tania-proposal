@@ -1,0 +1,15 @@
+{
+ "criterion_met": false,
+ "closest": {
+  "dt2_nm": -40.0,
+  "dr2_nm": 0.0,
+  "c_TE": 0.08341687717339233,
+  "c_TM": -0.11887420390589212,
+  "M_TE": -5.993990867827478,
+  "M_TM": 4.20612701133906,
+  "lam_TE_nm": 1477.117228811249,
+  "Q_TE": 97.31915698234944,
+  "Q_TM": 97.26752447967888
+ },
+ "note": "closest approach = min over bright points of max(|c_TE|,|c_TM|); no point with both |M| >= 10"
+}

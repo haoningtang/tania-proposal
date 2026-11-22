@@ -3,7 +3,7 @@
 Base design (T12a E1 line): a 0.85, r/a 0.25 (r 0.2125), t 0.28 um, gap 0.38, lam 1.49856 um, Q 133 at 0.5 deg.
 For each grid point (dt2, dr2) the line is followed from a neighbouring point: start at (0, 0), walk along dr2 = 0 to
 the row's dt2, then along the row outwards from dr2 = 0. At each point and for TE and TM separately: pole nearest the
-neighbour's 0.5-deg wavelength (window +-3 linewidths), then tracked to 3 and 6 deg (as hex_isotropy.track).
+neighbour's 0.5-deg wavelength, followed in --nsub substeps at 0.5 deg (window +-3 linewidths, one scan for both pols), then tracked to 3 and 6 deg (as hex_isotropy.track).
 c = slope of (lam(theta) - lam(0.5))/lam(0.5) vs sin^2(theta) over the three angles; M = -1/(2c).
 
 Usage: python curv_map.py --rows -40 -26.67 ... (nm) --out ../runs/<name>/map_<tag>.json [--n_terms 80 --ngrid 96]
@@ -23,6 +23,7 @@ ap.add_argument("--gap", type=float, default=0.38)
 ap.add_argument("--lam0", type=float, default=1.4985595)
 ap.add_argument("--q0", type=float, default=133.0)
 ap.add_argument("--n_terms", type=int, default=80); ap.add_argument("--ngrid", type=int, default=96)
+ap.add_argument("--nsub", type=int, default=4, help="substeps (0.5 deg only) between neighbouring grid points")
 ap.add_argument("--out", required=True)
 a = ap.parse_args()
 A, T, R = 0.85, 0.28, 0.2125
@@ -43,15 +44,23 @@ def poles(lams, t, lo, hi):
     return out
 
 
-def track(p, l0, Q, pol):
-    w = max(3 * l0 / Q, 2e-4)
-    s = None; allp = []
+def at05(p, starts):
+    """one 0.5-deg scan shared by TE and TM: window +-3 linewidths (>= 3 nm) around the mean start; widened x2 up to
+    twice if a polarization has no pole. Returns {pol: (lam, Q) nearest its start, or None} and all poles."""
+    l0 = np.mean([s[0] for s in starts.values()]); Q = min(s[1] for s in starts.values())
+    w = max(3 * l0 / Q, 0.003)
     for _ in range(3):
         ll = np.linspace(l0 - w, l0 + w, 41)
-        allp = poles(ll, scan(p, st, ll, a.thetas[0], kw)[pol], ll[0], ll[-1])
-        if allp:
-            s = min(allp, key=lambda x: abs(x[0] - l0)); break
+        t = scan(p, st, ll, a.thetas[0], kw)
+        allp = {pol: poles(ll, t[pol], ll[0], ll[-1]) for pol in ("TE", "TM")}
+        if all(allp.values()):
+            break
         w *= 2
+    best = {pol: (min(allp[pol], key=lambda x: abs(x[0] - starts[pol][0])) if allp[pol] else None) for pol in ("TE", "TM")}
+    return best, allp
+
+
+def track(p, s, pol, allp):
     if s is None:
         return None
     pts = [(a.thetas[0], s[0], s[1])]
@@ -67,7 +76,7 @@ def track(p, l0, Q, pol):
     y = np.array([q[1] for q in pts]); y = (y - y[0]) / y[0]
     c = float(np.polyfit(s2, y, 1)[0]) if len(pts) >= 3 else float("nan")
     return dict(lam=pts[0][1], Q=pts[0][2], c=c, M=float(-1 / (2 * c)) if c else float("inf"), pts=pts,
-                others_05=[x for x in allp if x != s])
+                others_05=[x for x in allp if tuple(x) != tuple(s)])
 
 
 res = json.load(open(a.out)) if os.path.exists(a.out) else dict(
@@ -75,16 +84,29 @@ res = json.load(open(a.out)) if os.path.exists(a.out) else dict(
 done = {(q["dt2"], q["dr2"]): q for q in res["points"]}
 
 
-def point(dt2, dr2, prev):
+def params(dt2, dr2):
+    return dict(a=A, t=T, r=R, t2=T + dt2 * 1e-3, r2=R + dr2 * 1e-3, c4=0.0, c8=0.0)
+
+
+def point(dt2, dr2, prev, prev_key=None):
+    """prev: {pol: (lam, Q)} at the neighbouring grid point prev_key (None for the base). The line is followed from
+    there in a.nsub substeps at 0.5 deg only, then tracked in angle at the target."""
     key = (dt2, dr2)
     if key in done:
         return done[key]
-    p = dict(a=A, t=T, r=R, t2=T + dt2 * 1e-3, r2=R + dr2 * 1e-3, c4=0.0, c8=0.0)
+    p = params(dt2, dr2)
     t0 = time.time()
-    q = dict(dt2=dt2, dr2=dr2, p=p, start=prev)
+    q = dict(dt2=dt2, dr2=dr2, p=p, start=prev, from_=prev_key, path=[])
+    cur = {pol: (prev[pol] if prev else (a.lam0, a.q0)) for pol in ("TE", "TM")}
+    if prev_key is not None:
+        for f in np.arange(1, a.nsub) / a.nsub:
+            pf = params(prev_key[0] + f * (dt2 - prev_key[0]), prev_key[1] + f * (dr2 - prev_key[1]))
+            b, _ = at05(pf, cur)
+            cur = {pol: (b[pol] or cur[pol]) for pol in ("TE", "TM")}
+            q["path"].append([float(f), *[x for pol in ("TE", "TM") for x in cur[pol]]])
+    b, allp = at05(p, cur)
     for pol in ("TE", "TM"):
-        l0, Q0 = prev[pol] if prev else (a.lam0, a.q0)
-        q[pol] = track(p, l0, Q0, pol)
+        q[pol] = track(p, b[pol], pol, allp[pol])
     q["sec"] = round(time.time() - t0, 1)
     res["points"].append(q); done[key] = q
     json.dump(res, open(a.out, "w"), indent=1)
@@ -113,10 +135,10 @@ for row in sorted(a.rows, key=abs):
     q = base
     step = 1 if j > i0 else -1
     for k in range(i0 + step, j + step, step) if j != i0 else []:
-        q = point(G[k], 0.0, fill(q, nxt(base)))
+        q = point(G[k], 0.0, fill(q, nxt(base)), (q["dt2"], q["dr2"]))
     rowc = q
     for direction in (1, -1):
         q = rowc
         for k in range(i0 + direction, len(G) if direction > 0 else -1, direction):
-            q = point(row, G[k], fill(q, nxt(rowc)))
+            q = point(row, G[k], fill(q, nxt(rowc)), (q["dt2"], q["dr2"]))
 print("done", flush=True)

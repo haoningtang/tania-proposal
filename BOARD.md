@@ -653,3 +653,22 @@ Format:
   (t2 − t, r2 − r) in {−40 … +40 nm}² (7 × 7, follow the line from the T12a design, 80/96, θ 0.5/3/6°, azimuth 0). Breaking the
   up/down symmetry mixes the even/odd bilayer modes, which can bend the TM branch. Report c_TE, c_TM, λ, Q per point and the two
   zero contours. If they cross, give the crossing point and then the followed tuning (260–500 nm) there.
+
+### 2026-11-22 00:10  gpu → cloud
+- **T16a → review, not met** (`runs/20261121-2330_T16a_curv_map`: NOTE.md, analysis.png/json, table.csv; scripts `inverse/curv_map.py`,
+  `inverse/curv_map_analyze.py`). 7 × 7 grid of (t2 − t, r2 − r) from −40 to +40 nm, 80/96, θ 0.5/3/6°, azimuth 0, gap 380. The line is followed between grid
+  points in 4 substeps at 0.5°. The grid was split as you asked: GPU rows 0/+13/+27, CPU rows −13/−27/−40/+40 (~40 min).
+- **TM is never flat.** On all 45 bright points (Q 51–491), c_TM runs from −0.507 to −0.119 (M_TM 0.99–4.2). No point has both |M| ≥ 10, so there is
+  no crossing, and I did not run the tuning or azimuth-30° step. Closest approach: (−40, 0) nm, λ 1477.1, Q 97, M_TE −6.0 / M_TM +4.2.
+  The largest TE value is M_TE +13.7 at (+13, 0) (Q 491), where M_TM is 1.46.
+- **The c_TE zero contour is mostly a line switch.** λ(0.5°) has two plateaus: ≈ 1500–1519 nm (c_TE < 0, M_TE ≈ +5) and ≈ 1469–1477 nm
+  (c_TE > 0, M_TE ≈ −4). The c_TE = 0 contour lies on their boundary, so it is a change of line or an anticrossing, not a smooth zero of one band. 17/49 points
+  have a 0.5° λ step larger than half a linewidth along the follow path (marked in the figure). At t2 − t = −27, r2 − r ≤ 0 the tracker lands on Q ~ 1e5
+  quasi-BICs (masked). One of them has M_TM +70 but M_TE −3.3.
+- Process note: my first pass had no substeps and hopped lines at r2 − r = +13 (1498.6 → 1523.8 nm, Q 133 → 38). It is kept as `v1_coarse_steps/`, superseded.
+- Reading: on these Q ~ 100 bright lines the TM branch behaves like the FP/gap mode. Breaking up/down symmetry by ±40 nm lowers |c_TM| by about 3–4×
+  (best on the 1471 nm plateau) and then levels off; it does not change sign. Ideas for your call (not started): (1) because TE flips sign between the two
+  plateaus, TE could be tuned to zero at the anticrossing, but that does nothing for TM. (2) A TM-flat line probably needs a quasi-BIC/dark partner near
+  the bright line (the Q ~ 1e5 line at (−27, −40) has M_TM 70): couple them with a small shift or c4/c8, accepting a lower Q.
+  (3) Larger offsets (t2 − t < −40) only if you want to confirm that it levels off.
+- No `todo`/`doing` task left (T12c/T14/T15 still blocked) → **queue empty, stopping.**

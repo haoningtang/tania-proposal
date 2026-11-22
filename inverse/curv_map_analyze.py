@@ -18,16 +18,32 @@ for f in sorted(glob.glob(os.path.join(d, "map_*.json"))):
 G = settings["grid_nm"]; n = len(G)
 F = {k: np.full((n, n), np.nan) for k in ("lam_TE", "lam_TM", "Q_TE", "Q_TM", "c_TE", "c_TM", "M_TE", "M_TM")}
 rows = []
+QDARK = 1e4   # Q above this at 0.5 deg: a quasi-BIC (dark) line, not the bright E1 line -> excluded from the maps
+
+
+def hops(q):
+    """0.5-deg TE steps along the substep path larger than half the previous linewidth"""
+    if not q.get("start") or q["TE"] is None:
+        return []
+    seq = [(0.0, *q["start"]["TE"])] + [(r[0], r[1], r[2]) for r in q["path"]] + [(1.0, q["TE"]["lam"], q["TE"]["Q"])]
+    return [[round(b[0], 2), round((b[1] - a[1]) * 1e3, 2), round(a[1] / a[2] * 1e3, 2)]
+            for a, b in zip(seq, seq[1:]) if abs(b[1] - a[1]) > 0.5 * a[1] / a[2]]
+
+
 for (t2, r2), q in sorted(pts.items()):
     i, j = G.index(t2), G.index(r2)
-    row = dict(dt2_nm=t2, dr2_nm=r2)
+    row = dict(dt2_nm=t2, dr2_nm=r2, from_nm=q.get("from_"), hops=hops(q))
+    row["dark"] = bool(q["TE"] and q["TE"]["Q"] > QDARK)
     for pol in ("TE", "TM"):
         b = q[pol]
         if b is None:
             continue
         for k in ("lam", "Q", "c", "M"):
-            F[f"{k}_{pol}"][i, j] = b[k]
             row[f"{k}_{pol}"] = b[k] * 1e3 if k == "lam" else b[k]
+        if row["dark"]:
+            continue
+        for k in ("lam", "Q", "c", "M"):
+            F[f"{k}_{pol}"][i, j] = b[k]
     rows.append(row)
 
 
@@ -54,7 +70,10 @@ best = dict(dt2_nm=G[ib[0]], dr2_nm=G[ib[1]], c_TE=F["c_TE"][ib], c_TM=F["c_TM"]
             lam_TE_nm=F["lam_TE"][ib] * 1e3, Q_TE=F["Q_TE"][ib], Q_TM=F["Q_TM"][ib])
 # M >= 10 means |c| <= 0.05
 both10 = [(G[i], G[j]) for i in range(n) for j in range(n) if W[i, j] <= 0.05]
-out = dict(settings=settings, n_points=len(pts), rows=rows, zero_TE=zTE, zero_TM=zTM, closest=best,
+bright = [r for r in rows if not r["dark"] and "c_TM" in r and np.isfinite(r["c_TM"])]
+ranges = {k: [min(r[k] for r in bright), max(r[k] for r in bright)] for k in ("c_TE", "c_TM", "M_TM", "lam_TE", "Q_TE")}
+out = dict(settings=settings, n_points=len(pts), n_bright=len(bright), dark_points=[(r["dt2_nm"], r["dr2_nm"]) for r in rows if r["dark"]],
+           n_with_hops=sum(1 for r in rows if r["hops"]), ranges_bright=ranges, rows=rows, zero_TE=zTE, zero_TM=zTM, closest=best,
            points_both_absM_ge_10=both10)
 json.dump(out, open(os.path.join(d, "analysis.json"), "w"), indent=1, default=float)
 
@@ -86,9 +105,15 @@ for k, (key, title, cmap) in enumerate((("lam_TE", "λ TE at 0.5° (nm)", "civid
         im = a_.imshow(Z, origin="lower", extent=ext, cmap=cmap)
     fig.colorbar(im, ax=a_, shrink=0.8); a_.set_title(title)
 for a_ in ax.flat:
+    for r in rows:
+        if r["dark"]:
+            a_.plot(r["dr2_nm"], r["dt2_nm"], "x", color="0.4", ms=8)
+        elif r["hops"]:
+            a_.plot(r["dr2_nm"], r["dt2_nm"], ".", color="0.3", ms=4)
+for a_ in ax.flat:
     a_.set_xlabel("r2 − r (nm)"); a_.set_ylabel("t2 − t (nm)")
 fig.suptitle(f"T16a hex E1 line (a 850, r 212.5, t 280 nm), gap {settings['gap']*1e3:.0f} nm, "
              f"{settings['n_terms']}/{settings['ngrid']}, θ {settings['thetas']}°, az {settings.get('azimuth_deg', 0)}°; "
-             "contours: c_TE = 0 solid, c_TM = 0 dashed")
+             "contours: c_TE = 0 solid, c_TM = 0 dashed\nx: quasi-BIC line (Q > 1e4, masked); dot: λ hop > ½ linewidth along the follow path")
 fig.savefig(os.path.join(d, "analysis.png"), dpi=110)
-print(json.dumps(dict(n=len(pts), zero_TE=len(zTE), zero_TM=len(zTM), closest=best, both10=both10), default=float, indent=1))
+print(json.dumps(dict(ranges=ranges, n_bright=len(bright), dark=out["dark_points"], n_hops=out["n_with_hops"], n=len(pts), zero_TE=len(zTE), zero_TM=len(zTM), closest=best, both10=both10), default=float, indent=1))

@@ -1,0 +1,45 @@
+{
+ "task": "T16a",
+ "script": "inverse/curv_map.py + inverse/curv_map_analyze.py",
+ "base": {
+  "a_nm": 850,
+  "r_nm": 212.5,
+  "t_nm": 280,
+  "gap_nm": 380,
+  "lam_nm": 1498.56,
+  "Q": 133,
+  "source": "T12a E1 line"
+ },
+ "grid_nm": [
+  -40.0,
+  -26.67,
+  -13.33,
+  0.0,
+  13.33,
+  26.67,
+  40.0
+ ],
+ "n_terms": 80,
+ "ngrid": 96,
+ "thetas": [
+  0.5,
+  3,
+  6
+ ],
+ "azimuth": 0,
+ "nsub": 4,
+ "split": {
+  "gpu_rows": [
+   0,
+   13.33,
+   26.67
+  ],
+  "cpu_rows": [
+   -13.33,
+   -26.67,
+   -40,
+   40
+  ]
+ },
+ "v1": "v1_coarse_steps/: first pass without substeps (line hopped at dr2 +13); superseded"
+}
