@@ -785,3 +785,23 @@ Format:
   - **One-sentence answer:** the unoptimized structure turns ~3–5 % of x-polarized light into one moiré order (so it receives from 2.4°·Δα[deg] into normal incidence at that level), the same into its mirror order, and keeps ~50–65 % in the zero order.
   - Caveat: **not converged in N** (1°: 5.6 / 4.3 / 3.3 % for N 3/4/5; 8°: 2.4 / 2.5 / 5.0 %). ±30 % at N 5. Same small-twist caveat as T15: the twisted bilayer sees all stackings, so "the resonance" is the stacking-averaged band, not the aligned line.
 - No `todo`/`doing` task left for the worker (T18b is yours; T16c, T12c, T14 blocked; T5 deferred) → **queue empty, stopping.**
+
+### 2026-11-22 06:33  cloud → gpu
+- **T15, T15b, T18a accepted (done); T18b done** (`runs/20261122-0608_T18b_wedge_average`, figure `docs/figs/T18b_tilt_wedge.png`). Thank you, the twist finding is important.
+- **T18b numbers:** 10 % broadening at α·D = 7.6 nm (Q 630, gap 380) and 1.1 nm (Q 6900, gap 500), i.e. 76 and 11 µrad for D = 100 µm; the analytic
+  √(Γ² + W²) is within 0.7 % at every α and D. Pattern centre = α/2 (exact in the local model). Dither ±10 µrad: S odd in θ, slope 3.8e-5 per degree, and
+  S changes sign again at the dark ring (±3.0°), so sign(S) = sign(θ) only for |θ| < 3°. I replaced the piecewise-linear angle interpolation by cubic
+  splines in sin²θ (leave-one-out on the prelim line: λ0 error 0.03–0.08 nm vs up to 0.54 nm); `inverse/wedge_postprocess.py --interp linear` keeps the old one.
+- **Item 5, correction of the reason (conclusion unchanged):** the ±θ symmetry of the polarization sum is not from inversion. Reciprocity relates top
+  incidence at k to bottom incidence at −k, and energy conservation (lossless, only the zero order open) makes the summed transmission from top and bottom
+  equal at the same k; together they give T_sum(+θ) = T_sum(−θ) for **any** periodic bilayer. Cloud check (fmmax 60/64, θ ±4°, 1485–1515 nm, shift (20,20)):
+  identical slabs 7e-13; **r2 100 nm, t2 200 nm (no inversion) 8e-12**; with loss n = 3.48 + 0.02i: 2e-2 (identical) and 8.5e-3 (different slabs).
+  So for a lossless periodic bilayer no shift or layer asymmetry gives a signed unpolarized signal; tilt (or absorption, or extra open orders) is needed.
+- Small thing for later cross-polarized powers: `model.py` returns tangential-E amplitudes, so the cross terms need the flux factor
+  (TE→TM: |t|²/cos²θ; TM→TE: |t|²·cos²θ). Your TE_cross/TM_cross differ by exactly cos⁴θ for that reason. Co-pol is unaffected; here it changes the sum by ~1e-10 only.
+- **T15 (twist), my reading for the proposal:** agreed that the plane-wave response at 0.1–4° is the stacking average. In the zeroth-order local picture a
+  twist θ about a centred aperture gives local shifts δ0 + θẑ×r, so the mean shift response is k·(|δ0|² + θ²⟨r²⟩): second order in θ at any bias; an
+  off-centre pivot R adds a first-order shift along ẑ×R, which duplicates δx, δy. So twist can add a new first-order control only through chirality from
+  the shift gradient (beyond the local approximation). Whether to model that (finite aperture / gradient-corrected LPA) is the PI's call; not queued.
+- **New: T15c** (GPU, low priority, ~1 h): N = 6 (and N = 7 at 2° if it fits) for the T15b moiré-order efficiencies, so that "3–5 % per order" can be
+  quoted or corrected. Details in TASKS.

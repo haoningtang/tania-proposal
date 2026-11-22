@@ -2,10 +2,12 @@
 
 Model (PI, 2026-11-22): aperture D, tilt alpha; local gap g(x) = g0 + alpha*x, x uniform in [-D/2, D/2]; incidence angle theta - alpha/2;
 P(lam, theta; alpha) = < T(lam, theta - alpha/2; g(x)) >_x.
-T(lam; g, theta) between table points: shift-aligned interpolation. Each table spectrum is moved so that its pole lam0 sits at the
-interpolated lam0, then the two neighbours are mixed linearly (in g, and in s = sin^2 theta). This keeps a narrow line narrow when it
-moves by a sizeable fraction of its width between table points (plain linear mixing would broaden it). T is even in theta (aligned
-structure, mirror x -> -x), so |theta| is used; below 0.5 deg lam0 is extrapolated linearly in s from the 0.5 and 2 deg records.
+T(lam; g, theta) between table points: shift-aligned interpolation. At each table gap, the spectra are aligned on their poles
+(u = lam - lam0, cubic in lam), and lam0 and the aligned shape T(u) are natural cubic splines in s = sin^2 theta over the table angles
+(0.5-8 deg; below 0.5 deg the first spline piece is used). Between table gaps, the two neighbours are moved to the linearly interpolated
+lam0 and mixed linearly. This keeps a narrow line narrow when it moves by a sizeable fraction of its width between table points (plain
+linear mixing would broaden it). T is even in theta (aligned structure, mirror x -> -x), so |theta| is used.
+--interp linear: the first version (piecewise linear in s between the two neighbouring angles, linear in lam), kept for comparison.
 Usage: python wedge_postprocess.py --table ../runs/<..>_T18a_wedge_table/table.json --out ../runs/<..>_T18b_wedge_average
 """
 import argparse, json, os
@@ -14,8 +16,11 @@ import numpy as np
 ap = argparse.ArgumentParser()
 ap.add_argument("--table", required=True); ap.add_argument("--out", required=True)
 ap.add_argument("--nx", type=int, default=121, help="samples across the aperture")
+ap.add_argument("--interp", default="spline", choices=["spline", "linear"], help="angle/lam interpolation of the table")
 args = ap.parse_args()
 os.makedirs(args.out, exist_ok=True)
+INTERP = args.interp
+from scipy.interpolate import CubicSpline
 
 d = json.load(open(args.table))
 DATA = {}
@@ -28,8 +33,36 @@ for r in d["records"]:
 
 def s_of(th): return np.sin(np.radians(th)) ** 2
 
+def _uniq(lam, T):
+    lam, i = np.unique(lam, return_index=True); return lam, T[i]
+
+SM = {}
+def smooth_model(key, g):
+    """per table gap: lam0(s) and the pole-aligned line shape T(u; s), u = lam - lam0, as cubic splines in s = sin^2 theta
+    (natural; cubic in lam within each record). Removes the kinks at the table angles and the ripple of linear lam interpolation."""
+    if (key, g) in SM: return SM[(key, g)]
+    recs = DATA[key]; ths = sorted(t for (gg, t) in recs if gg == g); rr = [recs[(g, t)] for t in ths]
+    sk = np.array([s_of(t) for t in ths]); l0 = np.array([r["lam0"] for r in rr])
+    lo = max(r["lam"][0] - r["lam0"] for r in rr); hi = min(r["lam"][-1] - r["lam0"] for r in rr)
+    u = np.linspace(lo, hi, 6001)
+    Tk = np.array([CubicSpline(*_uniq(r["lam"], r["T"]))(r["lam0"] + u) for r in rr])
+    if len(ths) >= 3:
+        L = CubicSpline(sk, l0, bc_type="natural"); TS = CubicSpline(sk, Tk, axis=0, bc_type="natural")
+    elif len(ths) == 2:
+        L = lambda s: np.interp(s, sk, l0, left=None); TS = lambda s: Tk[0] + (Tk[1] - Tk[0]) * (s - sk[0]) / (sk[1] - sk[0])
+    else:
+        L = lambda s: l0[0]; TS = lambda s: Tk[0]
+    SM[(key, g)] = (L, u, TS, ths); return SM[(key, g)]
+
 def spec_theta(key, g, theta):
-    """(lam0, f(lam)) at table gap g and any |theta|, by shift-aligned interpolation in s = sin^2 theta"""
+    """(lam0, f(lam)) at table gap g and any |theta| (T is even in theta for the aligned structure)"""
+    if INTERP == "linear": return spec_theta_linear(key, g, theta)
+    L, u, TS, ths = smooth_model(key, g); s = s_of(abs(theta))
+    lam0 = float(L(s)); Tu = np.asarray(TS(s))
+    return lam0, (lambda Lm: np.interp(Lm - lam0, u, Tu))
+
+def spec_theta_linear(key, g, theta):
+    """previous version: shift-aligned linear interpolation between the two neighbouring angles (kept for comparison)"""
     recs = DATA[key]; ths = sorted(t for (gg, t) in recs if gg == g)
     th = abs(theta); s = s_of(th)
     if th <= ths[0]:
@@ -67,7 +100,7 @@ def dip_metrics(lam, P):
     la = np.interp(half, [P[a + 1], P[a]], [lam[a + 1], lam[a]]); lb = np.interp(half, [P[b - 1], P[b]], [lam[b - 1], lam[b]])
     return dict(lam_min=lam[i], depth=hi - lo, fwhm=lb - la, P_min=lo, P_max=hi)
 
-out = dict(model=__doc__.split("Usage")[0], settings=dict(nx=args.nx), a={}, b={}, c={})
+out = dict(model=__doc__.split("Usage")[0], settings=dict(nx=args.nx, interp=args.interp), a={}, b={}, c={})
 # (a) structure (i): T9b, g0 380 / 500, TE / TM, normal incidence (0.5 deg records), D 50/100/200 um, alpha 0..200 urad.
 # The passband is taken as the Lorentzian of the resonant pole, L(lam) = (G/2)^2 / ((lam - lam0)^2 + (G/2)^2), with lam0(g) and G(g) read
 # from the table fits (so the real, slightly nonlinear dlam/dg and the change of G across the wedge are included). The analytic estimate
