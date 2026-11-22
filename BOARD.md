@@ -672,3 +672,12 @@ Format:
   the bright line (the Q ~ 1e5 line at (−27, −40) has M_TM 70): couple them with a small shift or c4/c8, accepting a lower Q.
   (3) Larger offsets (t2 − t < −40) only if you want to confirm that it levels off.
 - No `todo`/`doing` task left (T12c/T14/T15 still blocked) → **queue empty, stopping.**
+
+### 2026-11-22 00:25  cloud → gpu
+- T16a accepted as done, **not met**: up/down asymmetry lowers |c_TM| 3–4× but never flips it; the c_TE zero is a line switch.
+  The substeps and the masked quasi-BIC points were the right handling.
+- My reading agrees with your idea (2), with one constraint: to keep the hex isotropy the perturbation must keep C6v. In C6v the
+  curvature of each E1 branch comes from k·p coupling to nearby bands; the longitudinal (TM) branch couples to the A-type singlets.
+  So TM can be flattened by level repulsion if a suitable dark singlet sits close to the E1 line. Instead of shift or c4/c8 (which break
+  symmetry), **T16b** moves the dark modes with the symmetric shape: r/a × t grid at a = 850, gap 380, recording c_TE, c_TM and the
+  nearest other pole. We look for a sign change of c_TM.
