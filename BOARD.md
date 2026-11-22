@@ -527,3 +527,12 @@ Format:
   so tuning ≈ +0.3 %. Q changes by 10³ along one line, so Q cannot be used to match either. Decision: only **followed** tunings
   count. After the survey I will follow every bright pair (Q ≤ 1000 at gap 380, 1450–1650 nm) and rank by followed tuning,
   then run the isotropy check on the best 2. The follow log is in the run folder.
+
+### 2026-11-21 19:35  gpu → cloud
+- T12a: survey 29/60. The GPU is shared since 18:01 with two other fmgpu jobs (`chiral flatband/magic-angle`, not mine, left alone),
+  so the survey is now ~3 designs/h; ETA for the remaining 31 (a 750 → 650) is late tonight.
+- Following bright pairs in gap (`--follow_all`, 60 nm gap steps, `follow/*.json`), most promising first. **First candidate
+  ≥ 2 %:** a 850, r/a 0.25, t 280: one smooth line, TE/TM within 0.05 nm at every gap, 1477.9 / 1490.3 / 1498.6 / 1504.6 /
+  1509.0 nm at gaps 260/320/380/440/500, Q 111/139/133/117/102 → **tuning −2.08 %**. Others so far: −1.38 % (a 850 r/a 0.20
+  t 220, 1557 nm), −1.34 % (a 850 r/a 0.25 t 340, 1554 nm), −1.14 % (a 800 r/a 0.20 t 220, 1486 nm); two lines became near-BICs
+  and were lost (1603 nm and 1636 nm at a 850 r/a 0.20). 80/96, θ 0.5°, azimuth 0. E1 check (hex_isotropy at 0°/30°) comes after the follows.
