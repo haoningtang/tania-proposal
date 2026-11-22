@@ -9,3 +9,36 @@ T9b g0 500 g 505 th 4.0: TE 1572.070 Q 6173; TM 1572.176 Q 5821  (254 pts, 95s)
 T9b g0 500 g 505 th 6.0: TE 1572.064 Q 5611; TM 1572.181 Q 5216  (255 pts, 98s)
 T9b g0 500 g 505 th 8.0: TE 1572.085 Q 4642; TM 1572.037 Q 4645  (244 pts, 93s)
 T9b g0 500 g 510 th 0.5: TE 1572.540 Q 5961; TM 1572.542 Q 5957  (241 pts, 82s)
+T9b g0 500 g 510 th 2.0: TE 1572.534 Q 5877; TM 1572.569 Q 5824  (244 pts, 86s)
+T9b g0 500 g 510 th 4.0: TE 1572.518 Q 5578; TM 1572.622 Q 5448  (250 pts, 90s)
+T9b g0 500 g 510 th 6.0: TE 1572.505 Q 5000; TM 1572.619 Q 4957  (249 pts, 92s)
+T9b g0 500 g 510 th 8.0: TE 1572.515 Q 4107; TM 1572.464 Q 4471  (255 pts, 92s)
+T9b g0 500 g 515 th 0.5: TE 1572.986 Q 5374; TM 1572.989 Q 5373  (241 pts, 83s)
+T9b g0 500 g 515 th 2.0: TE 1572.979 Q 5284; TM 1573.013 Q 5279  (243 pts, 90s)
+T9b g0 500 g 515 th 4.0: TE 1572.960 Q 4978; TM 1573.061 Q 5004  (248 pts, 96s)
+T9b g0 500 g 515 th 6.0: TE 1572.939 Q 4428; TM 1573.049 Q 4627  (251 pts, 91s)
+T9b g0 500 g 515 th 8.0: TE 1572.939 Q 3634; TM 1572.885 Q 4232  (267 pts, 99s)
+T9b g0 500 g 520 th 0.5: TE 1573.426 Q 4786; TM 1573.428 Q 4788  (241 pts, 88s)
+T9b g0 500 g 520 th 2.0: TE 1573.418 Q 4699; TM 1573.451 Q 4725  (243 pts, 87s)
+T9b g0 500 g 520 th 4.0: TE 1573.394 Q 4410; TM 1573.492 Q 4535  (249 pts, 90s)
+T9b g0 500 g 520 th 6.0: TE 1573.367 Q 3912; TM 1573.472 Q 4258  (255 pts, 92s)
+T9b g0 500 g 520 th 8.0: TE 1573.356 Q 3221; TM 1573.298 Q 3951  (277 pts, 98s)
+T9b g0 500 g 525 th 0.5: TE 1573.859 Q 4234; TM 1573.861 Q 4237  (241 pts, 89s)
+T9b g0 500 g 525 th 2.0: TE 1573.849 Q 4154; TM 1573.882 Q 4198  (244 pts, 97s)
+T9b g0 500 g 525 th 4.0: TE 1573.822 Q 3894; TM 1573.917 Q 4073  (250 pts, 90s)
+T9b g0 500 g 525 th 6.0: TE 1573.788 Q 3457; TM 1573.888 Q 3879  (261 pts, 99s)
+T9b g0 500 g 525 th 8.0: TE 1573.767 Q 2864; TM 1573.705 Q 3649  (285 pts, 105s)
+/home/haoning/tania-proposal/.venv/lib/python3.13/site-packages/scipy/interpolate/_bary_rational.py:66: RuntimeWarning: AAA failed to converge within 14 iterations.
+  self._compute_weights(z, f, **kwargs)
+T9b g0 500 g 530 th 0.5: TE 1574.285 Q 3735; TM 1574.287 Q 3738  (241 pts, 91s)
+T9b g0 500 g 530 th 2.0: TE 1574.274 Q 3664; TM 1574.306 Q 3716  (244 pts, 90s)
+T9b g0 500 g 530 th 4.0: TE 1574.243 Q 3436; TM 1574.336 Q 3639  (250 pts, 84s)
+Traceback (most recent call last):
+  File "/home/haoning/tania-proposal/inverse/wedge_table.py", line 163, in <module>
+    a = ap.parse_args(); os.makedirs(a.out, exist_ok=True)
+    ^^^^^^^^
+  File "/home/haoning/tania-proposal/inverse/wedge_table.py", line 115, in chain
+    fit = locate(p, g * 1e-3, th, kw, pols, prev_th, pred)
+  File "/home/haoning/tania-proposal/inverse/wedge_table.py", line 64, in locate
+    raise RuntimeError(f"no pole at gap {gap} theta {th}")
+RuntimeError: no pole at gap 0.53 theta 6.0

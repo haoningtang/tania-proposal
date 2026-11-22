@@ -1,0 +1,4 @@
+[W1122 05:08:00.244422819 Context.cpp:508] Warning: torch.backends.cuda.preferred_linalg_library is an experimental feature. If you see any error or unexpected behavior when this flag is set please file an issue on GitHub. (function operator())
+N 5 th +2 gap 200: 200s err 2.0e-11 max|CD| 2.564e-02
+N 5 th -2 gap 200: 196s err 2.1e-11 max|CD| 2.564e-02
+N 5 th +4 gap 200: 185s err 9.9e-12 max|CD| 6.903e-02

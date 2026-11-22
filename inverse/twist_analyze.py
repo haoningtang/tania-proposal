@@ -29,7 +29,7 @@ def load(f):
     z = dict(np.load(f)); tag = os.path.basename(f)
     if "N" not in z:   # explore/dense_N{N}_th{th}_g{g}.npz
         p = tag[6:-4].split("_"); z["N"] = int(p[0][1:]); z["theta"] = float(p[1][2:]); z["gap"] = float(p[2][1:])
-    return {k: (v.item() if np.ndim(v) == 0 else v) for k, v in z.items()}
+    return {k: (np.asarray(v).item() if np.ndim(v) == 0 else v) for k, v in z.items()}
 
 
 def observe(z):

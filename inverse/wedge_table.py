@@ -94,7 +94,7 @@ def chain(a):
     done = {(r["g"], r["theta"], r["pol"]) for r in recs}
     hist = []   # (g, {pol: (lam, Q)}) at theta 0.5
     lam_g = GUESS[(a.struct, g0)]
-    prev = {q: (lam_g, 150.0 if a.struct == "prelim" else 700.0) for q in pols}
+    prev = {q: (lam_g, a.q0 or (150.0 if a.struct == "prelim" else 700.0)) for q in pols}
     for gi, g in enumerate(gaps):
         if len(hist) >= 2:
             pred = {q: hist[-1][1][q][0] + (hist[-1][1][q][0] - hist[-2][1][q][0]) for q in pols}
@@ -159,5 +159,6 @@ if __name__ == "__main__":
     ap.add_argument("--struct", default="prelim"); ap.add_argument("--g0", type=int, default=200); ap.add_argument("--dir", default="up")
     ap.add_argument("--pols", nargs="+", default=["TM"]); ap.add_argument("--n_terms", type=int, default=80); ap.add_argument("--ngrid", type=int, default=96)
     ap.add_argument("--only_g0", action="store_true")
+    ap.add_argument("--q0", type=float, default=None, help="Q used for the first locate window (lower = wider)")
     a = ap.parse_args(); os.makedirs(a.out, exist_ok=True)
     chain(a) if a.mode == "chain" else symmetry(a)
