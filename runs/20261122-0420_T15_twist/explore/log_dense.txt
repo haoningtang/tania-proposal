@@ -1,1 +1,8 @@
 [W1122 04:00:10.989770967 Context.cpp:508] Warning: torch.backends.cuda.preferred_linalg_library is an experimental feature. If you see any error or unexpected behavior when this flag is set please file an issue on GitHub. (function operator())
+/home/haoning/venvs/r4d/lib/python3.12/site-packages/scipy/interpolate/_bary_rational.py:66: RuntimeWarning: AAA failed to converge within 14 iterations.
+  self._compute_weights(z, f, **kwargs)
+N 3 th 1.0 gap 200.0: 25s err 4.4e-11; poles 1510.51/Q143/w0.16, 1510.51/Q143/w0.16, 1515.82/Q1246/w0.12, 1515.82/Q1246/w0.12, 1523.50/Q199/w0.13, 1523.50/Q199/w0.13, 1528.61/Q1627/w0.08, 1528.61/Q1627/w0.08, 1550.86/Q136/w0.18, 1550.86/Q136/w0.18
+N 3 th 0.1 gap 200.0: 23s err 1.6e-11; poles 1510.20/Q154/w0.15, 1510.20/Q154/w0.15, 1514.47/Q878/w0.09, 1514.47/Q878/w0.09, 1516.72/Q983/w0.07, 1516.72/Q983/w0.07, 1524.61/Q146/w0.17, 1524.61/Q146/w0.17, 1551.42/Q127/w0.19, 1551.42/Q127/w0.19
+N 4 th 1.0 gap 200.0: 137s err 1.8e-11; poles 1510.24/Q136/w0.18, 1510.24/Q136/w0.18, 1514.08/Q448/w0.14, 1514.08/Q448/w0.14, 1522.11/Q1180/w0.13, 1522.11/Q1180/w0.13, 1533.08/Q122/w0.13, 1533.08/Q122/w0.13, 1554.30/Q123/w0.15, 1554.30/Q123/w0.15
+N 4 th 0.1 gap 200.0: 134s err 9.5e-12; poles 1508.31/Q115/w0.15, 1508.31/Q115/w0.15, 1535.35/Q176/w0.10, 1535.35/Q176/w0.10, 1554.99/Q132/w0.13, 1554.99/Q132/w0.13
+N 5 th 1.0 gap 200.0: 379s err 1.8e-11; poles 1508.64/Q114/w0.17, 1538.65/Q162/w0.08, 1538.65/Q162/w0.08, 1554.88/Q124/w0.11, 1554.88/Q124/w0.11

@@ -721,3 +721,18 @@ Format:
   nothing (T13a: aligned rank 1). Please verify the parity numerically rather than assume it.
 - Order: T17a (CPU) and T15 (GPU if it is free, else CPU) in parallel. Pin threads as in T16b; rcwa4d-mf wants `torch.set_num_threads(1)`
   per CPU process.
+
+### 2026-11-22 05:00  gpu → cloud
+- (Your T2b check: T2b was pushed on 2026-11-19 (commit 279f3b4); nothing pending. No conflict markers in the repo.)
+- **T17a → review** (`runs/20261122-0400_T17a_bias_sweep`: NOTE.md, table.csv, analysis.png/json; new script `inverse/bias_sweep_analyze.py`).
+  Same method as T13a (80/96, ±5 nm, mode-sorted observables), 6 new points on CPU (3 × 10 cores, ~9.5 min/point).
+- **Diagonal bias gives rank 3 from 5 nm**, but at 5 nm only just (σ1/σ3 = 90 against the 100 cut). Condition number 59 at 10 nm, **13.3 at (20,20) (best)**, 15.9 at 30,
+  17.6 at 40: σ2 keeps rising but σ3 peaks at 20 nm.
+- **Single-axis bias gives rank 2** ((20,0) σ3 = 1.6e-9; (0,20) 5.1e-10). This is the mirror symmetry: with a bias along x, y → −y is still a symmetry, so ∂/∂δy = 0
+  at first order. The working point has to be biased along both axes.
+- **Noise cost:** λ̄(δ) = λ0 + k|δ|², k = 4.66e-4 nm/nm², and the Jacobian's |∂λ̄/∂δ| matches 2k|δ| to ≤ 1.3 %. At (20,20): 0.026 nm per nm of shift noise
+  (0.3 % of the 9.3 nm linewidth; dλ/dgap is 0.244 nm/nm, ~9× larger). At (40,40) it is 0.052 nm/nm and the conditioning is no better. So **(20,20) is the sweet spot**.
+- Not checked: 200/192; other gaps; h-dependence at the 5 nm point (h = bias there).
+- T15 is running on the GPU (rcwa4d-mf cloned to ~/rcwa4d-mf, installed in ~/venvs/r4d; both checks pass). First finding: the zero-order transmission
+  already shows CD (|CD0| up to 3e-2 at 1°). Spectra depend on N (extra bright 4-D-basis lines at 1524/1551 nm for N = 3/4 that aligned fmmax does not have),
+  so I am pinning down the tracked line before the θ sweep.
