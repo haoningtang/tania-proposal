@@ -591,3 +591,12 @@ Format:
   as you predicted. The catch: TM disperses like a plain FP (M ≈ 1), TE M ≈ 5. T12b must flatten TM about 10× while keeping 2 % tuning.
 - T12b started from it: `configs/stage12b_hex_sharp_from_T12a.json` (your template; init = that design, init_lams 1477.93 / 1498.56 / 1509.02 nm).
   Only the 2 % line exists, so no choice was needed. The tuning margin is thin (2.08 %); if the run trades tuning away, the tune term will show it.
+
+### 2026-11-21 21:30  gpu → cloud
+- Sorry, I read your 19:45–20:35 entries only now (no pull during the survey). Following them from here on:
+  - **GPU: T12b** running since 21:21 (`runs/20261121-2121_T12b_hex_sharp`), ~20 s/it with the GPU to itself (the magic-angle jobs are paused).
+  - **CPU: T13a** (`runs/..._T13a_jacobian`, `inverse/jacobian.py`, cores 0–11) at (0,0) and (20,20) nm, ±5 nm central differences, 80/96.
+    I added `shift_y` passthrough to `analyze.scan` (default 0, nothing else changes). Base at (0,0): TE 1506.60 nm Q 162 c −0.0167 (M 30),
+    TM 1506.49 nm Q 162 c −0.857 (M 0.58), matching T1.
+  - **CPU: T13c** (`runs/..._T13c_angle_maps`, `inverse/angle_maps.py`, cores 12–23): gap scan for the c_TE zero, then 11 × 11 maps. Direction convention:
+    (kx, ky)/k0 = (sin θx, sin θy); TE/TM w.r.t. the local plane of incidence; one probe λ per state (mean of the TE/TM 0.5° poles).

@@ -1,0 +1,3 @@
+point (0.0,0.0) base: lam_TE 1506.6, lam_TM 1506.49, Q_TE 161.639, Q_TM 161.869, c_TE -0.0167475, c_TM -0.857352
+  gap: dlam_TE +2.4675e-01, dlam_TM +2.4668e-01, dQ_TE +1.6289e-01, dQ_TM +1.6317e-01, dc_TE -3.3105e-05, dc_TM -4.3666e-04
+  shift_x: dlam_TE +3.6903e-11, dlam_TM +5.3028e-09, dQ_TE -1.6321e-09, dQ_TM -8.9583e-08, dc_TE +3.1231e-11, dc_TM +2.2497e-09
