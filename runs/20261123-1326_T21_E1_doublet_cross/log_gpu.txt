@@ -1,0 +1,5 @@
+D+0.000_t300_g380: 1146.3 s; bright TE poles at 0.5 deg: 1527.7/Q54, 1528.4/Q416, 1554.3/Q38
+done
+CHECKDONE
+done
+ALLDONE

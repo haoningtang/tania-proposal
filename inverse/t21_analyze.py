@@ -1,9 +1,8 @@
 """T21 analysis: E1 meets the second bright doublet near t 300 (hex_r3, gap 380). PHYSICAL polarization names.
 Lines and curvatures exactly as hex_r3_analyze.py (T16c): bright = 20 < Q < 1e6 (T16c: 1e4) and weight > 0.05 at 0.5 deg azimuth 0;
 doublet = TE and TM pole within half a linewidth; c from the Q-matched 3 deg pole (azimuth 0 and 30), M = -1/(2c).
-Tracking: seeds at t 280 from the T16c points (same Delta, or nearest Delta) for three lines: E1 (1498.9 nm at Delta 0),
-the second bright doublet D2 (1467.0 nm) and the third line L3 (1474.3 nm). Steps in t (280 -> 290 ... 310 -> 320 from T16c where present),
-prediction by linear extrapolation of lambda(t), match cost |lam - pred|/5 nm + |ln(Q/Q_prev)|; each line taken once per point.
+Tracking (see below): lower and upper branch of the E1 / second-doublet anticrossing and the third line L3, over t 290-310 in 5 nm steps,
+cost |lam - pred|/3 nm + |ln(Q/Q_prev)|/2 + |c_TE - c_TE_prev|/0.1; each line taken once per point. T16c (t 280, 320) used only for the seeds' identity.
 Through an anticrossing this follows the branch continuous in (lambda, Q), i.e. the adiabatic branch, not the diabatic state.
 Dark singlets: poles at 0.5 deg (either pol) with weight <= 0.05 or Q >= 1e6, or bright poles with no partner, within +-10 nm of a tracked line.
 Usage: python t21_analyze.py RUN_T21 RUN_T16c"""
@@ -72,27 +71,39 @@ for (D, t), (d, new) in sorted(pts.items()):
         for r in L: rows.append(dict(D=D, t=t, **r))
     pts[(D, t)] = (d, new, L)
 
+# Tracking over the T21 t grid (5 nm steps). Seeds at t 290, Delta 0: lower and upper branch of the E1/D2 anticrossing and L3
+# (checked by hand against T16c t 280/320: lower = D2 at t 280 -> E1 at t 320, upper = E1 at t 280 -> D2 at t 320).
+# Delta != 0: seed = line at t 290 closest to the Delta 0 seed. Lines with Q > 3e4 are not tracked.
+SEED = dict(lower=1494.5, upper=1510.2, L3=1501.8)
+
+
+def cost(r, ref, pred):
+    c = abs(r["lam"] - pred) / 3 + abs(np.log(r["Q"] / ref["Q"])) / 2
+    c += abs(r["c_TE_0"] - ref["c_TE_0"]) / 0.1 if (r["c_TE_0"] is not None and ref["c_TE_0"] is not None) else 1.0
+    return c
+
+
+t0 = T21_t[0]
+L00 = [r for r in pts[(0.0, t0)][2] if r["Q"] < 3e4]
+seed0 = {n: min(L00, key=lambda r: abs(r["lam"] - l)) for n, l in SEED.items()}
 for D in Ds:
-    D16 = min({k[0] for k in pts if k[1] == 280}, key=lambda x: abs(x - D))
-    seq = [(280, D16)] + [(t, D) for t in T21_t] + ([(320, D)] if (D, 320) in pts else [])
-    seq = [(t, DD) for t, DD in seq if (DD, t) in pts]
-    L0 = pts[(D16, 280)][2]
-    cur = {n: min(L0, key=lambda r: abs(r["lam"] - l) / 5 + abs(np.log(r["Q"] / SEEDQ[n]))) for n, l in SEED.items()}   # seed: nearest in (lambda, Q) to the Delta 0 line
-    hist = {n: [(280, cur[n])] for n in SEED}
-    for t, DD in seq[1:]:
-        L = pts[(DD, t)][2]; taken = set()
-        # assign in order of best cost
-        cand = []
-        for n in SEED:
-            h = hist[n]
-            pred = h[-1][1]["lam"] + ((h[-1][1]["lam"] - h[-2][1]["lam"]) / (h[-1][0] - h[-2][0]) * (t - h[-1][0]) if len(h) > 1 else 0)
-            for i, r in enumerate(L):
-                cand.append((abs(r["lam"] - pred) / 5 + abs(np.log(r["Q"] / h[-1][1]["Q"])), n, i))
-        done = set()
-        for cost, n, i in sorted(cand):
+    hist = {}
+    L = [r for r in pts[(D, t0)][2] if r["Q"] < 3e4]
+    taken = set()
+    for cst, n, i in sorted((cost(r, seed0[n], seed0[n]["lam"]), n, i) for n in SEED for i, r in enumerate(L)):
+        if n in hist or i in taken: continue
+        hist[n] = [(t0, L[i])]; taken.add(i)
+    for t in T21_t[1:]:
+        if (D, t) not in pts: continue
+        L = [r for r in pts[(D, t)][2] if r["Q"] < 3e4]; cand = []
+        for n, h in hist.items():
+            pred = h[-1][1]["lam"] + ((h[-1][1]["lam"] - h[-2][1]["lam"]) / (h[-1][0] - h[-2][0]) * (t - h[-1][0]) if len(h) > 1 else 2.0 * (t - h[-1][0]))
+            for i, r in enumerate(L): cand.append((cost(r, h[-1][1], pred), n, i))
+        done, taken = set(), set()
+        for cst, n, i in sorted(cand):
             if n in done or i in taken: continue
             hist[n].append((t, L[i])); done.add(n); taken.add(i)
-    tracks[D] = {n: [dict(t=t, src=("T16c" if t in (280, 320) else "T21"), D_pt=(D16 if t == 280 else D), **r) for t, r in h] for n, h in hist.items()}
+    tracks[D] = {n: [dict(t=t, src="T21", D_pt=D, **r) for t, r in h] for n, h in hist.items()}
 
 # CSV of all lines
 cols = ["D", "t", "lam", "Q", "highQ", "lam_TM", "Q_TM", "c_TE_0", "c_TM_0", "c_TE_30", "c_TM_30", "max_abs_c", "worst_absM"]
@@ -117,18 +128,18 @@ json.dump(summ, open(os.path.join(R, "analysis.json"), "w"), indent=1, default=f
 
 # figure: row 1 lambda(t) of tracked lines per Delta; row 2 maps of c_TE_0 and c_TM_0 of the tracked lines over (t, Delta)
 fig, ax = plt.subplots(2, 3, figsize=(16, 8.5))
-col = dict(E1="C0", D2="C3", L3="C2")
+col = dict(lower="C0", upper="C3", L3="C2")
 for D in Ds:
     for n, tr in tracks[D].items():
         ax[0, 0].plot([p["t"] for p in tr], [p["lam"] for p in tr], "o-", ms=3, color=col[n], alpha=0.3 + 0.7 * (abs(D) < 1e-9))
-ax[0, 0].set_xlabel("t (nm)"); ax[0, 0].set_ylabel("λ (nm), 0.5°"); ax[0, 0].set_title("tracked lines (dark = Δ 0); E1 blue, D2 red, L3 green")
-for n, a_ in (("E1", ax[0, 1]), ("D2", ax[0, 2])):
+ax[0, 0].set_xlabel("t (nm)"); ax[0, 0].set_ylabel("λ (nm), 0.5°"); ax[0, 0].set_title("tracked lines (dark = Δ 0); lower blue, upper red, L3 green")
+for n, a_ in (("lower", ax[0, 1]), ("upper", ax[0, 2])):
     for D in Ds:
         tr = [p for p in tracks[D][n]]
         a_.plot([p["t"] for p in tr], [p["c_TE_0"] if p["c_TE_0"] is not None else np.nan for p in tr], "o-", ms=3, label=f"TE Δ {D:+.2f}")
         a_.plot([p["t"] for p in tr], [p["c_TM_0"] if p["c_TM_0"] is not None else np.nan for p in tr], "s--", ms=3, label=f"TM Δ {D:+.2f}")
     a_.axhspan(-0.05, 0.05, color="0.9"); a_.axhline(0, color="k", lw=0.5); a_.set_xlabel("t (nm)"); a_.set_ylabel("c (az 0)")
-    a_.set_title(f"branch seeded on {n} at t 280"); a_.legend(fontsize=6, ncol=2)
+    a_.set_title(f"{n} branch of the E1 / second-doublet pair"); a_.legend(fontsize=6, ncol=2)
 for j, (key, ttl) in enumerate((("c_TE_0", "c_TE az 0"), ("c_TM_0", "c_TM az 0"), ("max_abs_c", "max |c| (TE, TM, az 0, 30)"))):
     a_ = ax[1, j]; X, Y, Z = [], [], []
     for r in rows:

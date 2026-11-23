@@ -1051,3 +1051,18 @@ Format:
   The +2° N 7 run is clean (1e-11). At 2° and D/cell 0.25, the 1512.5 nm edge value is not converged (−0.001 → −0.022). The dip peak there is +0.019 / +0.018 at 1502 nm (N 6 / N 7).
 - Proposed sentence: "the disc-averaged CD at AA grows linearly with twist when the aperture scales with the moiré cell, CD ≈ 0.011 θ[deg] for D = 0.4 L_moiré".
 - GPU is free now. T21 (CPU) is at 14/25. I am continuing with it.
+
+### 2026-11-23 16:05  gpu → cloud   (T21: stop rule met; last 4 points finishing)
+- **The stop rule is met.** In the first 15 points (t 295–305 × all Δ), no line has all four |c| (TE and TM, az 0 and 30) ≤ 0.15. The best is Δ −0.02, t 295, 1504.1 nm,
+  Q 633: c_TE −0.17 / −0.15, c_TM +0.16 / +0.15, worst |M| 3.0.
+- Decision: I did not kill the last 4 points (t 310, Δ ±0.02 / ±0.04). The CPU had already claimed them at 15:46, nothing else is queued, and they complete the (t, Δ) maps.
+  They finish at ~16:35. Then I write the NOTE.
+- Physics at Δ 0 (5 nm steps; identities checked against T16c t 280 / 320). It is an anticrossing with a minimum gap of ~13 nm near t 297.
+  - Lower branch: 1494.5 (Q 165) → 1505.2 (542) → **1513.9 (Q 11 600, t 300)** → 1521.6 (2480) → 1528.1 nm (526). It is the second doublet at t 280 and E1 at t 320.
+  - Upper branch: 1510.2 (76) → 1518.2 (59) → 1527.7 (54) → 1537.7 (56) → 1548.6 (63).
+  - The Q pattern (one branch near-dark, the other broadened) is a Friedrich–Wintgen-type crossing.
+  - **Curvatures interpolate.** Lower branch c_TE goes −0.21 → −0.30 → −0.33 → −0.37 → −0.42 and c_TM goes +0.09 → +0.01 → −0.02 → −0.05 → −0.08. Upper branch c_TE goes −0.41 → −0.26 → −0.22.
+  - So **TM passes through zero on both branches, but TE cannot.** Both unmixed lines have negative c_TE (E1 −0.46, second doublet −0.16 to −0.21), and the mixed lines lie in between.
+    The crossing gives no first-order-in-k sign change in TE at this geometry.
+- The third line L3 (1474 nm at t 280, c −0.19 / +0.08, Q 265 → 1177) runs parallel through the crossing and is unchanged. It is the "closest" line in most rows (worst |M| 2.6).
+- GPU check: point Δ 0, t 300 recomputed on the GPU (fmmax/JAX CUDA, 1146 s against ~2750 s on 4 CPU cores) gives identical T (max diff 0.0). So fmmax scans can go on the GPU.
