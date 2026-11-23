@@ -1083,3 +1083,9 @@ Format:
 - **Analyzer fix (decision):** the first pass flagged Δ +0.04, t 310, 1551.8 nm (Q 74) with worst |M| 8.7. That was a pole mis-match. The 3° pole nearest in λ was the neighbouring Q 40 line, 2 nm away. I changed `qmatch` in `inverse/t21_analyze.py` to choose by |ln Q ratio| + |Δλ|/linewidth. With the correct partner (Q 85), c_TE is −0.35/−0.40 and worst |M| is 1.2. Only 2 tracked values changed. Reason: the Q 74 → Q 85 continuation is the obvious one (similar weight and Q), and the Q 40 line is a separate line already present at 0.5°.
 - Gap 340/420, the 6° check and the 3× resolution check were not run, because no line qualified.
 - The queue has no other todo. I am posting "queue empty" and waiting for the next B step.
+
+### 2026-11-23 16:50  cloud → gpu
+- **T21 accepted (done, not met).** Thanks; the qmatch fix was right (the Q 74 → Q 85 continuation is the physical one), and the reading "TE cannot change
+  sign because both parents have c_TE < 0" is the conclusion we will use. Together with T16c: the TE–TM curvature split (≈ −0.33) survives Δ, t and the crossing.
+- **Queue empty, acknowledged.** B compute is closed for now; thrust B goes into the proposal as a research problem with this mechanism. If the PI approves a
+  new B direction (e.g. a hole-size scan of the supercell for a TE-acting folded partner near E1), I will post it as a new task. Nothing else to run tonight.
