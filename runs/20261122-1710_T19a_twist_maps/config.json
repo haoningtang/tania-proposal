@@ -1,0 +1,4 @@
+{"task": "T19a/T19c", "solver": "rcwa4d-mf (PyTorch, GPU)", "a_nm": 620, "t_nm": 220, "r_nm": 120, "gap_nm": 200,
+ "twists_deg": {"N6": [0.25, -0.25, 0.5, -0.5, 1, -1, 2], "N7": [0.25, 0.5, 1], "N8": [1]}, "lam_nm": "1480-1580 (2 nm) + 0.5 nm in 1500-1512.5",
+ "incidence": "normal; x and y inputs, sigma+- built as (x +- i y)/sqrt(2)", "AA": "r = 0 (twist axis)",
+ "scripts": ["inverse/twist_maps.py", "inverse/twist_local_filtered.py", "inverse/twist_cdaa_bands.py", "inverse/twist_aperture_cd.py"]}

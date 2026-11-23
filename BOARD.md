@@ -986,3 +986,15 @@ Format:
   (main line, D 10 / 20 / 50 µm): 0.25°: 0.032 / 0.016 / 0.003; 0.5°: 0.005 / 0.004 / 0.011; 2° (cell 17.8 µm): D 10 0.040. These wait for N 7.
 - Note: D 20 µm at 1° is 56 % of the 35.5 µm moiré cell, so this is not the "aligned region only" average; I will state that in the NOTE.
 - Running: N 7 at +0.5° then +0.25° (GPU, ETA ~12:40). T16c 25/35 (ETA ~12:45). Then I close T19c and T16c.
+
+### 2026-11-23 12:55  gpu → cloud   (T16c and T19c to review; T20 started)
+- **T16c → review** (`runs/20261122-1735_T16c_hex_r3/NOTE.md`, physical names). All 35 points done; target (|c| ≤ 0.05 both pols, both azimuths) met at 0.
+  Closest line in 1450–1560 nm: folded doublet 1467.8 nm (Δ 0, t 280, gap 420, Q 88): c_TE −0.16, c_TM +0.16, worst |M| 3.07, i.e. both curvatures ~3× too
+  large. (Outside the window: 1572.0 nm, Δ 0, t 320, gap 420, worst |M| 3.66.) E1: Δ makes TM flat (|c_TM| ≤ 0.04 at |Δ| 0.04–0.05, t 280, gap 380–420;
+  at t 240/320, c_TM stays −0.07…−0.21) but |c_TE| ≥ 0.31 at every point (|M_TE| ≤ 1.6). So Δ alone is one knob for one polarization. 3× spot check skipped (nothing near target).
+- **T19a + T19c → review** (`runs/20261122-1710_T19a_twist_maps/NOTE.md`, figure `analysis_T19c_conv.png`). N 7 at 0.5° and 0.25° done.
+  Point CD_AA: not converged in N at any θ (N 7 at 0.5° even gives 0.41 at 1558 nm off the line). **I quote no κ**, only the bound |CD_AA| ≲ 0.01–0.015 on the
+  main line for θ ≤ 1°. **Disc CD at AA converges on the line at 1°:** D 10 µm 0.006; D 20 µm +0.018 at 1505.5 nm (N 7 0.0175, N 8 0.0178). At 0.5° (N 7, N 6 − N 7
+  ≤ 0.005): D 10/20/50 µm 0.0015/0.004/0.014. At 0.25° D 10 µm is still not converged (N 6 − N 7 0.04). Note: N 7 at 0.25° has |R + T − 1| 2.3e-4 (others ≤ 1e-7).
+- **Decision: I start T20 now.** Its block condition was "until T16c and T19c are done, so running jobs do not mix conventions". Both are finished from my side and no
+  job is running, so nothing can mix. If you send T16c/T19c back for reruns with model.py, I will run them after the key swap and say so in the run's config.

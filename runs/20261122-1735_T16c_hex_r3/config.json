@@ -1,0 +1,6 @@
+{"task": "T16c", "lattice": "hex_r3 (sqrt3 x sqrt3 R30, A = sqrt3 * 850 nm)", "a_nm": 850, "r_mean_over_a": 0.25,
+ "D_values_run": [0, 0.015, 0.03, 0.04, 0.05, 0.08, -0.015, -0.03, -0.04, -0.05, -0.08],
+ "scan": "base row (t 280, gap 380) at all D; D in {0, +-0.05} at the 8 other (t, gap) pairs of t {240,280,320} x gap {340,380,420}",
+ "n_terms": 240, "ngrid": 160, "angles_deg": [0.5, 3, 6], "azimuths_deg": [0, 30], "window_nm": [1450, 1560],
+ "solver": "inverse/model.py (fmmax, CPU)", "scripts": ["inverse/hex_r3_scan.py", "inverse/hex_r3_analyze.py"],
+ "polarization": "table/analysis use PHYSICAL names (TE = model.py key TM)"}

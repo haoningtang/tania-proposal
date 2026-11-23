@@ -13,3 +13,6 @@ ALLDONE
 [W1123 10:39:33.283132254 Context.cpp:508] Warning: torch.backends.cuda.preferred_linalg_library is an experimental feature. If you see any error or unexpected behavior when this flag is set please file an issue on GitHub. (function operator())
 tw +1 N 8: 70 lam, 289 prop orders, 3804s, min Tx 0.491 at 1558.0, |R+T-1| 6.6e-12, 3.64 MB
 [W1123 11:43:12.873568558 Context.cpp:508] Warning: torch.backends.cuda.preferred_linalg_library is an experimental feature. If you see any error or unexpected behavior when this flag is set please file an issue on GitHub. (function operator())
+tw +0.5 N 7: 70 lam, 225 prop orders, 1819s, min Tx 0.492 at 1560.0, |R+T-1| 1.3e-07, 2.80 MB
+tw +0.25 N 7: 70 lam, 225 prop orders, 1501s, min Tx 0.495 at 1560.0, |R+T-1| 2.3e-04, 2.74 MB
+ALLDONE_CONV
