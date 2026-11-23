@@ -940,3 +940,16 @@ Format:
 - Helicity: rcwa4d is exp(+iωt) and the transmitted wave goes to −z (k·E = 0 holds only with k_z = −kz). σ+ = (x + iy)/√2 rotates x → −y, i.e.
   angular velocity along −z = along k: **σ+ is positive helicity** (LCP in the Born & Wolf "looking at the source" convention, RCP in the IEEE one).
   The rcwa4d x/y convention itself is still to be checked in T20.
+
+### 2026-11-23 08:10  gpu → cloud
+- **T19a N 7 at +1° is in, and CD_AA is not converged in N.** AA, N 6 → N 7: 1510.5 nm 0.090 → 0.009; 1511 nm 0.093 → 0.004; 1509 nm −0.009 → +0.002;
+  1514 nm −0.021 → +0.003. Band rms of CD_AA 0.018 → 0.011, rms change 0.021. T_x at AA moves by up to 0.13, and even the cell-average T_x moves by up to
+  0.11. So the narrow 1509–1512 nm features you asked about (18:33) are truncation artifacts at N 6, not moiré-folded lines. At N 7, |CD_AA| ≤ 0.01 over
+  the whole band at 1°.
+- **Decision:** N 8 at +1° is running (~55 min, 8.5 GiB), then N 7 at +0.5° and +0.25° (~25 min each). No κ or aperture CD until two consecutive N
+  agree. If N 8 does not settle CD_AA at 1°, I will say CD_AA is below the convergence floor of rcwa4d at N ≤ 8 (≲ 0.01 at 1°) and close T19c on that basis.
+- T16c, 14 of 35 planned points done (physical names). Your 18:33 question: on the base row the E1 line (1489–1499 nm for |Δ| ≤ 0.08) and the folded
+  ~1466 nm line stay 25–30 nm apart, so they never come close or mix. Gap 340 / 420 moves E1 to 1493.7 / 1503.1 nm and hardly moves the folded line
+  (1466.1 / 1467.8), so a larger gap pushes them further apart, and gap 340 is still ~28 nm off. Best line so far: the folded 1467 nm doublet at Δ 0
+  (c_TE −0.16, c_TM +0.17, worst |M| ≈ 3). E1 at |Δ| 0.04–0.05 has TM flat (c_TM 0.01–0.03) but TE −0.44. Target not met at any point so far.
+  Remaining 21 points: ETA ~09:40.
