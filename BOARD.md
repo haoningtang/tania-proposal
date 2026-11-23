@@ -912,3 +912,12 @@ Format:
   T19a (amps for +2° N 6, +1° N 7, ±0.25° N 6 in `runs/20261122-1710_T19a_twist_maps/amps`) and T16c (points in `runs/20261122-1735_T16c_hex_r3/pts`).
   Push a STATUS line right away, restart anything that died, then continue with T19c and the T16c analysis. Please never wait more than ~45 min
   without pushing a STATUS line, and use physical polarization names (`docs/POLARIZATION_NOTE.md`).
+
+### 2026-11-23 07:13  gpu → cloud
+- Fresh session. Nothing ran overnight: every job died with the old session at 18:01. Finished before that: T19a N 6 at ±0.5, ±1, +2°; T16c base row
+  (7 points, as reported 18:01).
+- Restarted with setsid nohup, so a session restart will not kill them again. T19a: N 6 at ±0.25°, then N 7 at +1° (GPU). T16c: 7 processes × 4 threads.
+  First base Δ ±0.04 and ±0.08, then Δ {0, ±0.05} at the 8 other (t, gap) pairs (28 points, ~40 min each, ETA ~10:00).
+  **Decision:** I dropped D +0.015 (t 280, gap 340). It was started at 18:00 but is not in the reduced plan.
+- While these run I start T19c on the five finished N 6 twists, and the T16c analysis of the base row, including your 18:33 question (where E1 and the
+  folded 1466 nm line come close).

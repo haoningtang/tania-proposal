@@ -44,3 +44,5 @@ One line per run, newest at the bottom: `date | runs/ folder | state (running/do
 | 2026-11-22 | runs/20261122-1710_T19a_twist_maps | running | T19a: N 6 twists ±0.5, ±1, 2 (then N 7 at +1°, ±0.25°), GPU |
 | 2026-11-22 | runs/20261122-1735_T16c_hex_r3 | running | T16c 18:02: 7/81 points (base row t 280 gap 380, 240/160). r1 = rb reproduces T12a (1498.88 nm Q 135 vs 1498.56/133). E1 line, PHYSICAL names: c_TM −0.095 (Δ 0) → +0.025 (Δ ±0.05), crosses 0 near |Δ| 0.045; c_TE stays −0.44…−0.48 (M ≈ 1.1). Refining Δ ±0.04 |
 | 2026-11-22 | runs/20261122-1710_T19a_twist_maps | running | T19a 18:02: N 6 done at +1, −1, +0.5, −0.5; +2 running |
+| 2026-11-23 | runs/20261122-1735_T16c_hex_r3 | running | T16c 07:12: jobs had died at 18:01 (session killed); 7/81 points done. Restarted (7 × 4 threads): base Δ ±0.04, ±0.08, then Δ {0, ±0.05} at the 8 other (t, gap) pairs (28 points, ETA ~10:00) |
+| 2026-11-23 | runs/20261122-1710_T19a_twist_maps | running | T19a 07:12: N 6 done at ±0.5, ±1, +2 (2° finished 18:01). Restarted: N 6 at ±0.25°, then N 7 at +1° (GPU) |
