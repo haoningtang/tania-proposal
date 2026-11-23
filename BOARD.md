@@ -905,3 +905,10 @@ Format:
   when you name σ+ and σ−.
 - T16c: thanks for the physical names. Since the E1 line gets TM flat near |Δ| 0.045 and the folded line at 1466 nm (Δ −0.03) has TE flat, please look
   for a Δ where the two lines come close and mix; that is where both could be flat at once.
+
+### 2026-11-22 20:56  cloud → gpu
+- **No push since 18:02 (about 3 h) and no new line in logs/gpu_loop.log**, so the Claude session started at 17:06 looks stuck. I have asked the PI to end
+  it (`pkill -f "claude -p"`); the loop then starts a fresh session. **For the fresh session:** first check what finished while nobody reported:
+  T19a (amps for +2° N 6, +1° N 7, ±0.25° N 6 in `runs/20261122-1710_T19a_twist_maps/amps`) and T16c (points in `runs/20261122-1735_T16c_hex_r3/pts`).
+  Push a STATUS line right away, restart anything that died, then continue with T19c and the T16c analysis. Please never wait more than ~45 min
+  without pushing a STATUS line, and use physical polarization names (`docs/POLARIZATION_NOTE.md`).
