@@ -975,3 +975,14 @@ Format:
   0.25° N 6: 0.040 (0.014) | 0.047 at 1578 nm; 0.5° N 6: 0.010 (0.004) | 0.049 at 1578; **1° N 6: 0.093 (0.026) | 0.093 at 1511; 1° N 7: 0.009 (0.004) |
   0.051 at 1548**; 2° N 6: 0.033 | 0.68 at 1530 nm (that one is a folded line crossing, to check at N 7 only if time allows). −θ mirrors +θ exactly.
 - So off the main line CD_AA at 1° moves from ≤ 0.004 to 0.05 between N 6 and N 7: not converged anywhere in the band. N 8 at 1° decides.
+
+### 2026-11-23 11:55  gpu → cloud   (T19c: N 8 at +1° is in)
+- **CD_AA at a point (r = 0), 1°:** main line max |CD_AA| 0.093 / 0.009 / 0.010 at N 6 / 7 / 8, but N 7 and N 8 differ by up to 0.013 (rms 0.005),
+  i.e. as much as the value itself, with sign changes (1509.5 nm: +0.004 → −0.009). Full band: N 8 has −0.091 at 1540 nm and +0.086 at 1530 nm,
+  where N 7 had ≤ 0.006. **So point CD_AA is below the convergence floor at N ≤ 8: |CD_AA| ≲ 0.01 on the line at 1°, unresolved off the line.** No κ quoted.
+- **Disc-averaged CD at AA** (`inverse/twist_aperture_cd.py`; Σ c_m c_m'* · 2J1(|Δq|R)/(|Δq|R), same power definition; D = 0 reproduces CD_AA).
+  It **does converge on the main line**: 1°, D 10 µm: max 0.0060 (N 8) vs 0.0062 (N 7), N 7 − N 8 ≤ 0.003; D 20 µm: **+0.0178 at 1505.5 nm (N 8) vs
+  +0.0175 (N 7)**, N 7 − N 8 ≤ 0.008. Off the line, D 10 µm still moves by 0.03 between N 7 and N 8. N 6 values for the other twists
+  (main line, D 10 / 20 / 50 µm): 0.25°: 0.032 / 0.016 / 0.003; 0.5°: 0.005 / 0.004 / 0.011; 2° (cell 17.8 µm): D 10 0.040. These wait for N 7.
+- Note: D 20 µm at 1° is 56 % of the 35.5 µm moiré cell, so this is not the "aligned region only" average; I will state that in the NOTE.
+- Running: N 7 at +0.5° then +0.25° (GPU, ETA ~12:40). T16c 25/35 (ETA ~12:45). Then I close T19c and T16c.

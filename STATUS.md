@@ -52,3 +52,4 @@ One line per run, newest at the bottom: `date | runs/ folder | state (running/do
 | 2026-11-23 | runs/20261122-1710_T19a_twist_maps | running | T19a 10:42: N 8 at +1° lost in the reboot; restarted (N 8 +1°, then N 7 at +0.5°, +0.25°), ETA ~12:30 |
 | 2026-11-23 | runs/20261122-1735_T16c_hex_r3 | running | T16c 11:32: 21/35 points (7 of the 21 restarted ones done, ~30 min each). Target met at 0 points; best worst-|M| 3.06 (folded 1467.8 nm doublet, Δ 0, t 280, gap 420, Q 88). Remaining 14, ETA ~12:40 |
 | 2026-11-23 | runs/20261122-1710_T19a_twist_maps | running | T19a 11:32: N 8 at +1° still running (52 min so far, GPU 100 %, 9 GiB) |
+| 2026-11-23 | runs/20261122-1710_T19a_twist_maps | running | T19a 11:55: N 8 at +1° done (3804 s). Point CD_AA not converged (N 7 vs 8 differ ≤ 0.013 on line, 0.09 off line); disc CD at 1° converged on line: D 20 µm +0.018 at 1505.5 nm. N 7 at 0.5°, 0.25° running |
