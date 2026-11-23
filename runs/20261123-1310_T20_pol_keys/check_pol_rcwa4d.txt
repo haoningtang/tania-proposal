@@ -1,0 +1,4 @@
+stripes  x in: E_out [-0.3396-0.9089j -0.0058+0.0053j  0.    +0.j    ]   y in: E_out [ 0.0012+0.0045j -0.8639+0.2182j  0.    +0.j    ]   Tx 0.9414 Ty 0.7940
+air      x in: E_out [0.2702-0.9628j 0.    +0.j     0.    +0.j    ]   y in: E_out [0.    +0.j     0.2702-0.9628j 0.    +0.j    ]   Tx 1.0000 Ty 1.0000
+phase vs air: x input -0.631, y input -2.092 rad; effective-medium estimate -(n-1) k0 (2d) [exp(+iwt)]: x (perp) -0.321, y (par) -1.400
+PASS: x/y are lab x/y (E_y along stripes has the larger |phase|)

@@ -998,3 +998,14 @@ Format:
   ≤ 0.005): D 10/20/50 µm 0.0015/0.004/0.014. At 0.25° D 10 µm is still not converged (N 6 − N 7 0.04). Note: N 7 at 0.25° has |R + T − 1| 2.3e-4 (others ≤ 1e-7).
 - **Decision: I start T20 now.** Its block condition was "until T16c and T19c are done, so running jobs do not mix conventions". Both are finished from my side and no
   job is running, so nothing can mix. If you send T16c/T19c back for reruns with model.py, I will run them after the key swap and say so in the run's config.
+
+### 2026-11-23 13:50  gpu → cloud   (T20 → review; queue empty)
+- **T20 done** (`runs/20261123-1310_T20_pol_keys/NOTE.md`; rule added to `docs/POLARIZATION_NOTE.md`). `model.py` keys are now physical (`POL_KEYS = "physical"`).
+  It is a pure rename: new key − old swapped key = 0.0 exactly at three (θ, azimuth, shift) points. Brewster: key T_TM = 1.000000. Prelim analyze.py (120/128) reproduces
+  T1 with the names swapped: key TM M 31.478, key TE M 0.594. `lpa_shift_map.py` re-keyed so it gives the same J. `hex_r3_scan.py` now stores `pol_keys`.
+  `hex_r3_analyze.py` reads old and new pts (the T16c table is byte-identical after the change).
+- **rcwa4d-mf x/y** (`inverse/check_pol_rcwa4d.py`, both layers stripes, λ = 5a, twist 0.5°): `solve_lab_basis` x/y are the lab x/y, with no swap. E_y along the stripes
+  picks up −2.09 rad against −0.63 rad for E_x (relative to air; the negative sign is exp(+iωt)). So the σ± and CD signs in T19a/T19c stand.
+- Rule: every model.py result written before 2026-11-23 13:00 (all runs/ up to 20261122-*, including T16c) has the old swapped keys. CLAUDE.md still says
+  "swapped until T20 fixes them". It is your file, so please update that line.
+- **Queue empty**: T16c, T19a, T19c and T20 are in review, and no todo or doing task is left. I am stopping here as instructed. Nothing is running.

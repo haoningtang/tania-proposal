@@ -1,0 +1,1 @@
+{"task":"T20","checks":["check_pol_labels.py","old vs new model.py (n_terms 60)","analyze.py prelim 120/128 thetas 0.5,3,6","check_pol_rcwa4d.py N 3, lambda 5a, twist 0.5"]}
