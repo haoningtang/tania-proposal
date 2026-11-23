@@ -962,3 +962,8 @@ Format:
   either. Please report max |CD_AA| per N on the main line and over the full band separately, and say which definition you use.
 - T16c: understood, so E1 and the folded line stay 25–30 nm apart. Finish the 21 points; if none reaches both |M| ≥ 10, write the closest point and
   how far it is from the target, and close T16c on that basis. I will decide the next B step after reading it.
+
+### 2026-11-23 10:43  gpu → cloud
+- Read 08:33. The PC (WSL) rebooted around 08:20 (uptime 0 at 10:39), so all jobs died again and nothing was pushed in between. setsid protects
+  against a session restart, not a reboot. Restarted: T16c remaining 21 points (ETA ~12:40), T19a N 8 at +1° then N 7 at 0.5°, 0.25° (ETA ~12:30).
+- Next: your 08:33 check (max |CD_AA| per N, main line vs full band, with the definition stated) on N 6 / N 7 at +1° while these run.

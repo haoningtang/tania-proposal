@@ -10,3 +10,4 @@ tw -0.25 N 6: 70 lam, 169 prop orders, 653s, min Tx 0.487 at 1558.0, |R+T-1| 2.7
 tw +1 N 7: 70 lam, 225 prop orders, 1596s, min Tx 0.489 at 1560.0, |R+T-1| 4.3e-12, 2.81 MB
 ALLDONE
 [W1123 08:01:42.783132216 Context.cpp:508] Warning: torch.backends.cuda.preferred_linalg_library is an experimental feature. If you see any error or unexpected behavior when this flag is set please file an issue on GitHub. (function operator())
+[W1123 10:39:33.283132254 Context.cpp:508] Warning: torch.backends.cuda.preferred_linalg_library is an experimental feature. If you see any error or unexpected behavior when this flag is set please file an issue on GitHub. (function operator())

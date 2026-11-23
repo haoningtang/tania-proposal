@@ -48,3 +48,5 @@ One line per run, newest at the bottom: `date | runs/ folder | state (running/do
 | 2026-11-23 | runs/20261122-1710_T19a_twist_maps | running | T19a 07:12: N 6 done at ±0.5, ±1, +2 (2° finished 18:01). Restarted: N 6 at ±0.25°, then N 7 at +1° (GPU) |
 | 2026-11-23 | runs/20261122-1710_T19a_twist_maps | running | T19a 07:55: N 6 done at ±0.25, ±0.5, ±1, +2°; N 7 at +1° running (GPU). T19b n 48 LPA map finished (325/325, merged; merged file 8.6 MB kept local, parts in git) |
 | 2026-11-23 | runs/20261122-1735_T16c_hex_r3 | running | T16c 07:55: 14 points done (restart 07:12, 7 procs); ETA ~10:00 |
+| 2026-11-23 | runs/20261122-1735_T16c_hex_r3 | running | T16c 10:42: WSL rebooted ~08:20 and killed all jobs (setsid cannot survive a reboot); 14 points done. Restarted the remaining 21 (Δ {0, ±0.05} × 8 (t, gap) pairs), 7 procs, ETA ~12:40 |
+| 2026-11-23 | runs/20261122-1710_T19a_twist_maps | running | T19a 10:42: N 8 at +1° lost in the reboot; restarted (N 8 +1°, then N 7 at +0.5°, +0.25°), ETA ~12:30 |
