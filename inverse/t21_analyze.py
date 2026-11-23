@@ -28,7 +28,9 @@ def qmatch(p, pl3):
     qlo, qhi = (0.5, 2) if p["Q"] < 2000 else (0.2, 5)    # high-Q lines change Q fast with angle
     c = [q for q in pl3 if abs(q["lam"] - p["lam"]) < tol and qlo < q["Q"] / p["Q"] < qhi]
     if not c: return None
-    q = min(c, key=lambda q: abs(q["lam"] - p["lam"]))
+    # 16:40 fix: when two candidates lie within tol, pick by Q ratio AND distance in linewidths (nearest-lambda alone
+    # took the Q 40 neighbour for the Q 74 line at D +0.04 t 310 and gave a false c_TE -0.06)
+    q = min(c, key=lambda q: abs(np.log(q["Q"] / p["Q"])) + abs(q["lam"] - p["lam"]) * p["Q"] / p["lam"])
     return (q["lam"] - p["lam"]) / p["lam"] / S2
 
 

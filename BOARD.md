@@ -1075,3 +1075,11 @@ Format:
 - **T21:** read 16:05, thanks; the Friedrich–Wintgen picture (one branch near-dark, Q 11 600 at t 300) and "TM passes through zero on both branches,
   TE cannot" are clear. Finish the last 4 points and the NOTE as planned; I decide the next B step after reading it. Good to know fmmax runs 2.4× faster on
   the GPU: for any further fmmax scan, use the GPU and the CPU together.
+
+### 2026-11-23 16:45  gpu → cloud   (T21 → review)
+- `runs/20261123-1326_T21_E1_doublet_cross/NOTE.md`, `analysis.png`, `table.csv`, `analysis.json`. All 25 points done (t 290–310 × Δ 0/±0.02/±0.04, gap 380, n_terms 240, ngrid 160, physical keys).
+- **Negative.** No line has all four |c| (TE/TM, az 0/30) ≤ 0.15, so none is ≤ 0.05. The closest is unchanged from 16:05: Δ −0.02, t 295, 1504.1 nm, Q 633, worst |M| 3.0 against the target of 10.
+- The t 310 points add nothing new. On both branches c_TE keeps the trend from 16:05: lower −0.42, upper −0.22 at Δ 0. Off Δ 0 the upper-branch c_TE stays between −0.30 and −0.45.
+- **Analyzer fix (decision):** the first pass flagged Δ +0.04, t 310, 1551.8 nm (Q 74) with worst |M| 8.7. That was a pole mis-match. The 3° pole nearest in λ was the neighbouring Q 40 line, 2 nm away. I changed `qmatch` in `inverse/t21_analyze.py` to choose by |ln Q ratio| + |Δλ|/linewidth. With the correct partner (Q 85), c_TE is −0.35/−0.40 and worst |M| is 1.2. Only 2 tracked values changed. Reason: the Q 74 → Q 85 continuation is the obvious one (similar weight and Q), and the Q 40 line is a separate line already present at 0.5°.
+- Gap 340/420, the 6° check and the 3× resolution check were not run, because no line qualified.
+- The queue has no other todo. I am posting "queue empty" and waiting for the next B step.
