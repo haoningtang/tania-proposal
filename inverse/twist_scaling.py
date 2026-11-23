@@ -5,6 +5,7 @@ CD = T_sigma+ - T_sigma-. Positive twists only (CD(-theta) = -CD(theta) exactly,
 Apertures: fixed D = 10, 20, 50 um (only if D < cell) and fixed D/cell = 0.25, 0.4, 0.56.
 Main line 1500-1512.5 nm, full band 1480-1580 nm. Per (theta, N, aperture): max |CD| and the signed value at the peak.
 Last-two-N difference: max over the main line (or band) of |CD_N - CD_(N-1)| on the common lambda grid.
+Wavelengths with |R+T-1| > 1e-3 are dropped (listed in per_run[..].dropped_lam).
 Usage: python twist_scaling.py OUT AMPS_DIR [AMPS_DIR ...]  -> OUT/analysis.json, OUT/table.csv"""
 import glob, json, os, sys
 import numpy as np
@@ -15,8 +16,15 @@ D_FIX = (10, 20, 50); FRAC = (0.25, 0.4, 0.56)
 MAIN = (1500.0, 1512.5)
 
 
+EMAX = 1e-3   # drop wavelengths with max(|Rx+Tx-1|, |Ry+Ty-1|) > EMAX (0.5 deg N 8: 10 lambda in 1511.5-1528 nm up to 5e-2)
+
+
+def good(d):
+    return np.maximum(np.abs(d["Tx"] + d["Rx"] - 1), np.abs(d["Ty"] + d["Ry"] - 1)) <= EMAX
+
+
 def disc_cd(d, D_um):
-    lam = d["lam"]; o = np.argsort(lam); cd = []
+    lam = d["lam"]; g = good(d); o = [i for i in np.argsort(lam) if g[i]]; cd = []
     for li in o:
         q = np.stack([d["kx"][li], d["ky"][li]], -1) * 2 * np.pi / d["lam"][li]
         x = np.linalg.norm(q[:, None] - q[None], axis=-1) * D_um * 1e3 / 2
@@ -41,7 +49,8 @@ res = {}
 for tag, f in sorted(files.items(), key=lambda kv: (float(kv[0].split("_")[0]), int(kv[0].split("N")[1]))):
     d = np.load(f); tw = float(d["twist"]); N = int(d["N"])
     cell = float(d["a_nm"]) / np.deg2rad(abs(tw)) / 1e3
-    r = dict(twist=tw, N=N, cell_um=cell, file=f, ap={})
+    g = good(d); r = dict(twist=tw, N=N, cell_um=cell, file=f, ap={}, dropped_lam=sorted(float(x) for x in d["lam"][~g]))
+    if (~g).any(): print(f"{tag}: dropped {(~g).sum()} lambda with |R+T-1| > {EMAX}: {r['dropped_lam']}")
     aps = [(f"D{D}", float(D)) for D in D_FIX if D < cell] + [(f"f{fr}", fr * cell) for fr in FRAC]
     for name, Dum in aps:
         lam, cd = disc_cd(d, Dum)

@@ -1,0 +1,5 @@
+{"task": "T19d", "solver": "rcwa4d-mf (PyTorch, GPU), same structure as T19a: a 620, t 220, r 120, gap 200 nm, normal incidence",
+ "new_solves": {"N7": [2], "N8": [0.5]}, "reused": "runs/20261122-1710_T19a_twist_maps/amps (N 6 at 0.25/0.5/1/2, N 7 at 0.25/0.5/1, N 8 at 1)",
+ "apertures": {"D_um": [10, 20, 50], "D_over_cell": [0.25, 0.4, 0.56]}, "main_line_nm": [1500, 1512.5], "band_nm": [1480, 1580],
+ "energy_mask": "lambda with max(|Rx+Tx-1|,|Ry+Ty-1|) > 1e-3 dropped (0.5 deg N 8: 1512, 1512.5, 1516, 1518, 1522, 1524, 1526 nm)",
+ "scripts": ["inverse/twist_maps.py", "inverse/twist_scaling.py", "inverse/twist_scaling_plot.py"]}

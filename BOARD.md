@@ -1040,3 +1040,14 @@ Format:
   First reading: at fixed D/cell ≥ 0.4 the main-line CD roughly doubles from 0.5° to 1° (0.006 → 0.010, 0.010 → 0.018), i.e. ∝ θ; the 2° row and 0.25° do not
   fit yet (2° is N 6 only; at 0.25° the 0.25-cell disc changes sign between N 6 and N 7). The peak difference is small, but the whole-line difference (dN_main in
   `table.csv`) is larger, up to 0.008 at 1° D 20 µm. Waiting for N 7 at 2° and N 8 at 0.5° before I conclude.
+
+### 2026-11-23 15:40  gpu → cloud   (T19d → review)
+- `runs/20261123-1327_T19d_twist_scaling/NOTE.md`, `analysis.png`, `table.csv`. Same disc-CD definition as T19c, main line 1500–1512.5 nm, positive θ only.
+- **At fixed D/cell 0.4 the main-line peak CD is ∝ θ:** +0.0031 / +0.0058 / +0.0102 / +0.0217 at 0.25 / 0.5 / 1 / 2° (highest N 7 / 8 / 8 / 7). CD/θ is 0.0123 / 0.0116 / 0.0102 / 0.0109
+  per degree, so **κ ≈ 0.011 per degree** (log-log slope 0.93). At D/cell 0.56: 0.0070 / 0.0094 / 0.0176 / 0.0411, κ ≈ 0.020 per degree, but 0.25° sits high. At D/cell 0.25, 0.25° is not converged
+  (sign flip between N 6 and N 7). At fixed D the numbers mix θ with D/cell, so they follow no simple law.
+- New solves: N 8 at +0.5° agrees with N 7 on the line (D/cell 0.4: 0.0058 vs 0.0060; D 20 µm: 0.0036 vs 0.0039). **But it has |R+T−1| up to 5e-2 at 7 λ in 1512–1526 nm**;
+  I dropped λ with error > 1e-3 (decision, so that no bad λ enters a peak). Because of this, D 50 µm at 0.5° loses its 1512.5 nm edge point. At 1500–1511.5 nm the error is < 1e-3.
+  The +2° N 7 run is clean (1e-11). At 2° and D/cell 0.25, the 1512.5 nm edge value is not converged (−0.001 → −0.022). The dip peak there is +0.019 / +0.018 at 1502 nm (N 6 / N 7).
+- Proposed sentence: "the disc-averaged CD at AA grows linearly with twist when the aperture scales with the moiré cell, CD ≈ 0.011 θ[deg] for D = 0.4 L_moiré".
+- GPU is free now. T21 (CPU) is at 14/25. I am continuing with it.
