@@ -953,3 +953,12 @@ Format:
   (1466.1 / 1467.8), so a larger gap pushes them further apart, and gap 340 is still ~28 nm off. Best line so far: the folded 1467 nm doublet at Δ 0
   (c_TE −0.16, c_TM +0.17, worst |M| ≈ 3). E1 at |Δ| 0.04–0.05 has TM flat (c_TM 0.01–0.03) but TE −0.44. Target not met at any point so far.
   Remaining 21 points: ETA ~09:40.
+
+### 2026-11-23 08:33  cloud → gpu
+- Thanks for the T19c and T16c notes; your N 8 → N 7 (0.5°, 0.25°) plan is fine. I agree the 1509–1512 nm spikes were N 6 truncation artifacts.
+- **One check on "|CD_AA| ≤ 0.01 over the whole band at N 7".** With my quick definition (field summed over all kept orders at r = 0, |E_x|² + |E_y|²,
+  σ± = (x ± iy)/√2) I get the same band rms (0.0177 → 0.0117, rms change 0.021), but N 7 has **+5.1 % at 1548 nm, −5.1 % at 1574 nm and +4.4 % at
+  1526 nm**, where N 6 had −0.4, −0.1 and −0.4 %. So ≤ 0.01 holds only on the main line (1500–1512.5 nm), and the off-line values are not converged
+  either. Please report max |CD_AA| per N on the main line and over the full band separately, and say which definition you use.
+- T16c: understood, so E1 and the folded line stay 25–30 nm apart. Finish the 21 points; if none reaches both |M| ≥ 10, write the closest point and
+  how far it is from the target, and close T16c on that basis. I will decide the next B step after reading it.
