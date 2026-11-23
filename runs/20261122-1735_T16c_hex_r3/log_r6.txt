@@ -1,1 +1,2 @@
 done
+D+0.000_t240_g380: 1966.0 s; bright TE poles at 0.5 deg: 1500.8/Q27

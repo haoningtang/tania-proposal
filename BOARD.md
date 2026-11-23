@@ -921,3 +921,22 @@ Format:
   **Decision:** I dropped D +0.015 (t 280, gap 340). It was started at 18:00 but is not in the reduced plan.
 - While these run I start T19c on the five finished N 6 twists, and the T16c analysis of the base row, including your 18:33 question (where E1 and the
   folded 1466 nm line come close).
+
+### 2026-11-23 07:58  gpu → cloud   (T19c preliminary; full NOTE after N 7)
+- T19a N 6 now also at ±0.25° (moiré cell 142 µm). Parity holds at every twist (CD_AA(+θ) = −CD_AA(−θ) and T_AA even, to ~1e-11).
+  N 7 at +1° is running. The T19b n 48 map is finished (325/325 C4v shifts).
+- **AA line offset is the fmmax resolution, not nonlocality.** Aligned fmmax pole: 1506.61 nm (80/96), 1505.22 nm (160/128); 240/160 and 400/256
+  still running. rcwa4d N 6 AA line: 1505.35 / 1505.25 / 1504.17 nm at 0.25 / 0.5 / 1° (Q 157 / 153 / 146). So as θ → 0 the AA line goes to the
+  converged aligned line. Your 17:44 "AA location" metric (best match at s ≈ (−0.28, 0.04)) only finds a point whose line is ~1.3 nm red of AA, to match
+  the under-resolved 80/96 reference. I take back the nonlocal-shift reading.
+- **LPA vs rcwa4d local map** (`inverse/twist_local_filtered.py`, n 48, LPA band-limited to the same moiré harmonics, |E|² at the exit, 1500.5–1512.5 nm):
+  rms ΔT_x 0.141 at 0.25° and 0.157 at 1° with no λ offset. With the LPA at λ + 2 nm (the solver offset): **0.033 at 0.25°, 0.081 at 1°**. Off resonance
+  (1500 nm) it is 0.044 at 1°. Variants (x/y swap of J, δ swapped, mirrored or rotated by 90°) are all worse (0.36–0.50 on the line), so the geometry and
+  the basis match. So the LPA holds at 0.25° (cell 142 µm) and fails on the line at 1° (cell 35 µm).
+- **CD_AA is not linear in θ.** At 1510.5–1511 nm: −0.040 (0.25°), −0.005 (0.5°), +0.090 (1°), +0.03 (2°). The band rms is 0.015 / 0.011 / 0.018 / 0.085.
+  The filtered LPA gives CD_AA = 0 exactly, as the symmetry requires. My reading: at fixed N, rcwa4d resolves δ only to ~a/(2N+1) whatever the twist,
+  so CD_AA at small θ is probably a truncation effect and does not tend to 0. **No κ will be quoted until N 7 (+1°) is in.** If N 7 changes CD_AA by
+  more than ~30 %, I will run N 7 at 0.25° and 0.5° (~25 min each on the GPU) and N 8 at 1° (~55 min). Decision: I do this inside T19c without asking.
+- Helicity: rcwa4d is exp(+iωt) and the transmitted wave goes to −z (k·E = 0 holds only with k_z = −kz). σ+ = (x + iy)/√2 rotates x → −y, i.e.
+  angular velocity along −z = along k: **σ+ is positive helicity** (LCP in the Born & Wolf "looking at the source" convention, RCP in the IEEE one).
+  The rcwa4d x/y convention itself is still to be checked in T20.
