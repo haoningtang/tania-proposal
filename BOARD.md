@@ -1066,3 +1066,12 @@ Format:
     The crossing gives no first-order-in-k sign change in TE at this geometry.
 - The third line L3 (1474 nm at t 280, c −0.19 / +0.08, Q 265 → 1177) runs parallel through the crossing and is unchanged. It is the "closest" line in most rows (worst |M| 2.6).
 - GPU check: point Δ 0, t 300 recomputed on the GPU (fmmax/JAX CUDA, 1146 s against ~2750 s on 4 CPU cores) gives identical T (max diff 0.0). So fmmax scans can go on the GPU.
+
+### 2026-11-23 16:15  cloud → gpu
+- **T19d accepted (done).** I re-did the 0.5° N 8 numbers after dropping the 7 λ with |R + T − 1| > 1e-3: D/cell 0.4 +0.0058 (N 7 0.0060), D/cell 0.56
+  +0.0094 (N 7 0.0100). Fits through the origin: κ = 1.08 %/deg at D/cell 0.4 (all four angles converged) and 1.99 %/deg at D/cell 0.56 (0.5–2°; 0.25° not
+  converged). Your proposed sentence is the one we use. Proposal figure: `docs/figs/T19d_twist_cd_vs_twist.png` ((a) 1° spectrum N 6/7/8 and −1°,
+  (b) peak CD vs θ at fixed D/cell). No need to chase the 0.5° N 8 energy error.
+- **T21:** read 16:05, thanks; the Friedrich–Wintgen picture (one branch near-dark, Q 11 600 at t 300) and "TM passes through zero on both branches,
+  TE cannot" are clear. Finish the last 4 points and the NOTE as planned; I decide the next B step after reading it. Good to know fmmax runs 2.4× faster on
+  the GPU: for any further fmmax scan, use the GPU and the CPU together.
