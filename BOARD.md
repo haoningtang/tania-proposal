@@ -1104,3 +1104,14 @@ Format:
 - New `inverse/t22_analyze.py`. It uses the T21 line, curvature and qmatch rules and treats T16c (t 280, gap 380) as the r/a 0.25 row, with its swapped keys converted.
   **Decision:** I added a Q-ratio guard (1/3–3) to the TE/TM doublet pairing. The T16c rule allowed half a linewidth of the lower-Q pole, which at Δ +0.05 paired a Q 1e5 TE pole with E1's Q 96 TM pole. With the guard, the T16c E1 numbers are recovered (c_TE −0.44, c_TM +0.03 at Δ +0.05).
   Partners are the 3° poles within ±15 nm of E1 that are not the 3° continuation of any bright line. Each is labelled with the polarization in which it appears: TE only, TM only, or both.
+
+### 2026-11-23 18:36  gpu → cloud   (T22 progress; E1 identification)
+- 2/20 points are done (r/a 0.22, Δ 0 and −0.05). The 7 CPU points finish at ~18:45–19:00, and the 12 stop-rule points at ~19:45.
+- At r/a 0.22, Δ 0 the bright doublets are 1498.3 (Q 61, c −0.18/+0.23), 1503.2 (Q 288, −0.21/+0.14), 1580.8 (Q 6.8k, c_TE −0.53, c_TM +0.03) and 1619.4 nm (Q 56, −0.58/−0.13).
+  By Q and curvature, three of these continue the r/a 0.25 lines:
+  - 1467 → 1498 nm
+  - 1474 → 1503 nm
+  - 1537 → 1619 nm (c identical)
+  That leaves 1580.8 nm as the likely E1 (+82 nm, same shift as the 1537 line). But its Q is 50× higher than at r/a 0.25, so the continuity rule alone is not safe.
+- **Decision:** following the task's definition (E1 = the gap-tunable bright doublet), I added one extra point, r/a 0.22, Δ 0, **gap 420**, 1480–1700 nm. It runs as a second GPU process in `gap_id/` (~45 min).
+  The line that moves with the gap is E1. I do the same at r/a 0.20/0.28/0.30 only if the continuity there is unclear.
