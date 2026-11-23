@@ -1,0 +1,6 @@
+{"task": "T22", "lattice": "hex_r3 (sqrt3 x sqrt3 R30, A = sqrt3 * 850 nm)", "a_nm": 850, "rbar_over_a": [0.20, 0.22, 0.28, 0.30],
+ "D_values": [0, 0.05, -0.05, 0.03, -0.03], "t_nm": 280, "gap_nm": 380, "n_terms": 240, "ngrid": 160,
+ "point_order": "D 0 at r/a 0.22, 0.28, 0.20, 0.30; then D +0.05, -0.05; then +-0.03 (skipped if stop rule met)",
+ "scans": "theta 0.5 az 0, theta 3 az 0, theta 3 az 30", "window_nm": [1350, 1700], "step_nm": 0.5,
+ "solver": "inverse/model.py (fmmax; GPU 1 proc on cores 0-3 + CPU 7 procs x 4 threads), POL_KEYS physical",
+ "scripts": ["inverse/hex_r3_scan.py (--rbar / 4-tuple points added for T22)", "inverse/t21_analyze.py (qmatch rule)"], "points": "0.22,0,280,380;0.28,0,280,380;0.20,0,280,380;0.30,0,280,380;0.22,0.05,280,380;0.28,0.05,280,380;0.20,0.05,280,380;0.30,0.05,280,380;0.22,-0.05,280,380;0.28,-0.05,280,380;0.20,-0.05,280,380;0.30,-0.05,280,380;0.22,0.03,280,380;0.28,0.03,280,380;0.20,0.03,280,380;0.30,0.03,280,380;0.22,-0.03,280,380;0.28,-0.03,280,380;0.20,-0.03,280,380;0.30,-0.03,280,380"}

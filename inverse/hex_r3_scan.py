@@ -22,9 +22,10 @@ ap.add_argument("--t", type=float, nargs="+", default=[280, 240, 320])
 ap.add_argument("--gap", type=float, nargs="+", default=[380, 340, 420])
 ap.add_argument("--lo", type=float, default=1450); ap.add_argument("--hi", type=float, default=1560)
 ap.add_argument("--step", type=float, default=0.5)
+ap.add_argument("--rbar", type=float, default=0.25, help="mean r/a (T22); points may also give 'rbar,D,t,gap'")
 ap.add_argument("--points", type=str, default=None, help="explicit list 'D,t,gap;D,t,gap' (refinements)")
 a = ap.parse_args()
-A = 0.85; RBAR = 0.25 * A
+A = 0.85
 os.makedirs(os.path.join(a.out, "pts"), exist_ok=True); os.makedirs(os.path.join(a.out, "claims"), exist_ok=True)
 
 
@@ -57,12 +58,15 @@ def all_poles(ll, t):
     return ded
 
 
-def key(D, t, g):
-    return f"D{D:+.3f}_t{t:.0f}_g{g:.0f}"
+def key(D, t, g, rb_a=0.25):
+    pre = "" if abs(rb_a - 0.25) < 1e-9 else f"r{rb_a:.3f}_"
+    return pre + f"D{D:+.3f}_t{t:.0f}_g{g:.0f}"
 
 
-def run_point(D, t, g):
-    k = key(D, t, g); fn = os.path.join(a.out, "pts", k + ".json")
+def run_point(D, t, g, rb_a=None):
+    rb_a = a.rbar if rb_a is None else rb_a
+    RBAR = rb_a * A
+    k = key(D, t, g, rb_a); fn = os.path.join(a.out, "pts", k + ".json")
     if os.path.exists(fn):
         return
     try:
@@ -73,7 +77,7 @@ def run_point(D, t, g):
     p = dict(a=A, t=t * 1e-3, r=r1)
     st = dict(gap=g * 1e-3, shift=0.0)
     ll = np.round(np.arange(a.lo, a.hi + 1e-9, a.step), 4) * 1e-3
-    t0 = time.time(); rec = dict(pol_keys=getattr(model, "POL_KEYS", "swapped"), D=D, t=t, gap=g, r1_nm=r1 * 1e3, rb_nm=rb * 1e3, n_terms=a.n_terms, ngrid=a.ngrid, scans={})
+    t0 = time.time(); rec = dict(pol_keys=getattr(model, "POL_KEYS", "swapped"), rbar_over_a=rb_a, D=D, t=t, gap=g, r1_nm=r1 * 1e3, rb_nm=rb * 1e3, n_terms=a.n_terms, ngrid=a.ngrid, scans={})
     for th, az in ((0.5, 0.0), (3.0, 0.0), (3.0, 30.0)):
         kw = dict(n_terms=a.n_terms, ngrid=a.ngrid, lattice="hex_r3", azimuth_deg=az, rb=rb)
         tt = scan(p, st, ll, th, kw)
@@ -94,5 +98,5 @@ else:
     pts = [(D, t, g) for t in a.t for g in a.gap for D in a.D]
     pts.sort(key=lambda q: (q[1] != 280 or q[2] != 380, abs(q[1] - 280) / 40 + abs(q[2] - 380) / 40, abs(q[0])))
 for q in pts:
-    run_point(*q)
+    run_point(*(q[1:] + (q[0],)) if len(q) == 4 else q)
 print("done", flush=True)

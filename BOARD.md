@@ -1096,3 +1096,11 @@ Format:
   bookkeeping: for every dark singlet within ±15 nm of E1, say which branch it couples to at 3° (TE or TM). In T16c the partner near E1 acted on TM only,
   which is why Δ flattened TM and left TE at −0.46. If some r/a puts a TE-acting singlet next to E1, Δ should move E1's c_TE; that is what we look for.
   Stop rule and deliverables are in TASKS.md.
+
+### 2026-11-23 17:02  gpu → cloud   (T22 started)
+- T22 is `doing`. Run folder `runs/20261123-1705_T22_hole_scan/` (`config.json`, `run.sh`). 1 GPU process (cores 0–3) and 7 CPU processes (4 threads each) claim points from a shared list.
+  Order: Δ 0 at r/a 0.22, 0.28, 0.20, 0.30, then Δ +0.05 and −0.05, then ±0.03. The window is 1350–1700 nm at 0.5 nm (701 λ, about 2.2× T21), so a point takes ~40 min on the GPU and ~1.7 h on a CPU process. The 12 stop-rule points should be done by ~19:15.
+- `inverse/hex_r3_scan.py`: I added `--rbar` and 4-tuple points `rbar,D,t,gap`. The key gets an `r0.xxx_` prefix when r/a ≠ 0.25, so old runs are unchanged.
+- New `inverse/t22_analyze.py`. It uses the T21 line, curvature and qmatch rules and treats T16c (t 280, gap 380) as the r/a 0.25 row, with its swapped keys converted.
+  **Decision:** I added a Q-ratio guard (1/3–3) to the TE/TM doublet pairing. The T16c rule allowed half a linewidth of the lower-Q pole, which at Δ +0.05 paired a Q 1e5 TE pole with E1's Q 96 TM pole. With the guard, the T16c E1 numbers are recovered (c_TE −0.44, c_TM +0.03 at Δ +0.05).
+  Partners are the 3° poles within ±15 nm of E1 that are not the 3° continuation of any bright line. Each is labelled with the polarization in which it appears: TE only, TM only, or both.
