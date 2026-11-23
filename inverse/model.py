@@ -1,9 +1,10 @@
 """Differentiable forward model for an ALIGNED Si photonic-crystal bilayer (fmmax / JAX).
 
-WARNING (worker, 2026-11-22; check_pol_labels.py): the keys "TE"/"TM" below are SWAPPED with respect to the physical
-definition (TE = E perpendicular to the plane of incidence). fmmax amplitude blocks are (-E_y, E_x), not (E_x, E_y):
-key "TM" is physically TE and key "TE" is physically TM (Brewster test: key T_TE = 1.000000 at atan(3.48)). The keys
-are left unchanged for now so that old and running results stay comparable; the controller decides on the fix.
+2026-11-23 (T20): TE/TM KEYS FIXED. The keys "TE"/"TM" (t_TE, t_TM, t_TE_TM, t_TM_TE, T_TE, T_TM) are now the PHYSICAL ones
+(TE = s = E perpendicular to the plane of incidence). Before this date the two were swapped (check_pol_labels.py, Brewster):
+fmmax amplitude blocks are (-E_y, E_x), not (E_x, E_y). The fix is a pure rename: new key "TE" = old key "TM" exactly (same
+amplitude, same sign), new "TM" = old "TE", new t_TE_TM = old t_TM_TE. Run folders made before 2026-11-23 keep the old keys
+(rule in docs/POLARIZATION_NOTE.md). POL_KEYS below marks the convention; scripts that write results store it.
 
 Stack (top to bottom): vacuum | slab 1 | air gap | slab 2 (laterally shifted) | vacuum.
 Lengths in micrometres. Returns the complex zero-order transmission coefficient for TE (E perpendicular to the
@@ -17,6 +18,8 @@ import jax, jax.numpy as jnp, numpy as np
 import fmmax
 
 jax.config.update("jax_enable_x64", True)
+
+POL_KEYS = "physical"   # since 2026-11-23 (T20); results written before used swapped keys
 
 
 def hole_eps(r, a, n_slab, ngrid, sx=0.0, sy=0.0, smooth=1.0, c4=0.0, c8=0.0, lattice="square", rb=None):
@@ -119,12 +122,14 @@ def bilayer_t(lam, theta_deg, a, t, r, gap, shift=0.0, n_slab=3.48, n_terms=120,
     nb = exp.num_terms
     i0 = int(np.argmin(np.sum(np.abs(np.asarray(exp.basis_coefficients)), axis=1)))  # zero order
     out = {}
-    # amplitude index: block 0 = x-polarised, block 1 = y-polarised (tangential E of the vacuum plane waves).
-    # TE: tangential E along (-sin phi, cos phi); TM: along (cos phi, sin phi). At phi = 0: TE = y block, TM = x block.
-    pol = {"TM": (cph, sph), "TE": (-sph, cph)}
+    # amplitude blocks: (block 0, block 1) = (-E_y, E_x) (fmmax field order (-ey, ex, hx, hy); check_pol_labels.py).
+    # TE: E along (-sin phi, cos phi) -> blocks -(cos phi, sin phi); TM: E along (cos phi, sin phi) -> blocks (-sin phi, cos phi).
+    # The overall sign of the TE vector is dropped (t is unchanged by it; this keeps new t_TE identical to the old key t_TM).
+    # At phi = 0: TE = E_y = block 0, TM = E_x = block 1. (Before 2026-11-23 the two names below were swapped.)
+    pol = {"TE": (cph, sph), "TM": (-sph, cph)}
     def vec(c):
         return jnp.zeros((2 * nb, 1), dtype=jnp.complex128).at[i0, 0].set(c[0]).at[nb + i0, 0].set(c[1])
-    for name in ("TM", "TE"):
+    for name in ("TE", "TM"):
         a_out = S.s11 @ vec(pol[name])  # forward amplitude leaving the bottom
         other = "TE" if name == "TM" else "TM"
         tt = pol[name][0] * a_out[..., i0, 0] + pol[name][1] * a_out[..., nb + i0, 0]

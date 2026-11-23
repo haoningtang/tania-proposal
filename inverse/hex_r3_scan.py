@@ -12,6 +12,7 @@ import argparse, json, os, time
 import numpy as np
 from scipy.interpolate import AAA
 from analyze import scan
+import model
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--out", required=True)
@@ -72,7 +73,7 @@ def run_point(D, t, g):
     p = dict(a=A, t=t * 1e-3, r=r1)
     st = dict(gap=g * 1e-3, shift=0.0)
     ll = np.round(np.arange(a.lo, a.hi + 1e-9, a.step), 4) * 1e-3
-    t0 = time.time(); rec = dict(D=D, t=t, gap=g, r1_nm=r1 * 1e3, rb_nm=rb * 1e3, n_terms=a.n_terms, ngrid=a.ngrid, scans={})
+    t0 = time.time(); rec = dict(pol_keys=getattr(model, "POL_KEYS", "swapped"), D=D, t=t, gap=g, r1_nm=r1 * 1e3, rb_nm=rb * 1e3, n_terms=a.n_terms, ngrid=a.ngrid, scans={})
     for th, az in ((0.5, 0.0), (3.0, 0.0), (3.0, 30.0)):
         kw = dict(n_terms=a.n_terms, ngrid=a.ngrid, lattice="hex_r3", azimuth_deg=az, rb=rb)
         tt = scan(p, st, ll, th, kw)

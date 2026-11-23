@@ -1,7 +1,8 @@
 """Cross-check the fmmax model against the grcwa preliminary results in prelim/.
 
-grcwa (nG = 81) gave: single slab (r = 120 nm) resonance near 1.535 um, flat in TE and curved in TM;
-bilayer, gap 200 nm, near 1.506 um; at 6 deg TE stays (flat) and TM shifts to shorter wavelength."""
+grcwa (nG = 81) gave: single slab (r = 120 nm) resonance near 1.535 um; bilayer, gap 200 nm, near 1.506 um; at 6 deg one
+polarization stays (flat) and the other shifts to shorter wavelength. Physical names (POLARIZATION_NOTE, 2026-11-22): the flat
+branch is TM (p), the curved one TE (s). Since T20 (2026-11-23) model.py keys are physical, so key TM is the flat one here."""
 import numpy as np, time
 from model import bilayer_t
 

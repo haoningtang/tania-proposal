@@ -2,6 +2,8 @@
 1. Brewster: uniform slab n 3.48 at theta_B = atan(3.48) = 73.97 deg must give T = 1 for TM (p, E in the plane of incidence).
 2. Stripes (eps varies along the first grid axis = u = x), lambda >> period: E parallel to the stripes (y) sees the larger index.
 3. fmmax source: fields_from_wave_amplitudes splits the field vector as (-ey, ex, hx, hy): amplitude block 0 is -E_y, block 1 is E_x.
+Since T20 (2026-11-23) model.py keys are physical: expected key T_TM = 1 at Brewster, key t_TE (= E_y at azimuth 0) larger phase
+for the stripes. Before T20 the opposite (keys swapped).
 Usage: JAX_PLATFORMS=cpu python check_pol_labels.py"""
 import cmath, numpy as np, jax.numpy as jnp
 import model
@@ -10,7 +12,7 @@ thB = float(np.degrees(np.arctan(3.48)))
 for az in (0.0, 90.0):
     o = model.bilayer_t([1.5], thB, 0.62, 0.3, -0.1, None, n_terms=9, ngrid=16, azimuth_deg=az)
     print(f"Brewster {thB:.2f} deg, azimuth {az:g}: key T_TM = {float(o['T_TM'][0]):.6f}, key T_TE = {float(o['T_TE'][0]):.6f}"
-          "   (physical TM must be 1)")
+          f"   (physical TM must be 1; keys {getattr(model, 'POL_KEYS', 'swapped')})")
 orig = model.hole_eps
 def stripes(r, a, n_slab, ngrid, **k):
     x = (np.arange(ngrid) + 0.5) / ngrid
@@ -19,5 +21,6 @@ def stripes(r, a, n_slab, ngrid, **k):
 model.hole_eps = stripes
 o = model.bilayer_t([3.0], 0.0, 0.3, 0.1, 0.1, None, n_terms=25, ngrid=64)
 model.hole_eps = orig
-print(f"stripes along y (eps varies along x), normal incidence: phase of key t_TM (block 0) {cmath.phase(complex(o['t_TM'][0])):.3f}, "
-      f"key t_TE (block 1) {cmath.phase(complex(o['t_TE'][0])):.3f}   (E_y, parallel to the stripes, must have the larger phase)")
+print(f"stripes along y (eps varies along x), normal incidence: phase of key t_TE {cmath.phase(complex(o['t_TE'][0])):.3f}, "
+      f"key t_TM {cmath.phase(complex(o['t_TM'][0])):.3f}   (E_y, parallel to the stripes, must have the larger phase; at azimuth 0 "
+      f"physical TE = E_y, so key TE must be larger)")

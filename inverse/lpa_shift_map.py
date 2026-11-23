@@ -1,6 +1,6 @@
 """T19b: LPA reference. Aligned square prelim bilayer (fmmax, model.py; a 620, t 220, r 120, gap 200 nm) with a uniform
 lateral shift delta = (i, j) a / n of slab 2, normal incidence, the T19a wavelength grid. Saves the complex zero-order
-2x2 Jones transmission J[out, in] (part*.npz: model.py blocks (key TM, key TE) = (-E_y, E_x); lpa_jones.npz: physical
+2x2 Jones transmission J[out, in] (part*.npz: model.py blocks (block 0, block 1) = (-E_y, E_x), i.e. keys (TE, TM) since T20, (TM, TE) before; lpa_jones.npz: physical
 x, y after conversion), for the C4v-distinct shifts only; the others
 follow from J(g delta) = M_g J(delta) M_g^T (g in C4v acting on the shift, M_g its 2x2 matrix; the holes are C4v about
 their centres, so applying g to the whole structure only maps the shift).
@@ -90,9 +90,10 @@ if __name__ == "__main__":
             for k in ("t_TM", "t_TE", "t_TM_TE", "t_TE_TM"):
                 o.setdefault(k, []).append(np.asarray(r[k]))
         o = {k: np.concatenate(v) for k, v in o.items()}
-        # at azimuth 0: TM = x, TE = y. t_TM_TE = TE(y) out for TM(x) in.
+        # J in model.py amplitude blocks (block 0, block 1) = (-E_y, E_x). Since T20 (2026-11-23) key TE = block 0 and
+        # key TM = block 1 at azimuth 0 (before: key TM = block 0); t_TE_TM = block 1 out for block 0 in. Same J as before.
         J = np.empty((len(ll), 2, 2), complex)
-        J[:, 0, 0] = o["t_TM"]; J[:, 1, 0] = o["t_TM_TE"]; J[:, 1, 1] = o["t_TE"]; J[:, 0, 1] = o["t_TE_TM"]
+        J[:, 0, 0] = o["t_TE"]; J[:, 1, 0] = o["t_TE_TM"]; J[:, 1, 1] = o["t_TM"]; J[:, 0, 1] = o["t_TM_TE"]
         res[f"J_{i}_{j}"] = J
         np.savez_compressed(fn, **res)
         Tp = 0.5 * np.sum(np.abs(J @ np.array([1, 1j])) ** 2, -1); Tm = 0.5 * np.sum(np.abs(J @ np.array([1, -1j])) ** 2, -1)

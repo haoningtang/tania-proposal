@@ -1,6 +1,7 @@
 """T16c analysis: bright lines and Q-matched TE/TM curvature over the hex_r3 scan (pts/*.json from hex_r3_scan.py).
 
-PHYSICAL polarization names: model.py keys are swapped (check_pol_labels.py): physical TE = key "TM", physical TM = key "TE".
+PHYSICAL polarization names. pts written before T20 (no "pol_keys" field) have swapped keys: physical TE = key "TM";
+pts with pol_keys == "physical" (model.py since 2026-11-23) use the physical keys directly.
 Line at 0.5 deg (pol P): pole with 20 < Q < 1e4 and weight > 0.05. Doublet: a physical-TE and a physical-TM pole within
 half a linewidth (both pols bright). Curvature (T16b Q-matched slope): 3 deg pole of the same pol and azimuth within
 max(4 lam/Q, 3 nm) and Q within x2, nearest in lambda; c = ((lam3 - lam05)/lam05) / (sin^2 3 - sin^2 0.5), M = -1/(2c).
@@ -11,7 +12,8 @@ import numpy as np
 import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
 
 R = sys.argv[1]
-PHYS = {"TE": "TM", "TM": "TE"}        # physical -> model.py key
+SWAP = {"TE": "TM", "TM": "TE"}        # physical -> stored key, old (swapped) pts
+IDENT = {"TE": "TE", "TM": "TM"}
 S2 = np.sin(np.radians(3.0)) ** 2 - np.sin(np.radians(0.5)) ** 2
 
 
@@ -31,7 +33,7 @@ def qmatch(p, pl3):
 rows = []; pts = {}
 for f in sorted(glob.glob(os.path.join(R, "pts", "*.json"))):
     d = json.load(open(f)); k = os.path.basename(f)[:-5]; pts[k] = d
-    sc = d["scans"]
+    sc = d["scans"]; PHYS = IDENT if d.get("pol_keys") == "physical" else SWAP
     lines = {pol: bright(sc["0.5_0"][PHYS[pol]]["poles"]) for pol in ("TE", "TM")}
     # doublets
     used = set()
