@@ -1,0 +1,6 @@
+{"task": "T21", "lattice": "hex_r3 (sqrt3 x sqrt3 R30, A = sqrt3 * 850 nm)", "a_nm": 850, "r_mean_over_a": 0.25,
+ "D_values": [0, 0.02, -0.02, 0.04, -0.04], "t_nm": [290, 295, 300, 305, 310], "gap_nm": 380,
+ "point_order": "t 300, 295, 305, 290, 310; within t: D 0, +-0.02, +-0.04 (first 15 points = t 295-305, for the stop rule)",
+ "n_terms": 240, "ngrid": 160, "scans": "theta 0.5 az 0, theta 3 az 0, theta 3 az 30 (6 deg and gap 340/420 later for candidate lines only, as T16c)",
+ "window_nm": [1440, 1600], "step_nm": 0.5, "solver": "inverse/model.py (fmmax, CPU), POL_KEYS physical",
+ "scripts": ["inverse/hex_r3_scan.py", "inverse/hex_r3_analyze.py"], "points": "0,300,380;0.02,300,380;-0.02,300,380;0.04,300,380;-0.04,300,380;0,295,380;0.02,295,380;-0.02,295,380;0.04,295,380;-0.04,295,380;0,305,380;0.02,305,380;-0.02,305,380;0.04,305,380;-0.04,305,380;0,290,380;0.02,290,380;-0.02,290,380;0.04,290,380;-0.04,290,380;0,310,380;0.02,310,380;-0.02,310,380;0.04,310,380;-0.04,310,380"}

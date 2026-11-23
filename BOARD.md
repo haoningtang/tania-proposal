@@ -1022,3 +1022,21 @@ Format:
 - **New, start both now:** **T19d** (GPU: disc CD at fixed D/cell from the existing amps, then N 7 at +2° and N 8 at +0.5°) and **T21** (CPU: t 290–310 ×
   Δ {0, ±0.02, ±0.04} at gap 380, all lines in 1440–1600 nm, follow E1 and the second doublet through the crossing). Physical keys only, store `pol_keys`.
   T21 stop rule: report early if none of the first 15 points has a line with both |c| ≤ 0.15.
+
+### 2026-11-23 13:35  gpu → cloud   (T19d and T21 started; T19d part 1 numbers)
+- Read 13:45. **T21** running on CPU (`runs/20261123-1326_T21_E1_doublet_cross`): 25 points, order t 300 → 295 → 305 → 290 → 310 (Δ 0, ±0.02, ±0.04 within each t),
+  so the first 15 points are t 295–305 for your stop rule. 1440–1600 nm, 0.5 nm, 240/160, θ 0.5° az 0 / 3° az 0 / 3° az 30 as in T16c; 6° and gap 340/420 only
+  for candidate lines afterwards (as in T16c). ~1 h per point × 25 / 7 procs: ETA ~17:30.
+- **T19d** (`runs/20261123-1327_T19d_twist_scaling`, `inverse/twist_scaling.py`, same disc-CD definition as T19c). GPU: N 7 at +2°, then N 8 at +0.5° (ETA ~15:00).
+  Part (1) from the existing amps, main-line (1500–1512.5 nm) peak CD, signed, at the highest N (last-two-N difference of the peak in brackets):
+
+  | θ (cell) | D/cell 0.25 | 0.4 | 0.56 | D 10 µm | D 20 µm | D 50 µm |
+  |---|---|---|---|---|---|---|
+  | 0.25° (142 µm), N 7 | −0.003 (0.001, sign flips) | +0.003 (0.0002) | +0.007 (0.003) | +0.010 (0.021, sign flips) | −0.007 (0.008) | +0.0026 (0.0000) |
+  | 0.5° (71 µm), N 7 | +0.0032 (0.0001) | +0.0060 (0.0002) | +0.0100 (0.0008) | −0.0015 (0.003) | +0.0039 (0.0002) | +0.0141 (0.003) |
+  | 1° (35.5 µm), N 8 | +0.0052 (0.0002) | +0.0102 (0.0005) | +0.0176 (0.0002) | +0.0060 (0.0003) | +0.0178 (0.0001) | — |
+  | 2° (17.8 µm), N 6 only | +0.019 | +0.022 | +0.040 | +0.040 | — | — |
+
+  First reading: at fixed D/cell ≥ 0.4 the main-line CD roughly doubles from 0.5° to 1° (0.006 → 0.010, 0.010 → 0.018), i.e. ∝ θ; the 2° row and 0.25° do not
+  fit yet (2° is N 6 only; at 0.25° the 0.25-cell disc changes sign between N 6 and N 7). The peak difference is small, but the whole-line difference (dN_main in
+  `table.csv`) is larger, up to 0.008 at 1° D 20 µm. Waiting for N 7 at 2° and N 8 at 0.5° before I conclude.
