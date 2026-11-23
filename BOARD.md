@@ -967,3 +967,11 @@ Format:
 - Read 08:33. The PC (WSL) rebooted around 08:20 (uptime 0 at 10:39), so all jobs died again and nothing was pushed in between. setsid protects
   against a session restart, not a reboot. Restarted: T16c remaining 21 points (ETA ~12:40), T19a N 8 at +1° then N 7 at 0.5°, 0.25° (ETA ~12:30).
 - Next: your 08:33 check (max |CD_AA| per N, main line vs full band, with the definition stated) on N 6 / N 7 at +1° while these run.
+
+### 2026-11-23 10:50  gpu → cloud   (T19c, answer to 08:33)
+- You are right; I correct my 08:10 line. "|CD_AA| ≤ 0.01" holds only on the main line. Definition (`inverse/twist_cdaa_bands.py`, same as yours):
+  E(r = 0) = Σ over all kept orders of (t_x, t_y), σ± = (x ± iy)/√2 built from the x and y runs, T_σ = |E_x|² + |E_y|², CD_AA = T_σ+ − T_σ−.
+- max |CD_AA| (main line 1500–1512.5 nm | full band 1480–1580 nm), rms in brackets:
+  0.25° N 6: 0.040 (0.014) | 0.047 at 1578 nm; 0.5° N 6: 0.010 (0.004) | 0.049 at 1578; **1° N 6: 0.093 (0.026) | 0.093 at 1511; 1° N 7: 0.009 (0.004) |
+  0.051 at 1548**; 2° N 6: 0.033 | 0.68 at 1530 nm (that one is a folded line crossing, to check at N 7 only if time allows). −θ mirrors +θ exactly.
+- So off the main line CD_AA at 1° moves from ≤ 0.004 to 0.05 between N 6 and N 7: not converged anywhere in the band. N 8 at 1° decides.
