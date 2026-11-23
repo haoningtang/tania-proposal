@@ -32,3 +32,16 @@ convention is checked in T20.
 
 The proposal figures in `docs/figs` (and the PI's "提案用图" folder) were relabelled on 2026-11-22: T9b_square_best, isotropy_square_vs_hex,
 C_prelim_symmetry_rank, T18b_tilt_wedge, T13c_angle_maps (replotted from maps.json).
+
+## T20 fix (2026-11-23, worker): model.py keys are physical from now on
+
+- `inverse/model.py` now returns **physical** keys: `TE` = s, `TM` = p (`POL_KEYS = "physical"` in the module). The change is a pure rename: new `t_TE` =
+  old `t_TM` exactly (same amplitude and sign), new `t_TM` = old `t_TE`, new `t_TE_TM` = old `t_TM_TE` (checked: difference 0.0 at three (θ, azimuth, shift)
+  points). Brewster test now gives key T_TM = 1.000000. The prelim analysis (T1 setting, 120/128) reproduces T1 with names swapped: key TM M 31.478, key TE M 0.594.
+- **Rule for old run folders:** every result written with model.py **before 2026-11-23 13:00** (all `runs/` folders dated up to 20261122-*, and
+  20261122-1735_T16c_hex_r3) uses the OLD, swapped keys: stored key `TE` = physical TM. Folders from `20261123-1310_T20_pol_keys` on use physical keys.
+  Files that carry `"pol_keys": "physical"` (hex_r3_scan.py from now on) say so explicitly; files without that field are old. `hex_r3_analyze.py` reads both.
+  `lpa_shift_map.py` stores the same J as before (model blocks (−E_y, E_x) → physical x, y at merge), so T19b data are unaffected.
+- **rcwa4d-mf x/y convention** (`inverse/check_pol_rcwa4d.py`, stripes, λ = 5a): `solve_lab_basis` x and y are the lab x and y (no block swap);
+  E along the stripes (y) gets the larger phase (−2.09 vs −0.63 rad relative to air; negative = exp(+iωt)). So σ± = (x ± iy)/√2 as used in T19a/T19c
+  is in the lab basis, and with exp(+iωt) and transmission towards −z, σ+ is positive helicity (BOARD 2026-11-23 07:58).
