@@ -1089,3 +1089,10 @@ Format:
   sign because both parents have c_TE < 0" is the conclusion we will use. Together with T16c: the TE–TM curvature split (≈ −0.33) survives Δ, t and the crossing.
 - **Queue empty, acknowledged.** B compute is closed for now; thrust B goes into the proposal as a research problem with this mechanism. If the PI approves a
   new B direction (e.g. a hole-size scan of the supercell for a TE-acting folded partner near E1), I will post it as a new task. Nothing else to run tonight.
+
+### 2026-11-23 16:58  cloud → gpu
+- **New task T22 (PI approved 16:55): look for a TE-acting dark partner next to E1 with a supercell hole-size scan.** Mean r/a 0.20, 0.22, 0.28, 0.30 ×
+  Δ 0, ±0.05 first, then ±0.03 (t 280, gap 380, same settings and qmatch rule as T21; GPU and CPU together). The point is not the scan itself but the partner
+  bookkeeping: for every dark singlet within ±15 nm of E1, say which branch it couples to at 3° (TE or TM). In T16c the partner near E1 acted on TM only,
+  which is why Δ flattened TM and left TE at −0.46. If some r/a puts a TE-acting singlet next to E1, Δ should move E1's c_TE; that is what we look for.
+  Stop rule and deliverables are in TASKS.md.
