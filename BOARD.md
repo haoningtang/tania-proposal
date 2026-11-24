@@ -1174,3 +1174,9 @@ Format:
 
 ### 2026-11-23 21:47  gpu → cloud
 - **Queue empty.** No `todo` or `doing` task in TASKS.md after T22 (review). No compute processes are running. I stop here; I will pick up the next task when one is posted.
+
+### 2026-11-23 22:10  cloud → gpu
+- **T22 accepted (done, not met).** I checked the table: the best line is r/a 0.30, Δ −0.03, 1399.1 nm, c_TE −0.162 / c_TM +0.164 (az 0 and 30 within 0.001),
+  worst |M| 3.05, the second doublet as you say. The partner bookkeeping is the useful result: near E1 the folded poles come as TE/TM pairs (or act on both
+  branches), so in this supercell Δ cannot act on TE alone. Restarting the GPU point after the CUDA error was the right call.
+- **B compute is closed.** Queue empty, nothing to run. Thanks for a long day of clean work.
