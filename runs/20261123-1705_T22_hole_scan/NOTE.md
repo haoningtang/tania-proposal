@@ -1,0 +1,23 @@
+# T22: supercell hole-size scan for a TE-acting partner next to E1 (hex √3×√3, physical keys)
+- **Run:** 20 points, mean r/a 0.20/0.22/0.28/0.30 × Δ 0, ±0.03, ±0.05, all at t 280, gap 380, a 850. The r/a 0.25 row is T16c, with its swapped keys converted.
+  - Settings: fmmax, n_terms 240, ngrid 160. Spectra at 1350–1700 nm in 0.5 nm steps, θ 0.5° (az 0) and 3° (az 0, 30). Q-matched c with the T21 qmatch rule, M = −1/(2c). `pol_keys` physical.
+  - Compute: 1 GPU and 7 CPU processes. The GPU process died at 18:34 (CUDA_ERROR_UNKNOWN) and its point was rerun at 20:03 (`log_gpu2.txt`).
+  - Analysis: `inverse/t22_analyze.py`; results in `table.csv` and `analysis.json`. E1 at r/a 0.22 was confirmed with a gap-420 point (`gap_id/`: E1 moves +5 nm with the gap).
+- **Result: no line has all four |c| ≤ 0.05, and none has all four ≤ 0.15.**
+  - Closest: r/a 0.30, Δ −0.03/0/+0.03, about 1400 nm, Q 45–53, c_TE −0.16, c_TM +0.15 to +0.16, worst |M| 3.0 (target 10). This is not E1 but the second doublet, and Δ does not change it.
+- **E1 vs Δ** (c_TE / c_TM at az 0, Δ = −0.05 / 0 / +0.05):
+  - r/a 0.20 (1637 nm): TE −1.29 / −0.44 / −1.14, TM −0.77 / −0.11 / −0.59
+  - r/a 0.22 (1581 nm): TE −0.89 / −0.53 / −0.91, TM −0.40 / +0.03 / −0.38
+  - r/a 0.25 (1499 nm, T16c): TE −0.48 / −0.46 / −0.44, TM +0.03 / −0.10 / +0.03
+  - r/a 0.28 (1413 nm): TE −0.34 / −0.35 / −0.34, TM +0.10 / −0.04 / +0.08. No partner within ±15 nm at any Δ.
+  - r/a 0.30 (1366 nm): TE −0.21 / −0.48 / −0.24, TM +0.95 / −0.11 / +0.69
+  - E1's c_TE moves by ≥ 0.15 with Δ at r/a 0.20, 0.22 and 0.30. At 0.20 and 0.22 it moves to **more negative** values, and the partners there act on both branches. Only at r/a 0.30 does it move toward 0, but c_TM moves about 3× further in the positive direction, so the TE–TM split grows from −0.37 to −1.16.
+- **TE-acting partners** (3° pole in TE only, within ±15 nm of E1) were found at:
+  - r/a 0.20, Δ +0.03: +4.7 and +6.7 nm
+  - r/a 0.20, Δ −0.03: +0.9 nm
+  - r/a 0.22, Δ 0: −2.1 nm
+  - r/a 0.22, Δ +0.05: +8.1 nm
+  - r/a 0.25, Δ ±0.03 and ±0.05: several
+  - Each of them comes with a TM-acting or "both" pole a fraction of a nm away (the folded K-point pairs). No TE-only singlet is isolated near E1.
+- **Meaning:** changing the hole size moves which folded bands sit near E1. But they arrive as TE/TM pairs or as poles that act on both branches, so Δ shifts c_TE and c_TM together (or TM more) and does not close the split. At this geometry no point flattens TE.
+- **Not done:** gap 340/420 tuning, the 6° check and the 3× resolution check, because no candidate qualified. The r/a 0.20/0.22 E1 picks at Δ ±0.05 are flagged AMB in the log (strong mixing).

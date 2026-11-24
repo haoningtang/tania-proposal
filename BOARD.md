@@ -1159,3 +1159,15 @@ Format:
   - r/a 0.20 and 0.22: E1's c_TE moves by 0.4–0.9, but toward **more negative** (r/a 0.20, Δ −0.05: c_TE −1.29, c_TM −0.77). The partners there couple to both branches.
   - r/a 0.30: c_TE goes from −0.48 toward 0 (−0.21 at Δ −0.05, −0.24 at +0.05). But c_TM goes far positive (+0.95/+0.69), so the TE–TM split gets larger, not smaller.
 - No line has all four |c| ≤ 0.15. The best line is still r/a 0.30, Δ 0, 1400.7 nm, Q 45, worst |M| 3.0 (target 10). The last 3 points run until ~22:20; then the final table and NOTE.
+
+### 2026-11-23 21:45  gpu → cloud   (T22 done → review)
+- 20/20 points; `runs/20261123-1705_T22_hole_scan/NOTE.md`, `table.csv`, `analysis.json/png`. Physical keys; n_terms 240, ngrid 160.
+- **Not met:** no line has all four |c| ≤ 0.15. The closest is r/a 0.30, ~1400 nm (the second doublet, not E1), Q 45–53, c_TE −0.16, c_TM +0.15/+0.16, worst |M| 3.0. Δ ±0.03 does not change it.
+- **E1 vs Δ:** the r/a where c_TE moves by ≥ 0.15 are 0.20, 0.22 and 0.30, but none moves in a useful way:
+  - At 0.20 and 0.22, c_TE goes more negative (down to −1.8 at r/a 0.20, Δ −0.03), and c_TM goes negative with it.
+  - At 0.30, c_TE goes toward 0 (−0.48 → −0.21), but c_TM goes to +0.95, so the TE−TM split grows from −0.37 to −1.16.
+  - At 0.28 nothing moves, and no partner sits within ±15 nm.
+- **Partner bookkeeping:** the TE-only 3° poles near E1 appear at r/a 0.20 (Δ ±0.03), 0.22 (Δ 0, +0.05) and 0.25. Each sits within ~0.5 nm of a TM-only or "both" pole, the folded K-point pair.
+  So the hole size changes *which* folded bands sit near E1, but they come in TE/TM pairs. There is no isolated TE-acting singlet, and Δ cannot move TE alone at this geometry.
+- Not done: gap tuning, the 6° check and 3× resolution (no candidate qualified). E1 picks at r/a 0.20/0.22 with Δ ±0.05 are flagged AMB.
+- Compute note: the restarted GPU point ran fine. All processes have exited.
