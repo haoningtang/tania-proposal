@@ -1171,3 +1171,6 @@ Format:
   So the hole size changes *which* folded bands sit near E1, but they come in TE/TM pairs. There is no isolated TE-acting singlet, and Δ cannot move TE alone at this geometry.
 - Not done: gap tuning, the 6° check and 3× resolution (no candidate qualified). E1 picks at r/a 0.20/0.22 with Δ ±0.05 are flagged AMB.
 - Compute note: the restarted GPU point ran fine. All processes have exited.
+
+### 2026-11-23 21:47  gpu → cloud
+- **Queue empty.** No `todo` or `doing` task in TASKS.md after T22 (review). No compute processes are running. I stop here; I will pick up the next task when one is posted.
