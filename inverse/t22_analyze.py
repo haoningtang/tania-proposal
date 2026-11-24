@@ -111,26 +111,26 @@ def cost(r, ref, pred):
     return c
 
 
-E1 = {}
-L0 = [x for x in P[(0.25, 0.0)][0] if x["Q"] < 3e4]
-E1[(0.25, 0.0)] = min(L0, key=lambda x: abs(x["lam"] - 1498.9))
-cand_log = {}
-for seq in ([0.28, 0.30], [0.22, 0.20]):
-    prev_r, prev2 = 0.25, None
-    for r in seq:
-        if (r, 0.0) not in P: break
-        ref = E1[(prev_r, 0.0)]
-        pred = ref["lam"] + ((ref["lam"] - E1[(prev2, 0.0)]["lam"]) / (prev_r - prev2) * (r - prev_r) if prev2 else 0.0)
-        L = [x for x in P[(r, 0.0)][0] if x["Q"] < 3e4 and abs(x["lam"] - pred) < 120]
-        L.sort(key=lambda x: cost(x, ref, pred))
-        cand_log[r] = [(round(cost(x, ref, pred), 2), round(x["lam"], 1), round(x["Q"]), x["c_TE_0"], x["c_TM_0"]) for x in L[:5]]
-        if L: E1[(r, 0.0)] = L[0]
-        prev2, prev_r = prev_r, r
+# E1 at Delta 0 (decision 19:20, BOARD): seeds fixed by hand from continuity in (lambda shift, c_TE ~ -0.45, c_TM ~ -0.1) and, at r/a 0.22,
+# by gap tuning (gap 380 -> 420: 1580.8 -> ~1586 nm, +5 nm like E1 at r/a 0.25 (+4.2), while the 1537-analog moves -1.6 nm). The other lines of
+# the r/a 0.25 set (1467, 1474, 1537 nm) shift by ~30 / ~30 / ~80 nm per 0.03 in r/a and keep their own c, so they are not confused with E1.
+E1_SEED = {0.20: 1636.7, 0.22: 1580.8, 0.25: 1498.9, 0.28: 1413.4, 0.30: 1366.1}
+E1 = {}; cand_log = {}
+for r, l in E1_SEED.items():
+    if (r, 0.0) not in P: continue
+    L = sorted([x for x in P[(r, 0.0)][0] if x["Q"] < 3e4], key=lambda x: abs(x["lam"] - l))
+    cand_log[r] = [(round(x["lam"], 1), round(x["Q"]), x["c_TE_0"], x["c_TM_0"]) for x in L[:3]]
+    E1[(r, 0.0)] = L[0]
+E1_amb = {}
 for (r, D) in P:
     if D == 0.0 or (r, 0.0) not in E1: continue
     ref = E1[(r, 0.0)]
-    L = [x for x in P[(r, D)][0] if x["Q"] < 3e4]
-    if L: E1[(r, D)] = min(L, key=lambda x: cost(x, ref, ref["lam"]))
+    # Delta != 0: lambda and Q only (c is what we measure, so it must not steer the choice); ambiguous if the runner-up is within 1
+    L = sorted([x for x in P[(r, D)][0] if x["Q"] < 3e4], key=lambda x: abs(x["lam"] - ref["lam"]) / 3 + abs(np.log(x["Q"] / ref["Q"])) / 2)
+    if not L: continue
+    E1[(r, D)] = L[0]
+    cs = [abs(x["lam"] - ref["lam"]) / 3 + abs(np.log(x["Q"] / ref["Q"])) / 2 for x in L[:2]]
+    E1_amb[(r, D)] = bool(len(cs) > 1 and cs[1] - cs[0] < 1.0)
 
 rows = []
 for (r, D), (L, ex, dk, new) in sorted(P.items()):
@@ -145,7 +145,8 @@ e1tab = {}
 for (r, D), E in sorted(E1.items()):
     pr = partners(E, P[(r, D)][1])
     dk = [k for k in P[(r, D)][2] if abs(k["lam"] - E["lam"]) <= WIN]
-    e1tab[f"r{r:.2f}_D{D:+.2f}"] = dict(rbar=r, D=D, E1=E, partners_3deg=pr, dark_0p5deg=dk)
+    near = [x for x in P[(r, D)][0] if abs(x["lam"] - E["lam"]) <= 30 and x["Q"] < 3e4]
+    e1tab[f"r{r:.2f}_D{D:+.2f}"] = dict(rbar=r, D=D, E1=E, ambiguous=E1_amb.get((r, D), False), bright_within_30nm=near, partners_3deg=pr, dark_0p5deg=dk)
 
 # stop rule: c_TE of E1 between Delta 0 and +-0.05
 stop = {}
@@ -187,12 +188,12 @@ sc = a_.scatter([x["rbar"] + 0.003 * x["D"] / 0.05 for x in X], [x["lam"] for x 
 plt.colorbar(sc, ax=a_, label="max |c|"); a_.set_xlabel("mean r/a (+ offset ∝ Δ)"); a_.set_ylabel("λ (nm)"); a_.set_title("all bright doublets: max |c| (TE, TM, az 0, 30)")
 fig.tight_layout(); fig.savefig(os.path.join(R, "analysis.png"), dpi=110)
 
-print("E1 candidates at Delta 0 (cost, lam, Q, c_TE_0, c_TM_0):")
+print("E1 candidates at Delta 0 (lam, Q, c_TE_0, c_TM_0):")
 for r, c in cand_log.items(): print(f"  r/a {r:.2f}: {c}")
 for (r, D), E in sorted(E1.items()):
     v = e1tab[f"r{r:.2f}_D{D:+.2f}"]
     f = lambda z: "nan" if z is None else f"{z:+.2f}"
-    print(f"r/a {r:.2f} D {D:+.2f}: E1 {E['lam']:.1f} Q {E['Q']:.0f} c_TE {f(E['c_TE_0'])}/{f(E['c_TE_30'])} c_TM {f(E['c_TM_0'])}/{f(E['c_TM_30'])}; partners: "
+    print(f"r/a {r:.2f} D {D:+.2f}{' AMB' if v['ambiguous'] else ''}: E1 {E['lam']:.1f} Q {E['Q']:.0f} c_TE {f(E['c_TE_0'])}/{f(E['c_TE_30'])} c_TM {f(E['c_TM_0'])}/{f(E['c_TM_30'])}; partners: "
           + "; ".join(f"{p['dlam']:+.1f}nm Q{p['Q3']:.0f} {p['acts_on']}" for p in v["partners_3deg"]))
 print("stop rule dc_TE:", stop)
 print(f"target met: {len(summ['meets_target'])}; within 0.15: {len(summ['within_0p15'])}")

@@ -1116,7 +1116,28 @@ Format:
 - **Decision:** following the task's definition (E1 = the gap-tunable bright doublet), I added one extra point, r/a 0.22, Δ 0, **gap 420**, 1480–1700 nm. It runs as a second GPU process in `gap_id/` (~45 min).
   The line that moves with the gap is E1. I do the same at r/a 0.20/0.28/0.30 only if the continuity there is unclear.
 
+<<<<<<< Updated upstream
 ### 2026-11-23 19:02  cloud → gpu
 - Read 18:36: the gap-420 check is the right way to name E1 at r/a 0.22; do the same elsewhere only if continuity is unclear, as you wrote.
 - **Memory:** the Windows heartbeat at 18:59 shows WSL at 50.8 of 56.2 GB used (8 python processes; the 1350–1700 nm window makes each point bigger).
   Please do not start more processes while the 12 stop-rule points run. If a point dies (OOM), restart it with one CPU process fewer and say so in STATUS.
+=======
+### 2026-11-23 19:25  gpu → cloud   (T22: E1 identified; stop rule not met)
+- **Gap check:** at r/a 0.22, Δ 0, gap 380 → 420, the 1580.8 nm line moves to ~1586 nm (+5 nm; E1 at r/a 0.25 moves +4.2), while the 1537-analog (1619 nm) moves −1.6 nm. **So E1 at r/a 0.22 is 1580.8 nm.**
+  At gap 420 it splits into two lines (1585.7 Q 1950, 1586.9 Q 15.7k), so there is a crossing with a dark Γ line there.
+- **E1 at Δ 0** (seeds fixed in `t22_analyze.py`, decision):
+
+  | r/a | E1 λ (nm) | Q | c_TE | c_TM |
+  |---|---|---|---|---|
+  | 0.20 | 1636.7 | 903 | −0.44 | −0.11 |
+  | 0.22 | 1580.8 | 6.8k | −0.53 | +0.03 |
+  | 0.25 | 1498.9 | 135 | −0.46 | −0.10 |
+  | 0.28 | 1413.4 | 1570 | −0.35 | −0.04 |
+  | 0.30 | 1366.1 | 111 | −0.48 | −0.11 |
+
+  At r/a 0.22, c_TE at az 30 is +0.04 against −0.53 at az 0. That is strong anisotropy from the dark partners 1–4 nm away (TE- and TM-acting).
+- **At Δ ±0.05, E1 mixes strongly with folded lines at r/a 0.20, 0.22 and 0.30.** There I pick E1 by λ and Q only and flag the choice as ambiguous when the runner-up is close.
+  At r/a 0.30, Δ +0.05, E1 is at 1369.3 nm with c_TE −0.24/−0.11 but c_TM +0.69/+0.51. At r/a 0.20, Δ +0.05, it is at 1626.2 nm with c_TE −1.14 and c_TM −0.59.
+  **E1's c_TE therefore changes by ≥ 0.2 with Δ at r/a 0.20 and 0.30, so the stop rule is not met. The ±0.03 points are running.** At r/a 0.28, c_TE does not move (−0.35 → −0.34).
+- The best line so far is r/a 0.30, Δ 0, 1400.7 nm, Q 45: c_TE −0.165, c_TM +0.152, worst |M| 3.0. No line has all four |c| ≤ 0.15.
+>>>>>>> Stashed changes
