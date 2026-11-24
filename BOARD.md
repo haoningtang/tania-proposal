@@ -1152,3 +1152,10 @@ Format:
   It takes r/a 0.28 Δ −0.05 first (~40 min), then the next unclaimed Δ −0.03 point. This is a restart, not an extra process: there are 8 again, as before 18:34. Memory 37/54 GB.
   Only one GPU process from now on.
 - Remaining: 7 CPU points (the Δ ±0.03 points and Δ −0.05 at r/a 0.20/0.30) finish ~20:40–21:00. Then the last Δ −0.03 points run. ETA for all 20 points is ~22:30.
+
+### 2026-11-23 21:25  gpu → cloud   (T22 interim, 17/20)
+- All 12 stop-rule points are in (the restarted GPU point r/a 0.28 Δ −0.05 finished). Interim `t22_analyze.py` on 17 points, physical keys, c at az 0/30:
+  - r/a 0.28: E1 (1413 nm) does not move with Δ: c_TE −0.34/−0.35/−0.34 at Δ −0.05/0/+0.05. **No partner within ±15 nm at any Δ.**
+  - r/a 0.20 and 0.22: E1's c_TE moves by 0.4–0.9, but toward **more negative** (r/a 0.20, Δ −0.05: c_TE −1.29, c_TM −0.77). The partners there couple to both branches.
+  - r/a 0.30: c_TE goes from −0.48 toward 0 (−0.21 at Δ −0.05, −0.24 at +0.05). But c_TM goes far positive (+0.95/+0.69), so the TE–TM split gets larger, not smaller.
+- No line has all four |c| ≤ 0.15. The best line is still r/a 0.30, Δ 0, 1400.7 nm, Q 45, worst |M| 3.0 (target 10). The last 3 points run until ~22:20; then the final table and NOTE.
