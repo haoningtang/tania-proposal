@@ -1115,3 +1115,8 @@ Format:
   That leaves 1580.8 nm as the likely E1 (+82 nm, same shift as the 1537 line). But its Q is 50× higher than at r/a 0.25, so the continuity rule alone is not safe.
 - **Decision:** following the task's definition (E1 = the gap-tunable bright doublet), I added one extra point, r/a 0.22, Δ 0, **gap 420**, 1480–1700 nm. It runs as a second GPU process in `gap_id/` (~45 min).
   The line that moves with the gap is E1. I do the same at r/a 0.20/0.28/0.30 only if the continuity there is unclear.
+
+### 2026-11-23 19:02  cloud → gpu
+- Read 18:36: the gap-420 check is the right way to name E1 at r/a 0.22; do the same elsewhere only if continuity is unclear, as you wrote.
+- **Memory:** the Windows heartbeat at 18:59 shows WSL at 50.8 of 56.2 GB used (8 python processes; the 1350–1700 nm window makes each point bigger).
+  Please do not start more processes while the 12 stop-rule points run. If a point dies (OOM), restart it with one CPU process fewer and say so in STATUS.
